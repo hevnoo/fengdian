@@ -1,0 +1,135 @@
+:host {
+
+  ::ng-deep {
+    .ant-form-item-label > label {
+      color: #606266;
+    }
+    .ant-select-selector {
+      height: 28px !important;
+      border-radius: 20px !important;
+    }
+    .ant-select-single .ant-select-selector .ant-select-selection-item {
+      line-height: 28px;
+    }
+  
+    /*选择框的，小箭头样式。默认是浮动的，这里使用right属性覆盖本身的属性*/
+    // .ant-select-arrow,
+    // .ant-select-clear {
+    //   right: 42px;
+    // }
+    /*日期选择器的样式，这里指的是图标，这里覆盖*/
+    .ant-picker-suffix {
+      position: absolute;
+      left: -5px;
+    }
+    /*日期选择器样式，这里指的是文字yyyy-MM-dd*/
+    .ant-picker-input {
+      padding-left: 20px;
+    }
+    .ant-select-selection-item {
+      color: #009cdc;
+    }
+    /*最外层的样式，超出隐藏*/
+    .ant-modal {
+      border-top-left-radius: 20px !important;
+      border-top-right-radius: 20px !important;
+      overflow: hidden;
+    }
+    /*覆盖弹窗本身的padding值,头部*/
+    .ant-modal-header {
+      padding: 0;
+      background-color: #009cdc;
+    }
+  }
+}
+
+.dialog-enclosure-header {
+  .top {
+    height: 55px;
+    color: #fff;
+    border: none;
+    // border-top-left-radius: 20px;
+    // border-top-right-radius: 20px;
+    span {
+      display: inline-block;
+      width: 30%;
+      height: 100%;
+      padding: 3px;
+      padding-left: 15px;
+      line-height: 55px;
+      font-size: 16px;
+      font-weight: 900;
+      color: rgb(255, 255, 255);
+    }
+  }
+}
+.enclosure {
+  // padding: 30px 20px;
+  // height: 435px;
+  .ebclosure-item {
+    margin-bottom: 18px;
+    .ebclosure-label {
+      padding-right: 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .ebclosure-control {
+      height: 28px;
+      line-height: 28px;
+      -webkit-appearance: none;
+      background-image: none;
+      border: 1px solid #dcdfe6;
+      box-sizing: border-box;
+      color: #009cdc;
+      border-radius: 20px;
+    }
+    .ebclosure-control-text {
+      border-radius: 4px;
+    }
+    .ebclosure-control-select {
+      color: #009cdc;
+    }
+    .ebclosure-upload {
+      border-radius: 20px;
+    }
+    .ebclosure-control.picker {
+      width: 100%;
+    }
+  }
+  .ebclosure-item:last-child {
+    margin-bottom: 0;
+  }
+  .ebclosure-item.btn {
+    .btn-cancle {
+      margin-left: 10px;
+    }
+    .btn-cancle,
+    .btn-request {
+      height: 28px;
+      font-size: 12px;
+      background-color: #009cdc;
+      border-radius: 30px;
+    }
+  }
+}
+
+::ng-deep {
+  .add-bubububu {
+
+    /*最外层的样式，超出隐藏*/
+    .ant-modal {
+      border-top-left-radius: 20px !important;
+      border-top-right-radius: 20px !important;
+      border-bottom-right-radius: 20px !important;
+      border-bottom-left-radius: 20px !important;
+      overflow: hidden;
+    }
+
+    /*覆盖弹窗本身的padding值,头部*/
+    .ant-modal-header {
+      padding: 0 !important;
+      background-color: #009cdc;
+    }
+
+  }
+}

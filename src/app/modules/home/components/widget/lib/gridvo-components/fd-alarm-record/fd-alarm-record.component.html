@@ -1,0 +1,129 @@
+<header>
+    <tb-fd-alarm-time-picker [style]="{ visibility: sliderStatus === '历史告警' ? 'visible' : 'hidden' }" #alarmTimePicker
+        (timeChange)="timeChange($event)"></tb-fd-alarm-time-picker>
+    <form nz-form nzLayout="inline" class="search-container">
+        <nz-form-item>
+            <nz-form-label style="width: 80px;">告警类型</nz-form-label>
+            <nz-select style="width: 170px;" [nzMaxTagCount]="0" nzMode="multiple" nzPlaceHolder="请选择告警类型"
+                [(ngModel)]="alarmTypeListValue" [ngModelOptions]="{standalone: true}" nzAllowClear>
+                <nz-option *ngFor="let item of alarmTypeList" [nzLabel]="item" [nzValue]="item"></nz-option>
+            </nz-select>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label style="width: 80px;">告警等级</nz-form-label>
+            <nz-select style="width: 170px;" [nzMaxTagCount]="0" nzMode="multiple" nzPlaceHolder="请选择告警等级"
+                [(ngModel)]="severityValue" [ngModelOptions]="{standalone: true}" nzAllowClear>
+                <nz-option *ngFor="let item of severityOptionList" [nzLabel]="item.label" [nzValue]="item.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-item>
+        <button nz-button nzType="primary" (click)="handleSearch()">搜索</button>
+    </form>
+</header>
+
+<tb-slider-switch style="margin: 20px 0;" [textArr]="sliderSwitchText" (handleSwitch)="handleSliderSwitch($event)">
+</tb-slider-switch>
+<nz-table #basicTable [nzData]="tableData" [nzTotal]="pagination.total" [nzPageIndex]="pagination.page"
+    [nzPageSize]="pagination.pageSize" (nzPageIndexChange)="pageIndexChange($event)"
+    (nzPageSizeChange)="pageSizeChange($event)" [nzShowPagination]="false">
+    <thead>
+        <tr>
+            <th nzWidth="70px">序号</th>
+            <th *ngFor="let item of theadItem; let index = index;" [nzWidth]="tableItemWidth(item.name)">{{ item.label
+                }}</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of tableData; let index = index;">
+            <td>{{ (pagination.page - 1) * pagination.pageSize + index + 1 }}</td>
+            <ng-container *ngFor="let item of theadItem;">
+                <td>{{ tbodyValue(data, item.name) }}</td>
+            </ng-container>
+            <td>
+                <a nz-button nzType="link" (click)="showDetail($event, data)"
+                    style="padding-left: 6px;padding-right: 6px;">详情</a>
+                <a nz-button nzType="link" (click)="handleConfirm($event, data)" *ngIf="!hideConfirmButton(data)"
+                    style="padding-left: 6px;padding-right: 6px;">告警确认</a>
+                <!-- <a nz-button nzType="link" (click)="handleClear($event, data)" *ngIf="!hideClearButton(data)"
+                    style="padding-left: 6px;padding-right: 6px;">告警清除</a> -->
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<div class="bottom-container"
+    style="display: flex; flex-direction: row; justify-content: end; align-items: center; margin-top: 15px;">
+    <div class="page-total" style="font-weight: 400; margin-right: 20px;" *ngIf="pagination.total !== 0">共 {{
+        pagination.total }} 条记录</div>
+    <nz-pagination [nzPageIndex]="pagination.page" [nzPageSize]="pagination.pageSize" [nzTotal]="pagination.total"
+        (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)"></nz-pagination>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="告警确认" nzWidth="60%" (nzOnCancel)="close()">
+    <ng-container *nzModalContent>
+        <div nz-row style="margin-bottom: 20px;">
+            <!-- 名称 -->
+            <div nz-col [nzSpan]="12" style="display: flex; align-items: center;">
+                <label nz-col [nzSpan]="6"
+                    style="flex-shrink: 0; font-size: 16px; color: rgba(0, 0, 0, 0.65); text-align: right;">名称：</label>
+                <input nz-col [nzSpan]="12" nz-input placeholder="请输入" [disabled]="true" [(ngModel)]="modalData.name">
+            </div>
+            <!-- 告警等级 -->
+            <div nz-col [nzSpan]="12" style="display: flex; align-items: center;">
+                <label nz-col [nzSpan]="6"
+                    style="flex-shrink: 0; font-size: 16px; color: rgba(0, 0, 0, 0.65); text-align: right;">告警等级：</label>
+                <input nz-col [nzSpan]="12" nz-input placeholder="请输入" [disabled]="true"
+                    [(ngModel)]="modalData._severity">
+            </div>
+        </div>
+
+        <div nz-row style="margin-bottom: 20px;">
+            <!-- 时间 -->
+            <div nz-col [nzSpan]="12" style="display: flex; align-items: center;">
+                <label nz-col [nzSpan]="6"
+                    style="flex-shrink: 0; font-size: 16px; color: rgba(0, 0, 0, 0.65); text-align: right;">时间：</label>
+                <nz-date-picker nz-col [nzSpan]="12" nzFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="modalData._createdTime"
+                    nzDisabled></nz-date-picker>
+            </div>
+            <!-- 告警状态 -->
+            <div nz-col [nzSpan]="12" style="display: flex; align-items: center;">
+                <label nz-col [nzSpan]="6"
+                    style="flex-shrink: 0; font-size: 16px; color: rgba(0, 0, 0, 0.65); text-align: right;">告警状态：</label>
+                <input nz-col [nzSpan]="12" nz-input placeholder="请输入" [disabled]="true"
+                    [(ngModel)]="modalData._status">
+            </div>
+        </div>
+
+        <div nz-row style="margin-bottom: 20px;">
+            <!-- 操作人员 -->
+            <div nz-col [nzSpan]="12" style="display: flex; align-items: center;">
+                <label nz-col [nzSpan]="6"
+                    style="flex-shrink: 0; font-size: 16px; color: rgba(0, 0, 0, 0.65); text-align: right;">操作人员：</label>
+                <input nz-col [nzSpan]="12" nz-input placeholder="请输入" [disabled]="true"
+                    [(ngModel)]="modalData.originatorName">
+            </div>
+        </div>
+
+        <div nz-row style="margin-bottom: 20px;">
+            <!-- 告警内容 -->
+            <div nz-col [nzSpan]="24" style="display: flex; align-items: flex-start;">
+                <label nz-col [nzSpan]="3"
+                    style="flex-shrink: 0; font-size: 16px; color: rgba(0, 0, 0, 0.65); text-align: right;">告警内容：</label>
+                <textarea nz-col [nzSpan]="18" nz-input placeholder="请输入" [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+                    [disabled]="true" [(ngModel)]="modalData._details"></textarea>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template [nzModalFooter]>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <!-- <button nz-button nzType="primary" style="margin-right: 10px;" (click)="handleClear($event)"
+                [disabled]="clearDisabled()">清除</button> -->
+            <button nz-button nzType="primary" style="margin-right: 10px;" (click)="handleConfirm($event)"
+                [disabled]="confirmDisabled()">确认</button>
+            <button nz-button nzType="primary" (click)="isVisible = false">关闭</button>
+            <button nz-button nzType="primary" (click)="handleClear($event)" disabled>转缺陷单</button>
+            <button nz-button nzType="primary" (click)="handleClear($event)" disabled>发布通知</button>
+        </div>
+    </ng-template>
+</nz-modal>

@@ -1,0 +1,21 @@
+<!-- <button (click)="showModal()">显示弹窗</button> -->
+<nz-modal [(nzVisible)]="isShowModel" nzTitle="设备属性及履历" nzClassName="dev-modal" (nzOnCancel)="modelCancel()"
+  nzWidth="60%" [nzFooter]="null" nzWrapClassName="dialog-fd">
+  <ng-container *nzModalContent>
+    <h3 class="h3-title">{{detailItem.name.val}}</h3>
+    <nz-tabset>
+      <nz-tab nzTitle="设备属性">
+        <tb-device-properties [item]="detailItem" [fullDeviceData]="fullDeviceData"></tb-device-properties>
+      </nz-tab>
+      <nz-tab nzTitle="遥测属性">
+        <tb-telemetry-properties [item]="detailItem" [timeseriesData]="timeseriesData"></tb-telemetry-properties>
+      </nz-tab>
+      <nz-tab nzTitle="记事">
+        <tb-chronicle [deviceId]="deviceId"></tb-chronicle>
+      </nz-tab>
+      <nz-tab nzTitle="缺陷">
+        <tb-defect [deviceId]="deviceId"></tb-defect>
+      </nz-tab>
+    </nz-tabset>
+  </ng-container>
+</nz-modal>

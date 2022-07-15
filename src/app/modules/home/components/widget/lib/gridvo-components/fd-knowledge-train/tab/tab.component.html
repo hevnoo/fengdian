@@ -1,0 +1,25 @@
+<div class="tab-el">
+  <nz-tabset [nzTabBarStyle]="barStyle" [nzTabBarGutter]="40">
+    <!-- <nz-tab [nzTitle]="tab.title" *ngFor="let tab of tabInfo">
+      <ng-template tbAddImageTab></ng-template>
+      <ng-template [ngIf]="tab.slot !== null">
+        <div class="konwgled-item">
+          <tb-image-info></tb-image-info>
+        </div>
+      </ng-template>
+    </nz-tab> -->
+    <nz-tab nzTitle="课堂">
+      <tb-fd-knowledge-train></tb-fd-knowledge-train>
+    </nz-tab>
+    <nz-tab nzTitle="试题">
+      <tb-knowledge-exam-choice></tb-knowledge-exam-choice>
+    </nz-tab>
+    <!-- <nz-tab nzTitle="分析"> 代开发</nz-tab> -->
+  </nz-tabset>
+</div>
+<!-- <ng-template #additionalRef>
+  <div class="additional">
+    <input class="input-ref" nz-input [(ngModel)]="value" />
+    <button nz-button nzType="primary" nzShape="round">搜索</button>
+  </div>
+</ng-template> -->

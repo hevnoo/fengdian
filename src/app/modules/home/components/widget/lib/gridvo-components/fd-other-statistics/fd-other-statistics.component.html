@@ -1,0 +1,14 @@
+<div class="other-statiscs-container" [style.background-color]="bgColor"
+    [class.noBgStyle]="!isNeedBg">
+    <section class="one_container" *ngFor="let item of dataArr" [style]="{ width: ((100 / dataArr.length) - 5) + '%', overflow: 'visible' }">
+        <div style="width: 100%; transform: translateX(15%);">
+            <p class="p_title" [style.color]="titleAndUnitColor">
+                <img src="../../../../../../../../assets/gridvo/i_path.png" alt="icon" class="p_icon_path">
+               {{item.keyName}}</p>
+            <p class="p_content">
+                <span class="span_value" [style]="{'font-size':valueTextSize,'color':valueTextColor}">{{item.valueNum}}</span>
+                <span class="span_unit" [style.color]="titleAndUnitColor">{{item.units}}</span>
+            </p>
+        </div>
+    </section>
+</div>

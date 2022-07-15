@@ -1,0 +1,48 @@
+<div>
+  <div *ngIf="isSearch">
+    <tb-dialog-search-button (searchVal)="searchData($event)" [isShowAdd]="isShowAdd" [placeholderVal]="placeholderValue" (modelVisible)="addData($event)" ></tb-dialog-search-button>
+  </div>
+  <div class="table-container">
+    <nz-table 
+      #table 
+      [nzPageIndex]="pagination.page" 
+      [nzPageSize]="pagination.pageSize" 
+      [nzData]="tableData" 
+      nzShowPagination
+      nzShowSizeChanger
+      (nzPageIndexChange) = "pageIndexChange($event)"
+      (nzPageSizeChange) = "pageSizeChange($event)"
+      nzSize="small" 
+      [nzShowTotal]="totalTemplate"
+       [nzTotal]="pagination.total"
+       [nzFrontPagination]="frontPag"
+    >
+      <thead>
+        <tr>
+          <!-- <th [nzShowCheckbox]="true" [nzDisabled]="checkDisabled"  *ngIf="isShowCheck"></th> -->
+          <th>序号</th>
+          <th *ngFor="let data of theadData">{{ data.label }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of table.data let i = index">
+          <!-- <td [nzShowCheckbox]="true" [nzDisabled]="checkDisabled"   *ngIf="isShowCheck"></td> -->
+          <td>{{ i + 1 }}</td>
+          <ng-container *ngFor="let j of getArray(data); let n = index">
+            <td>{{ data[n] }}</td>
+          </ng-container>
+        </tr>
+      </tbody>
+      <ng-template #totalTemplate let-total>总共 {{ pagination.total }} 条</ng-template>
+    </nz-table>
+    <!-- <ng-template #total>
+      <div *ngIf="!isShowPage">
+        总共 {{ pagination.total }} 条
+      </div>
+    </ng-template> -->
+    <!-- <div class="pag-container" *ngIf="isShowPage">
+      <div class="page-total">共{{pagination.total}}条</div>
+      <nz-pagination [nzPageIndex]="pagination.page" [nzPageSize]="pagination.pageSize" [nzTotal]="pagination.total" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)" nzShowQuickJumper nzShowSizeChanger></nz-pagination>
+    </div> -->
+  </div>
+</div>

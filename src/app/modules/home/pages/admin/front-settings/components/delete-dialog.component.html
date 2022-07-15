@@ -1,0 +1,10 @@
+<div class="gf-alarm-dia-container">
+    <h3 style="font-size: 18px;margin-bottom: 15px;">提示</h3>
+    <p class="dia-title">
+      <span>是否删除名称为 {{ name }} 的仪表板?</span>
+    </p>
+    <div class="btn-outer">
+      <button mat-stroked-button (click)="close(false)">取消</button>
+      <button class="confirm-btn" (click)="onDelete(true)">确认</button>
+    </div>
+</div>

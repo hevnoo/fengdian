@@ -1,0 +1,22 @@
+<div class="gf-date-picker" nz-row>
+  <div class="gf-select">
+    <ng-container *ngIf="windTurbineSelect">
+      <tb-fd-wind-turbine [ctx]="ctx" style="width: 300px"></tb-fd-wind-turbine>
+    </ng-container>
+    <nz-select class="gf-select-type" [(ngModel)]="mode" name="mode">
+      <nz-option nzValue="date" nzLabel="日"></nz-option>
+      <nz-option nzValue="month" nzLabel="月"></nz-option>
+      <nz-option nzValue="year" nzLabel="年"></nz-option>
+    </nz-select>
+    <nz-date-picker class="gf-select-date" name="unknownDate" [nzMode]="mode" [nzPlaceHolder]="showPlaceHolder(mode)"
+      [(ngModel)]="unknownDate" [nzDisabledDate]="disabledDate" (ngModelChange)="onCheckDate($event)"
+      [nzShowToday]="false"></nz-date-picker>
+  </div>
+
+  <div class="fd-show-info">{{displayInfo}}</div>
+  <div class="gf-right">
+    <span class="gf-date-select-items" [class.active]="dateType === 'date'" (click)="changeDate('date')">昨日</span>
+    <span class="gf-date-select-items" [class.active]="dateType === 'month'" (click)="changeDate('month')">本月</span>
+    <span class="gf-date-select-items" [class.active]="dateType === 'year'" (click)="changeDate('year')">本年</span>
+  </div>
+</div>

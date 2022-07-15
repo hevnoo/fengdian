@@ -1,0 +1,72 @@
+.gf-announcement-manage {
+  .send-operate {
+    display: flex;
+    margin: 20px 0;
+    justify-content: flex-end;
+    .top-search {
+      width: 180px;
+      height: 30px;
+      margin-right: 10px;
+      nz-input-group {
+        border-radius: 20px;
+      }
+    }
+    .gf-btn-search,
+    .gf-btn-add,
+    .gf-btn-modify,
+    .gf-btn-del {
+      width: 75px;
+      height: 30px;
+      margin-right: 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      line-height: 10px;
+      span {
+        font-size: 12px;
+        line-height: 10px;
+      }
+    }
+  }
+
+  .ance-table {
+    .gf-ance-th-herder {
+      background-color: #009cdc;
+      height: 55px;
+      color: #fff;
+      border: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .gf-ance-th-herder:first-child {
+      border-top-left-radius: 20px;
+    }
+    .gf-ance-th-herder:last-child {
+      border-top-right-radius: 20px;
+    }
+    .gf-ance-tbody-td {
+      font-size: 14px;
+      height: 40px;
+      box-sizing: border-box;
+      padding-top: 0;
+      padding-bottom: 0;
+      color: #606266;
+    }
+    .gf-tbody-ance-tr:last-child {
+      .gf-ance-tbody-td:first-child {
+        border-bottom-left-radius: 20px;
+      }
+      .gf-ance-tbody-td:last-child {
+        border-bottom-right-radius: 20px;
+      }
+    }
+    .gf-tbody-ance-tr.curren-row {
+      background-color: #ecf5ff;
+      -webkit-transition: background-color 0.25s ease;
+      transition: background-color 0.25s ease;
+    }
+  }
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+  }
+}

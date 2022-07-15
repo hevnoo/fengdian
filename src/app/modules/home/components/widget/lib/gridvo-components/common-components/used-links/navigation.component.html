@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-title" *ngIf="isNeedTitle" (click)="openCamera()">{{ title }}
+    <div class="test"></div>
+  </div>
+  <div class="card-menu-wraper" [style.height]="isNeedTitle? 'calc(100% - 40px)' : '100%'">
+    <div class="menu-item-wraper" *ngFor="let item of imgArr" (click)="handleMenu($event, item)">
+      <div class="badge" *ngIf="item.count">{{ item.count }}</div>
+      <img [src]="item.img" alt="">
+      <div class="menu-title">{{ item.name }}</div>
+    </div>
+  </div>
+</div>

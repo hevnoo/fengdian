@@ -1,0 +1,15 @@
+.search {
+    padding: 5px 0;
+    display: flex;
+    justify-content: flex-end;
+    .ant-input {
+        width: 20%;
+    }
+    .ant-btn-primary {
+        border-radius: 25px;
+        margin: 0 10px;
+    }
+    .anticon{
+        color: #fff;
+    }
+}

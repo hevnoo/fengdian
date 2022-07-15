@@ -1,0 +1,45 @@
+<div class="bigcontainer">
+  <div class="container">
+    <!-- <div class="headerTitle">
+      <img src="assets/forfd/fd-fengji-title.png" />
+      <div class="desc">连江白云岭风电场风机运行状况</div>
+    </div> -->
+    <div class="headerValues">
+      <span
+        >总有功{{ fengJiValue.wf_total_active_power | number: "2.2-2" }}kW</span
+      >
+      <span
+        >日电量{{
+          fengJiValue.day_total_power_gen | number: "2.2-2"
+        }}万kWh</span
+      >
+    </div>
+    <div class="headerMap">
+      <div class="run-item">
+        <img src="assets/forfd/fd-fengji-normal.png " />
+        <div class="status">正常运行</div>
+        <div class="val">{{ fengJiValue.whole_normal_state_num }}</div>
+      </div>
+      <div class="run-item">
+        <img src="assets/forfd/fd-fengji-service.png" />
+        <div class="status">检修停机</div>
+        <div class="val">{{ fengJiValue.whole_maintenance_state_num }}</div>
+      </div>
+      <div class="run-item">
+        <img src="assets/forfd/fd-fengji-missing.png" />
+        <div class="status">通讯中断</div>
+        <div class="val">{{ fengJiValue.whole_com_intr_state_num }}</div>
+      </div>
+      <div class="run-item">
+        <img src="assets/forfd/fd-fengji-wrong.png" />
+        <div class="status">故障停机</div>
+        <div class="val">{{ fengJiValue.whole_err_state_num }}</div>
+      </div>
+      <div class="run-item">
+        <img src="assets/forfd/fd-fengji-waiting.png" />
+        <div class="status">待机状态</div>
+        <div class="val">{{ fengJiValue.whole_stanby_state_num }}</div>
+      </div>
+    </div>
+  </div>
+</div>

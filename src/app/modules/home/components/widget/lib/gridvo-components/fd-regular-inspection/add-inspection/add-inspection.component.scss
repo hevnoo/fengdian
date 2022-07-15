@@ -1,0 +1,14 @@
+::ng-deep {
+    .add-new {
+        .ant-row {
+            display: flex;
+            justify-content: center;
+            .ant-form-item {
+                margin: 0px 0px 0px;
+                .ant-form-item-label > label {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

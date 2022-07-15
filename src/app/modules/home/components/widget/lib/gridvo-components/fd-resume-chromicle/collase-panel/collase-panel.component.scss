@@ -1,0 +1,47 @@
+.collapse-panel {
+    position: relative;
+
+    .tag {
+        position: absolute;
+        left: 50px;
+        top: -35px;
+    }
+    
+    .typeSelection{
+        display: flex;
+        justify-content: flex-start;
+        // border: 1px solid rgb(219, 219, 219);
+        border-radius: 6px;
+        width: 100%;
+        .span-container {
+            display: inline-block;
+            height: 40px;
+            width: 15%;
+            background-color: #009cdc;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            border-bottom-left-radius: 6px;
+            border-top-left-radius: 6px;
+        }
+        ::ng-deep {
+            .item{
+                margin: 0 3px;
+                background-color: #fff !important;
+                color: #000 !important;
+                &.active {
+                    background-color: #009cdc !important;
+                    color: #fff !important;
+                    border-radius: 0;
+                }
+            }
+            .item:hover{
+                background-color: #009cdc !important;
+                color: #fff !important;
+                border-radius: 0;
+            }
+            
+        }
+    }
+    
+}

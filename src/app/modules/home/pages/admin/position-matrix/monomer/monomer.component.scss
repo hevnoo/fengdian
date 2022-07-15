@@ -1,0 +1,13 @@
+:host {
+  .init-settings-wraper {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #7f9db9;
+    .list {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+  }
+}

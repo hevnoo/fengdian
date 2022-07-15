@@ -1,0 +1,41 @@
+:host {
+  .huadian {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-left: 0px;
+    &.is-show-title {
+      padding-left: 20px;
+      .logoimg {
+        width: 20%;
+      }
+    }
+    .logoimg {
+      width: 60%;
+    }
+    .logo-title {
+      width: 80%;
+    }
+  }
+
+  .dark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    padding-left: 20px;
+    .logoimg {
+      // width: 100%;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .logo-title {
+      height: 40px;
+      color: #000;
+      font-size: 16px; 
+      line-height: 20px;
+      font-weight: 600;
+    }
+  }
+}

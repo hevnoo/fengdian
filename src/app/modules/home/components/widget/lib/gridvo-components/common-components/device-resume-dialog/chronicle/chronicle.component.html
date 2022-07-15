@@ -1,0 +1,104 @@
+<div class="chronicle">
+  <tb-dialog-table [total]="page.total" [checkDisabled]="true" [frontPag]="false" [isShowCheck]="true" [placeholderValue]="'负责人'" [dataList]="chronicleList" [theadData]="chronicleTheadData" [isSearch]="true" [isShowAdd]="true"  (addModelVisible)="isShowModel($event)" (pageChange)="getNewData($event)"></tb-dialog-table>
+</div>
+
+<nz-modal nzClassName="smallModel" [(nzVisible)]="isVisible" [nzTitle]="'添加记事'" (nzOnCancel)="modelCancel()" nzWidth="50%" nzWrapClassName="dialog-fd" [nzFooter]="null" >
+  <div *nzModalContent >
+    <form nz-form [formGroup]="validateAddForm" (ngSubmit)="handleOk(validateAddForm.value)" class="form-container">
+      <div nz-row [nzGutter]="[24,8]">
+        <div nz-col [nzSpan]="10" [nzOffset]="4" >
+          <nz-form-item>
+            <nz-form-label>任务编号</nz-form-label>
+            <nz-form-control>
+              <input rows="2"  nz-input placeholder="自动生成" [disabled]="true">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10" >
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="equipmentName" style="width: 38%;">设备名称</nz-form-label>
+            <nz-form-control nzErrorTip="请选择设备名称" style="width: 62%; ">
+              <nz-select nzPlaceHolder="请选择" nzAllowClear nzShowSearch nzServerSearch formControlName="equipmentName"
+                (nzOnSearch)="onDeviceSearch($event)"  rows="2">
+                <ng-container *ngFor="let o of deviceOption">
+                  <nz-option *ngIf="!isLoading" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+                </ng-container>
+                <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+                  <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10" [nzOffset]="4" >
+          <nz-form-item>
+            <nz-form-label  nzRequired nzFor="resumeType">履历类型</nz-form-label>
+            <nz-form-control nzErrorTip="请选择履历类型"  rows="2">
+              <nz-select  nzAllowClear nzPlaceHolder="请选择" formControlName="resumeType">
+                <nz-option nzValue="0" nzLabel="巡检"></nz-option>
+                <nz-option nzValue="1" nzLabel="定检"></nz-option>
+                <nz-option nzValue="2" nzLabel="检修"></nz-option>
+                <nz-option nzValue="3" nzLabel="故障维修"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          
+        </div>
+        <div nz-col [nzSpan]="10" >
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="personInCharge">负责人</nz-form-label>
+            <nz-form-control nzErrorTip="请输入负责人" >
+              <input nz-input placeholder="请输入" formControlName="personInCharge" rows="2">
+            </nz-form-control>
+          </nz-form-item>
+        
+        </div>
+        
+        <div nz-col [nzSpan]="10">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="participants">参与人</nz-form-label>
+            <nz-form-control nzErrorTip="请输入参与人">
+              <input nz-input placeholder="请输入" formControlName="participants"  rows="2">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10" [nzOffset]="4" >
+          
+        </div>
+        <div nz-col [nzSpan]="10" [nzOffset]="4">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="workStartTime">工作开始时间</nz-form-label>
+            <nz-form-control nzErrorTip="请选择工作开始时间">
+              <nz-date-picker formControlName="workStartTime" style="width: 100%;"  nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="开始时间" ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="workEndTime">工作结束时间</nz-form-label>
+            <nz-form-control nzErrorTip="请选择工作结束时间" >
+              <nz-date-picker  formControlName="workEndTime" style="width: 100%;"  #endDatePicker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="结束时间"></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="[24,8]">
+        <div nz-col [nzSpan]="20">
+          <nz-form-item>
+            <nz-form-label nzFor="workConent" nz-col [nzSpan]="3">工作内容</nz-form-label>
+            <nz-form-control >
+              <textarea nz-input formControlName="workConent"  rows="4" placeholder="描述"></textarea> 
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="8" [nzOffset]="10">
+          <button nz-button style="margin-right: 30px;color:black" (click)="handleReset($event)">重置</button>
+          <button nz-button nzType="primary" [disabled]="!validateAddForm.valid">提交</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  
+</nz-modal>

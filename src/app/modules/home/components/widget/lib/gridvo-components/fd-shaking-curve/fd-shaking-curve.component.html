@@ -1,0 +1,43 @@
+<form nz-form>
+    <div nz-row>
+        <div nz-col [nzSpan]="5">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">机组</nz-form-label>
+                <nz-select nz-col [nzSpan]="16" [(ngModel)]="windMachineValue" [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="windMachineChange($event)">
+                    <nz-option *ngFor="let i of windMachineOptions" [nzValue]="i.value" [nzLabel]="i.label"></nz-option>
+                </nz-select>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="5">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">时间</nz-form-label>
+                <nz-date-picker nz-col [nzSpan]="16" [nzAllowClear]="false" [(ngModel)]="dateValue" [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="datePickerChange($event)"></nz-date-picker>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="5">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">通道</nz-form-label>
+                <nz-select nz-col [nzSpan]="16" [(ngModel)]="channelValue" [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="channelChange($event)">
+                    <nz-option *ngFor="let i of channelOptions" [nzValue]="i.value" [nzLabel]="i.label"></nz-option>
+                </nz-select>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="5">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSpan]="8">文件列表</nz-form-label>
+                <nz-select nz-col [nzSpan]="16" [(ngModel)]="fileListValue" [ngModelOptions]="{standalone: true}">
+                    <nz-option *ngFor="let i of fileListOptions" [nzValue]="i.value" [nzLabel]="i.label"></nz-option>
+                </nz-select>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="4">
+            <nz-form-item nz-row>
+                <button nz-col [nzPush]="2" nz-button nzType="primary" (click)="search()" [nzLoading]="searchLoading">查询</button>
+            </nz-form-item>
+        </div>
+    </div>
+</form>
+<tb-fd-shaking-chart #shakingChart [chartOption]="chartOption"></tb-fd-shaking-chart>

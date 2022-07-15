@@ -1,0 +1,87 @@
+::ng-deep {
+  .abnormal-his {
+    .ant-modal-close-x {
+      color: #1890ff;
+    }
+
+    .abnormal {
+      margin-top: 25px;
+    }
+
+    .ant-modal-content {
+      .ant-modal-header {
+        .ant-modal-title {
+          font-size: 18px !important;
+          padding: 20px !important;
+        }
+      }
+      .ant-modal-body {
+        .ant-table-pagination-right {
+          justify-content: center;
+        }
+        .ant-table-wrapper .ant-table .ant-table-container .ant-table-content table .ant-table-thead tr:first-child th {
+          text-align: center;
+        }
+      }
+    }
+    
+
+  }
+  // .dialog-fd .abnormal-his .ant-modal-content .ant-modal-body {
+  //   padding: 0px 0px 0px 0px;
+  // }
+}
+
+
+
+
+
+
+:host {
+  .div-search-bar {
+    ::ng-deep {
+      .ant-input {
+        width: 200px;
+        margin: 0 8px 8px 0;
+      }
+
+      button.ant-btn.ant-btn-primary {
+        margin-left: 10px;
+        background: #1890ff;
+      }
+    }
+  }
+
+  .abnormal {
+    display: flex;
+
+    .table {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #f3ecec;
+
+      .tableTitle {
+        border-bottom: 1px solid #c7c7c7;
+        height: 40px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .statusButton {
+      width: 12%;
+
+      button {
+        margin: 10px 10px;
+        border-radius: 6%;
+        background: aliceblue;
+        color: #1890ff;
+        border-color: #1890ff;
+      }
+
+      .click-button {
+        background: #1890ff;
+        color: #fff;
+      }
+    }
+  }
+}

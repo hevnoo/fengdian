@@ -1,0 +1,7 @@
+<tb-fd-tower-search [ctx]="ctx" (search)="handleSearch($event)"></tb-fd-tower-search>
+<div class="chart-group">
+    <tb-fd-scatter-chart #chart1 [ctx]="ctx" [chartOption]="chart1Option"></tb-fd-scatter-chart>
+    <tb-fd-scatter-chart #chart2 [ctx]="ctx" [chartOption]="chart2Option"></tb-fd-scatter-chart>
+    <tb-fd-scatter-chart #chart3 [ctx]="ctx" [chartOption]="chart3Option"></tb-fd-scatter-chart>
+    <tb-fd-scatter-chart #chart4 [ctx]="ctx" [chartOption]="chart4Option"></tb-fd-scatter-chart>
+</div>

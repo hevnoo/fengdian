@@ -1,0 +1,21 @@
+:host{
+    ::ng-deep{
+        button.ant-btn.ant-btn-primary {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .fd-form{
+        // height: 400px;
+        background:rgb(255,255,255);
+        display: table-cell;
+        vertical-align: middle;
+        // text-align: center;
+        ::ng-deep{
+            .ant-form{
+                // width: 80%;
+                display: inline-block;
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+<div class="abnormal-sound-monitoring">
+  <div class="sound-monitoring-head">
+    <span style="font-size: 18px; font-weight: 600">风机叶片异音监测</span>
+    <div class="head-right" style="float: right">
+      <div class="head-right-select">
+        风机：
+        <nz-select
+          [(ngModel)]="selectedProvince"
+          (ngModelChange)="provinceChange($event)"
+        >
+          <nz-option
+            *ngFor="let item of selectData;let i = index"
+            [nzValue]="item"
+            [nzLabel]="item"
+          ></nz-option>
+        </nz-select>
+      </div>
+      <div style="display: inline-block; color: #8c8c8c">
+        <span><i nz-icon nzType="field-time" nzTheme="outline"></i></span>
+        <span>更新日期：</span>
+        <span>{{ currentTime | date: "yyyy-MM-dd"  }}</span>
+      </div>
+    </div>
+    <div></div>
+  </div>
+  <div class="sound-monitoring-content">
+    <div class="content-card">
+      <nz-card nzHoverable style="width: 390px; height: 480px">
+        <div style="font-size: 16px; font-weight: 600">{{cardTitle}}</div>
+        <div style="width: 240px; height: 240px; position: relative">
+          <nz-progress
+            nzType="dashboard"
+            [nzPercent]="cardData.data.content[0].confidence+0"
+            [nzStrokeColor]="{ '0': '#108ee9', '100': '#87d068' }"
+            nzGapPosition="bottom"
+            nzWidth="260"
+            [nzFormat]="formatOne"
+            class="roundProgressBar"
+          >
+          </nz-progress>
+          <div
+            class="progressBarHeader"
+            [style.backgroundColor]="cardData.data.content[0].outerFlag? '#FF4C4F':'#53C41A'"
+          >
+            {{cardData.data.content[0].outerFlag ? "异常":"无异常"}}
+          </div>
+          <div style="position: absolute; left: 53%; top: 85%">异常置信度</div>
+        </div>
+
+        <div
+          [class.textWarning]="cardData.data.content[0].periodFlag == '0'"
+          [class.textNormal]="cardData.data.content[0].periodFlag !== '0'"
+        >
+          <span
+            >{{cardData.data.content[0].periodFlag == "0" ?
+            "无周期":"有周期"}}</span
+          >
+          <span
+            >{{cardData.data.content[0].runFlag == "0" ?
+            "正在运行":"停止运行"}}</span
+          >
+          <span
+            >{{cardData.data.content[0].outerFlag ?
+            "非连接状态":"连接状态"}}</span
+          >
+        </div>
+        <div class="progressBar">
+          <div style="margin: 8px 0">
+            <span>相似度参数0</span
+            ><nz-progress
+              [nzPercent]="expandNum(cardData.data.content[0].sim0,100)"
+              [nzFormat]="format1"
+              [nzStatus]="isWarning(cardData.data.content[0].sim0)"
+            ></nz-progress>
+          </div>
+          <div style="margin: 8px 0">
+            <span>相似度参数1</span
+            ><nz-progress
+              [nzPercent]="expandNum(cardData.data.content[0].sim1,100)"
+              [nzFormat]="format2"
+              [nzStatus]="isWarning(cardData.data.content[0].sim1)"
+            ></nz-progress>
+          </div>
+          <div style="margin: 8px 0">
+            <span>相似度参数2</span
+            ><nz-progress
+              [nzPercent]="expandNum(cardData.data.content[0].sim2,100)"
+              [nzFormat]="format3"
+              [nzStatus]="isWarning(cardData.data.content[0].sim2)"
+            ></nz-progress>
+          </div>
+        </div>
+
+        <tb-historical-data class="historicalData"></tb-historical-data>
+        <div
+          [class.normalIcon]="cardData.data.content[0].outerFlag==0"
+          [class.warnIcon]="cardData.data.content[0].outerFlag"
+        ></div>
+      </nz-card>
+    </div>
+  </div>
+</div>

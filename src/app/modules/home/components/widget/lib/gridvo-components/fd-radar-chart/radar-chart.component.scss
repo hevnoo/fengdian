@@ -1,0 +1,19 @@
+:host{
+    div#contain {
+        position: absolute;
+        top: 30px;
+        width:98%;
+        left: 6px;
+        border-top:1px solid #000;
+    }
+    #radar-chart{
+        // background-color: var(--blue-linear-1);//背景
+        background-color: #fff;
+        padding: 7px;
+    }
+    #tooltip{
+        background-color: #000;
+        color: #fff;
+        opacity: 0.5;
+    }
+}

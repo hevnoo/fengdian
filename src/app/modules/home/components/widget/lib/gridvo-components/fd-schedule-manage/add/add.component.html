@@ -1,0 +1,137 @@
+<div class="dialog-form-add">
+  <nz-modal
+    [(nzVisible)]="dialogStateConfig.isVisible"
+    [nzTitle]="tplTitle"
+    [nzContent]="tplContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+    nzWrapClassName="add-bubububu"
+  ></nz-modal>
+
+  <ng-template #tplTitle>
+    <div nz-row class="dialog-enclosure-header">
+      <div class="top" nz-col nzSpan="24">
+        <span>增加排班</span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #tplContent let-params>
+    <form
+      class="enclosure"
+      nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm()"
+    >
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzRequired
+          nzFor="name"
+          >值班人员</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="请输入值班人员名称!"
+        >
+          <input
+            class="ebclosure-control"
+            onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+            nzAllowClear
+            nz-input
+            maxlength="20"
+            formControlName="name"
+            id="name"
+            placeholder="请填写值班人员姓名"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzRequired
+          nzFor="workShfit"
+          >班次</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <nz-select
+            class="ebclosure-control-select"
+            nzAllowClear
+            id="workShfit"
+            formControlName="workShfit"
+            nzPlaceHolder="请选择班次"
+          >
+            <nz-option nzValue="dayShift" nzLabel="白班"></nz-option>
+            <nz-option nzValue="nightShift" nzLabel="晚班"></nz-option>
+            <!-- <nz-option nzValue="bulletin" nzLabel="通报"></nz-option> -->
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzRequired
+          nzFor="phone"
+          >联系电话</nz-form-label
+        >
+        <nz-form-control
+          nzErrorTip="请输入正确的手机号~"
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <input
+            class="ebclosure-control"
+            nzAllowClear
+            nz-input
+            formControlName="phone"
+            id="phone"
+            placeholder="联系电话"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item" style="height: 32px">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzRequired
+          nzFor="content"
+          >值班时间</nz-form-label
+        >
+        <nz-form-control nzErrorTip="时间不能为空!">
+          <nz-date-picker
+            class="ebclosure-control"
+            nzShowTime
+            nzFormat="yyyy-MM-dd HH:mm:ss"
+            formControlName="workTime"
+            style="margin: 0"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item btn" nz-row>
+        <nz-form-control [nzSpan]="14" [nzOffset]="9">
+          <button class="btn-request" nz-button nzType="primary">确认</button>
+          <button
+            class="btn-cancle"
+            nz-button
+            nzType="primary"
+            (click)="handleCancel($event)"
+          >
+            取消
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+</div>

@@ -1,0 +1,115 @@
+:host {
+  .message {
+    position: fixed;
+    z-index: 2;
+    top: 53px;
+    right: 137px;
+    background: white;
+    height: 552px;
+    box-shadow: 1px 1px 6px #d1d1d1;
+
+    .head {
+      height: 55px;
+      width: 407px;
+      display: flex;
+      background: white;
+      border-bottom: 1px solid #ebe2e2;
+
+      button {
+        border: 1px solid #a3d3ff;
+        color: #1890ff;
+        height: 34px;
+        width: 77px;
+        border-radius: 17px;
+        background: #fff;
+        margin: auto 0 auto 10px;
+      }
+
+      .click-button {
+        border: 0;
+        background: #009cdc;
+        color: #fff;
+        font-size: 14px;
+      }
+    }
+
+    .reserviceName {
+      width: 80px;
+      height: 30px;
+      background: #009cdc;
+      margin-left: 10px;
+
+    }
+
+    .content {
+      margin-top: 10px;
+
+      .sanjiao {
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid #009cdc;
+        border-left: 6px solid transparent;
+        border-right: 21px solid transparent;
+        margin-left: 73px;
+        margin-top: 0px;
+      }
+
+      span {
+        margin-top: -27px;
+        display: block;
+        margin-left: 10px;
+        color: #fff;
+        font-size: 14px;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .ant-input {
+      margin-top: 20px;
+      margin-left: 10px;
+      max-width: 360px;
+      width: 326px;
+    }
+
+    .ant-select {
+      width: 326px;
+      margin-top: 20px;
+      margin-left: 10px;
+      height: 32px;
+    }
+
+    .ant-form-item .ant-mentions,
+    .ant-form-item textarea.ant-input {
+      height: 70px;
+    }
+
+    .ant-picker {
+      width: 326px;
+      margin-top: 20px;
+      margin-left: 10px;
+      height: 32px;
+    }
+
+    .ant-form-item-explain.ant-form-item-explain-error {
+      color: #ff4d4f;
+      margin-left: 15px;
+      width: 113px;
+    }
+
+    button.ant-btn.ant-btn-primary {
+      margin-top: -31px;
+      margin-left: 285px;
+      display: flex;
+    }
+
+    .swag {
+      margin-left: 345px !important;
+      display: block !important;
+      padding-left: 6px;
+      padding-right: 6px;
+      position: absolute;
+      margin-top: 20px !important;
+    }
+  }
+}

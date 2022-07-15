@@ -1,0 +1,222 @@
+:host {
+  ::ng-deep {
+    .ant-tabs {
+      width: 88%;
+    }
+  }
+
+  .defect-form {
+    height: 100%;
+  }
+
+  ::ng-deep {
+    .ant-spin-container {
+      height: 100%;
+    }
+  }
+
+  //注释的是vw，没有注释的是px
+  .defect-report {
+    .image {
+      overflow-x: scroll;
+    }
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .header {
+      // width: 90%;
+      // border-radius: 0.1vw;
+      // border: 0.2vw solid #2274df;
+      // color: #2274df;
+      // margin-top: 1vw;
+      // margin-bottom: 1vw;
+      // height: 6.2vw;
+      width: 90%;
+      border-radius: 3px;
+      border: 1px solid #2274df;
+      color: #2274df;
+      margin-top: 1px;
+      margin-bottom: 6px;
+      height: 26px;
+
+      button {
+        width: 50%;
+        border: 0;
+        background: white;
+      }
+
+      .click-header {
+        background: rgb(34, 116, 223);
+        color: white;
+      }
+    }
+
+    .defect-report-form {
+      padding: 16px;
+
+      label {
+        margin-top: 8px;
+        align-items: center;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow: hidden;
+
+      .title-label {
+        min-width: 90px;
+      }
+
+      button {
+        color: white;
+        background: #1d8ae9;
+        border: 0;
+        margin: auto;
+        margin-bottom: 2px;
+        width: 80%;
+      }
+
+      .submit-btn {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 32px;
+        left: 0;
+      }
+
+      .phone {
+        width: 100%;
+        position: relative;
+        height: 4vh;
+        padding-left: 2vw;
+        display: flex;
+      }
+
+      label {
+        // width: 100%;
+        // position: relative;
+        // height: 4vh;
+        // padding-left: 2vw;
+        // display: flex;
+        width: 100%;
+        position: relative;
+        height: 25px;
+        padding-left: 0px;
+        display: flex;
+
+        input {
+          border: 0;
+          background: white;
+          position: absolute;
+          // left: 20vw;
+          left: 76px;
+        }
+
+        select {
+          //清除select的默认
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+        }
+
+        .editInput {
+          position: relative;
+        }
+
+        //使用伪类给select添加自己想用的图标
+        .selectDiv:after {
+          content: ">";
+          position: absolute;
+          right: 10px;
+          color: #c7c4c4e7;
+          top: 12%;
+          pointer-events: none;
+        }
+
+        .selectDiv {
+          width: 78%;
+          position: absolute;
+          // right: -0.4vw;
+          right: -3px;
+
+          .block {
+            position: absolute;
+            top: 10px;
+            background: white;
+            z-index: 999;
+            left: 0px;
+
+            ol {
+              list-style: none;
+              box-shadow: 0px 1px 3px;
+              height: 30px;
+              overflow-y: scroll;
+
+              li {
+                border-top: 1px solid #e7e4e4;
+                margin-left: -12px;
+                padding: 2px;
+              }
+            }
+          }
+        }
+
+        #subEquId {
+          // position: absolute;
+          // width: 46%;
+          // height: 5vw;
+          // left: 0.3vw;
+          // top: 1vw;
+          // border-bottom: 0;
+          left: 0;
+        }
+
+        select {
+          width: 80%;
+          border: 0;
+        }
+
+        .require {
+          color: red;
+        }
+
+        // .icon{
+        //     color: #c7c4c4e7;
+        //     position: absolute;
+        //     right: 1vw;
+        //     font-size: 5vw;
+        // }
+        textarea {
+          width: 74%;
+          margin: auto;
+        }
+
+        button {
+          background: white;
+          // border: 0.4vw solid #e7e7e7;
+          // margin: 0;
+          // margin-left: 1vw;
+          // width: 10vw;
+          // height: 7vw;
+          border: 1px solid #e7e7e7;
+          margin: 0;
+          margin-left: 2px;
+          width: 40px;
+          height: 24px;
+          color: #000;
+        }
+
+        .click-defect {
+          background: rgb(31, 179, 199);
+          border: 0;
+          color: white;
+        }
+      }
+    }
+  }
+}

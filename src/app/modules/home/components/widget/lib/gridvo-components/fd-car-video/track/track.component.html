@@ -1,0 +1,58 @@
+
+<p class="p-title"><i nz-icon nzType="credit-card" nzTheme="outline"></i>人员轨迹</p>
+<form nz-form nzLayout="vertical" [formGroup]="validatePersonForm" (ngSubmit)="getPersonTrack(validatePersonForm.value)">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">人员</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-select nzPlaceHolder="请选择"  formControlName="person" (ngModelChange)="selectChange($event, 'staff')">
+        <ng-container *ngFor="let staff of staffList">
+          <nz-option [nzValue]="staff.workCardEntityId" [nzLabel]="staff.name"></nz-option>
+        </ng-container>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">时间范围</nz-form-label>
+    <nz-form-control [nzSpan]="24">
+      <nz-range-picker 
+        [nzShowTime]="{ nzHideDisabledOptions: true }"
+        formControlName="timeOfPerson"
+        nzFormat="yyyy-MM-dd HH:mm:ss"
+        [nzDisabledDate]="disabledDate"></nz-range-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="6" [nzOffset]="8">
+      <button nz-button nzType="primary" nzShape="round">轨迹回放</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<p class="p-title"><i nz-icon nzType="credit-card" nzTheme="outline"></i>车辆轨迹</p>
+<form nz-form nzLayout="vertical" [formGroup]="validateCarForm" (ngSubmit)="getCarTrack(validateCarForm.value)">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">车辆</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-select nzPlaceHolder="请选择" formControlName="car" (ngModelChange)="selectChange($event, 'car')">
+        <ng-container *ngFor="let car of carList">
+          <nz-option [nzValue]="car.orientatorId" [nzLabel]="car.name"></nz-option>
+        </ng-container>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">时间范围</nz-form-label>
+    <nz-form-control [nzSpan]="24">
+      <nz-range-picker 
+        [nzShowTime]="{ nzHideDisabledOptions: true }" 
+        formControlName="timeOfCar"
+        nzFormat="yyyy-MM-dd HH:mm:ss" 
+        [nzDisabledDate]="disabledDate"></nz-range-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="6" [nzOffset]="8">
+      <button nz-button nzType="primary" nzShape="round">轨迹回放</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

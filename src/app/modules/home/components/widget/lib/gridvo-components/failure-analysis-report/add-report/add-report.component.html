@@ -1,0 +1,457 @@
+<nz-modal
+  nzWrapClassName="dialog-fd"
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="null"
+  [nzMaskClosable]="false"
+  [nzWidth]="'40%'"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle> 故障分析报告上报 </ng-template>
+
+  <ng-template #modalContent>
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm(validateForm.value)"
+    >
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="eventName"
+          >主题</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzExtra]="eventTemp">
+          <input nz-input formControlName="eventName" id="eventName" />
+          <ng-template #eventTemp style="min-height: 0">
+            <div
+              [hidden]="
+                validateForm.get('eventName').valid ||
+                validateForm.get('eventName').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'eventName')"
+                class="err-msg"
+              >
+                主题是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'eventName')"
+                class="err-msg"
+              >
+                主题内容字符数不能大于32位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="number"
+          >工单号</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzExtra]="numberTemp"
+          style="min-height: 0"
+        >
+          <input nz-input formControlName="number" id="number" />
+          <ng-template #numberTemp>
+            <div
+              [hidden]="
+                validateForm.get('number').valid ||
+                validateForm.get('number').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'number')"
+                class="err-msg"
+              >
+                工单号是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'number')"
+                class="err-msg"
+              >
+                工单号字符数不能大于32位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="major"
+          >专业</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzExtra]="majorTemp">
+          <input nz-input formControlName="major" id="major" />
+          <ng-template #majorTemp>
+            <div
+              [hidden]="
+                validateForm.get('major').valid ||
+                validateForm.get('major').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'major')"
+                class="err-msg"
+              >
+                工单号是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'major')"
+                class="err-msg"
+              >
+                工单号字符数不能大于32位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="device"
+          >设备</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择设备">
+          <nz-select
+            formControlName="device"
+            nzPlaceHolder="输入设备名字搜索"
+            nzAllowClear
+            nzShowSearch
+            nzServerSearch
+            formControlName="device"
+            (nzOnSearch)="onDeviceSearch($event)"
+          >
+            <ng-container *ngFor="let o of deviceOptions">
+              <nz-option
+                *ngIf="!isLoading"
+                [nzValue]="o.value"
+                [nzLabel]="o.label"
+              ></nz-option>
+            </ng-container>
+            <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+              <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+              Data...
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="happened"
+          >事情经过</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzExtra]="happenedTemp">
+          <nz-textarea-count [nzMaxCharacterCount]="100">
+            <textarea rows="2" formControlName="happened" nz-input></textarea>
+          </nz-textarea-count>
+          <ng-template #happenedTemp>
+            <div
+              [hidden]="
+                validateForm.get('happened').valid ||
+                validateForm.get('happened').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'happened')"
+                class="err-msg"
+              >
+                事情经过是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'happened')"
+                class="err-msg"
+              >
+                事情经过字符数不能大于32位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="beginTime"
+          >开始时间</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择开始时间">
+          <nz-date-picker
+            formControlName="beginTime"
+            [nzDisabledDate]="disabledDate"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="endTime"
+          >结束时间</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择结束时间">
+          <nz-date-picker
+            formControlName="endTime"
+            [nzDisabledDate]="disabledDate"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="scenePictures"
+          >故障现场图片</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-upload
+            nzListType="picture-card"
+            [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+            [(nzFileList)]="fileList"
+            [nzShowButton]="fileList.length < 8"
+            [nzShowUploadList]="icons"
+            [nzBeforeUpload]="beforeUpload"
+            [nzCustomRequest]="selfUpLoad"
+            [nzRemove]="removeFile"
+            [nzDownload]="downloadFile"
+            [nzShowButton]="openDialogType !== 'readOnly'"
+            (nzChange)="handleUploadChange($event, 'scenePictures')"
+          >
+            <div>
+              <i nz-icon nzType="plus"></i>
+              <div style="margin-top: 8px">上传</div>
+            </div>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="reason"
+          >原因分析</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzExtra]="reasonTemp">
+          <nz-textarea-count [nzMaxCharacterCount]="100">
+            <textarea rows="2" formControlName="reason" nz-input></textarea>
+          </nz-textarea-count>
+          <ng-template #reasonTemp>
+            <div
+              [hidden]="
+                validateForm.get('reason').valid ||
+                validateForm.get('reason').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'reason')"
+                class="err-msg"
+              >
+                原因分析是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'reason')"
+                class="err-msg"
+              >
+                原因分析字符数不能大于100位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="handle"
+          >处理方式</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzExtra]="handleTemp">
+          <nz-textarea-count [nzMaxCharacterCount]="100">
+            <textarea rows="2" formControlName="handle" nz-input></textarea>
+          </nz-textarea-count>
+          <ng-template #handleTemp>
+            <div
+              [hidden]="
+                validateForm.get('handle').valid ||
+                validateForm.get('handle').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'handle')"
+                class="err-msg"
+              >
+                处理方式是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'handle')"
+                class="err-msg"
+              >
+                处理方式字符数不能大于100位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          nzRequired
+          nzFor="processedPictures"
+          >处理后图片</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-upload
+            nzListType="picture-card"
+            [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+            [(nzFileList)]="afterFileList"
+            [nzShowButton]="afterFileList.length < 8"
+            [nzShowUploadList]="icons"
+            [nzBeforeUpload]="beforeUpload2"
+            [nzCustomRequest]="selfUpLoad"
+            [nzRemove]="removeFile"
+            [nzDownload]="downloadFile"
+            [nzShowButton]="openDialogType !== 'readOnly'"
+            (nzChange)="handleUploadChange($event, 'processedPictures')"
+          >
+            <div>
+              <i nz-icon nzType="plus"></i>
+              <div style="margin-top: 8px">上传</div>
+            </div>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="exposedProblem"
+          >暴露问题</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <nz-textarea-count [nzMaxCharacterCount]="100">
+            <textarea
+              rows="2"
+              formControlName="exposedProblem"
+              nz-input
+            ></textarea>
+          </nz-textarea-count>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="measures"
+          >防范措施</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzExtra]="measuresTemp">
+          <nz-textarea-count [nzMaxCharacterCount]="100">
+            <textarea rows="2" formControlName="measures" nz-input></textarea>
+          </nz-textarea-count>
+          <ng-template #measuresTemp>
+            <div
+              [hidden]="
+                validateForm.get('measures').valid ||
+                validateForm.get('measures').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'measures')"
+                class="err-msg"
+              >
+                防范措施是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'measures')"
+                class="err-msg"
+              >
+                防范措施字符数不能大于100位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="department"
+          >防范责任部门</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzExtra]="departmentTemp">
+          <input nz-input formControlName="department" id="department" />
+          <ng-template #departmentTemp>
+            <div
+              [hidden]="
+                validateForm.get('department').valid ||
+                validateForm.get('department').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'department')"
+                class="err-msg"
+              >
+                防范责任部门是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'department')"
+                class="err-msg"
+              >
+                防范责任部门字符数不能大于32位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="personInCharge"
+          >防范责任人</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          nzErrorTip="请输入防范责任人"
+          [nzExtra]="personInChargeTemp"
+        >
+          <input
+            nz-input
+            formControlName="personInCharge"
+            id="personInCharge"
+          />
+          <ng-template #personInChargeTemp>
+            <div
+              [hidden]="
+                validateForm.get('personInCharge').valid ||
+                validateForm.get('personInCharge').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'personInCharge')"
+                class="err-msg"
+              >
+                防范责任人是必填项！
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'personInCharge')"
+                class="err-msg"
+              >
+                防范责任人字符数不能大于32位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item
+        *ngIf="openDialogType !== 'readOnly' && openDialogType !== 'rewrite'"
+      >
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="assignee"
+          >下一操作人</nz-form-label
+        >
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择下一操作人">
+          <nz-select
+            style="width: 100%"
+            [nzOptions]="personOption"
+            formControlName="assignee"
+            nzPlaceHolder="请选择"
+          >
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item
+        nz-row
+        class="register-area"
+        *ngIf="openDialogType !== 'readOnly' && openDialogType !== 'rewrite'"
+      >
+        <div nz-col [nzSpan]="10"></div>
+        <nz-form-control nz-col [nzSpan]="8">
+          <button
+            nz-button
+            [disabled]="!validateForm.valid"
+            [nzLoading]="isSubBtnLoading"
+          >
+            提交
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+    <!-- 插槽 用于添加审批流程 -->
+    <ng-content select="[name=reportApproval]"></ng-content>
+  </ng-template>
+</nz-modal>

@@ -1,0 +1,88 @@
+.tab-item {
+  .content {
+    .item {
+      margin: 0 0 10px 0;
+    }
+  }
+  .modal {
+    .title {
+      div {
+        text-align: center;
+        margin: 5px 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #1e9fff;
+        font-size: 19px;
+        font-weight: 700;
+      }
+    }
+  }
+  .ppt {
+    .ppt-img {
+      width: 1280px;
+      height: 720px;
+    }
+  }
+
+  .full {
+    .selected-label {
+      height: 40px;
+      margin-left: 20px;
+      .select-icon {
+        float: left;
+        font-size: 24px;
+        color: #009cdc;
+      }
+      .selected-content {
+        // nz-tag
+        .ant-tag {
+          height: 35px;
+          // width: 90px;
+          text-align: center;
+          line-height: 30px;
+          font-size: 12px;
+          border-radius: 30px;
+          color: #009cdc;
+          margin-left: 15px;
+        }
+      }
+    }
+    .filter-label {
+      margin-left: 25px;
+      position: relative;
+      .label-container {
+        .label-title {
+          height: 50px;
+          line-height: 50px;
+          color: #fff;
+          background: #009cdc;
+          margin: 0;
+          border-bottom-left-radius: 10px;
+          border-top-left-radius: 10px;
+          width: 80px;
+          text-align: center;
+        }
+        .label-content {
+          div:hover {
+            background-color: #009cdc;
+            color: #fff;
+          }
+        }
+        div {
+          display: inline-block;
+          margin: 0 10px;
+          font-size: 14px;
+          color: #a1a1a1;
+          height: 50px;
+          line-height: 50px;
+          cursor: pointer;
+        }
+
+        .label-more {
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+  }
+}

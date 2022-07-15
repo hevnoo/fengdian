@@ -1,0 +1,127 @@
+<div class="div-defect-container">
+  <div class="searchbar">
+    <span class="span-label">主题:</span>
+    <input
+      nz-input
+      placeholder="输入主题"
+      [(ngModel)]="searchParams.describe"
+      style="width: 150px"
+    />
+    <span class="span-label">创建时间:</span>
+    <nz-range-picker
+      nzMode="date"
+      style="width: 350px"
+      [(ngModel)]="searchParams.time"
+      [nzRanges]="ranges"
+    >
+    </nz-range-picker>
+    <span class="span-label">缺陷等级:</span>
+    <nz-select
+      nzAllowClear
+      [(ngModel)]="searchParams.level"
+      style="width: 130px; margin-right: 15px"
+      nzPlaceHolder="请选择"
+    >
+      <nz-option nzValue="0" nzLabel="一级"></nz-option>
+      <nz-option nzValue="1" nzLabel="二级"></nz-option>
+      <nz-option nzValue="2" nzLabel="三级"></nz-option>
+      <nz-option nzValue="3" nzLabel="四级"></nz-option>
+    </nz-select>
+    <button nz-button nzType="primary" (click)="searchDefectHandle()">
+      <i nz-icon nzType="search"></i>搜索
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      style="margin-left: 15px"
+      (click)="showAddDialogHandle('add', '')"
+    >
+      <i nz-icon nzType="plus"></i>新增
+    </button>
+  </div>
+  <div class="dialog-style">
+    <nz-table
+      class="gf-defect-table"
+      #basicTable
+      nzSize="small"
+      [nzData]="listOfData"
+      nzShowPagination
+      nzShowSizeChanger="true"
+      nzOuterBordered="true"
+      [nzShowTotal]="totalTemplate"
+      [nzTotal]="pageTotal"
+      [(nzPageIndex)]="pageIndex"
+      [nzFrontPagination]="false"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchDefectHandle()"
+      (nzPageSizeChange)="searchDefectHandle()"
+      nzTableLayout="fixed"
+    >
+      <thead>
+        <tr>
+          <th>缺陷编号</th>
+          <th>主题</th>
+          <th>缺陷所属设备</th>
+          <th>创建时间</th>
+          <th>发现人</th>
+          <th>缺陷等级</th>
+          <th>缺陷类型</th>
+          <th>流程状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.number }}</td>
+          <td style="width: 120px" nzEllipsis>{{ data.motif }}</td>
+          <td>{{ data.subEqu }}</td>
+          <td>
+            {{ data.historicProcessInstance.startTime | date: "yyyy-MM-dd" }}
+          </td>
+          <td>{{ data.quot }}</td>
+          <td>
+            {{
+              data.level === 0
+                ? "一级"
+                : data.level === 1
+                ? "二级"
+                : data.level === 2
+                ? "三级"
+                : "四级"
+            }}
+          </td>
+          <td>{{ data.type }}</td>
+          <td>
+            {{ data.historicProcessInstance.endTime ? "已完成" : "处理中" }}
+          </td>
+          <td>
+            <a (click)="showAddDialogHandle('readOnly', data.processInstanceId)"
+              >详情</a
+            >
+
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              (click)="
+                showApproveDialog(
+                  data.processInstanceId,
+                  data.historicProcessInstance.endTime ? true : false
+                )
+              "
+              >审批进度</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #totalTemplate let-total>总共 {{ pageTotal }} 条</ng-template>
+  </div>
+
+  <tb-detail-dialog
+    (handleCancelCb)="handleCancelCb()"
+    #childDialog
+  ></tb-detail-dialog>
+  <tb-approve-dialog
+    (handleCancelCb)="handleApproveCancelCb()"
+    #approveDialog
+  ></tb-approve-dialog>
+</div>

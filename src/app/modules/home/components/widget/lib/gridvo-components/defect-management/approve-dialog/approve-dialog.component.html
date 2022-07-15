@@ -1,0 +1,39 @@
+<nz-modal nzWrapClassName="dialog-fd" [(nzVisible)]="isApproveVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="null"
+  [nzMaskClosable]="false" [nzWidth]="'52%'" (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>
+    流程图
+  </ng-template>
+
+  <ng-template #modalContent>
+    <!-- <p class="p-approve-text">工单流程图</p> -->
+    <div class="div-outer-img">
+      <img class="img-bpmn" [src]="bpmnSrc" alt="流程图">
+    </div>
+    <nz-table #basicTable nzSize="small" [nzData]="listOfData" nzBordered [nzShowPagination]="false">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>开始时间</th>
+          <th>结束时间</th>
+          <th>负责人</th>
+          <th>处理结果</th>
+          <th>处理意见</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data;let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.startTime |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{ data.endTime |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{ userNameKey[data.assignee] }}</td>
+          <td>{{ data?.comments?.type || ""}}</td>
+          <td>{{ data?.comments?.message || ""}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+  </ng-template>
+</nz-modal>
+

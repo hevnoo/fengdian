@@ -1,0 +1,48 @@
+.main{
+    .h3-title{
+        text-align: center;
+        font-size: 4vw;
+        font-weight: 600;
+    }
+    .div-top10 {
+        .unit {
+            text-align: right;
+            font-size: 3vw;
+            margin-bottom: 0vw !important;
+        }
+        .item {
+            .sec-container {
+                margin-bottom: 0.5vw;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                .dev-name, .item-value {
+                    display: inline-block;
+                    width: 10%;
+                    text-align: center;
+                    padding: 0vw 1vw;
+                }
+                .top-num {
+                    width: 4vw;
+                    height: 4vw;
+                    text-align: center;
+                    border-radius: 100%;
+                    background-color: #40a9ff;
+                    color: #fff;
+                    line-height: 4vw;
+                }
+                .item-progress {
+                    width: 50%;
+                    height: 2vw;
+                    border: 0.2vw solid #ccc;
+                    .one-progress {
+                        width: 80%;
+                        height: 100%;
+                        background-color: #40a9ff;
+                    }
+                }
+            }
+
+        }
+    }
+}

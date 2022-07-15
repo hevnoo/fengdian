@@ -1,0 +1,82 @@
+/**
+ * @description: 文字颜色
+ * @param {*}
+ * @return {*}
+ */
+ 
+@mixin mixin-font-color($color1, $color2){
+  :host-context([data-theme-style="ljfengdian"]) & {
+    color: #{$color1};
+  }
+  :host-context([data-theme-style="testTheme"]) & {
+    color: #{$color2};
+  }
+}
+
+/**
+ * @description: 背景颜色
+ * @param {*}
+ * @return {*}
+ */
+ @mixin mixin-background-color($color1, $color2){
+  :host-context([data-theme-style="ljfengdian"]) & {
+    background-color: #{$color1};
+  }
+  :host-context([data-theme-style="testTheme"]) & {
+    background-color: #{$color2};
+  }
+}
+
+/**
+ * @description: 背景
+ * @param {*}
+ * @return {*}
+ */
+ @mixin mixin-background($color1, $color2){
+  :host-context([data-theme-style="ljfengdian"]) & {
+    background: #{$color1};
+  }
+  :host-context([data-theme-style="testTheme"]) & {
+    background: #{$color2};
+  }
+}
+
+/**
+ * @description: 边框
+ * @param {*}
+ * @return {*}
+ */
+ @mixin mixin-border($px1, $color1, $px2, $color2, $position: 'null'){
+  :host-context([data-theme-style="ljfengdian"]) & {
+    @if (#{$position} != 'null') {
+      border-#{$position}: #{$px1} solid #{$color1};
+    }
+    @else if (#{$position} == 'null') {
+      border: #{$px1} solid #{$color1};
+    }
+  }
+  :host-context([data-theme-style="testTheme"]) & {
+    @if (#{$position} != 'null') {
+      border-#{$position}: #{$px1} solid #{$color1};
+    }
+    @else if (#{$position} == 'null') {
+      border: #{$px1} solid #{$color1};
+    }
+  }
+}
+
+/**
+ * @description: 边框颜色
+ * @param {*}
+ * @return {*}
+ */
+ @mixin mixin-border-color($color1, $color2) {
+   :host-context([data-theme-style="ljfengdian"]) & {
+    border-color: #{$color1};
+  }
+  :host-context([data-theme-style="testTheme"]) & {
+    border-color: #{$color2};
+  }
+ }
+
+

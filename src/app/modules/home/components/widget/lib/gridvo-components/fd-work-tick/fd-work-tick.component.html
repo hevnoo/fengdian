@@ -1,0 +1,76 @@
+<div class="div-search-bar">
+  <label
+    >工作票号：<input
+      type="text"
+      nz-input
+      placeholder="工作票编号"
+      [(ngModel)]="searchTextOfId"
+  /></label>
+  <label
+    >工作负责人：<input
+      type="text"
+      nz-input
+      placeholder="工作负责人"
+      [(ngModel)]="searchTextOfPeople"
+  /></label>
+  <button nz-button nzType="primary" (click)="getWorkTickList(1)">搜索</button>
+</div>
+<nz-table
+  #basicTable
+  nzSize="small"
+  [nzData]="tableData"
+  class="gf-table"
+  nzShowPagination
+  nzShowSizeChanger="true"
+  [nzShowTotal]="totalTemplate"
+  nzBordered
+  [(nzPageIndex)]="pageIndex"
+  [(nzPageSize)]="pageSize"
+  [nzFrontPagination]="false"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  (nzPageIndexChange)="getWorkTickList()"
+  (nzPageSizeChange)="getWorkTickList(1)"
+>
+  <!-- (nzQueryParams)="onQueryParamsChange($event)" -->
+
+  <thead>
+    <tr>
+      <th
+        nzShowCheckbox
+        (nzCheckedChange)="selectAll($event)"
+        [nzChecked]="selectAllCheck"
+      ></th>
+      <th>序号</th>
+      <th>类型</th>
+      <th>工作票号</th>
+      <th>工作任务</th>
+      <th>工作负责人</th>
+      <th>许可时间</th>
+      <th>工作许可人</th>
+      <th>工作结束时间</th>
+      <th>工作票签发人</th>
+      <th>工作地点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data; let i = index">
+      <td
+        nzShowCheckbox
+        (nzCheckedChange)="selectSingle(data, data.sid, $event)"
+        [nzChecked]="setSelectId.has(data.id)"
+      ></td>
+      <td>{{ i + 1 }}</td>
+      <td>{{ data.stype }}</td>
+      <td>{{ data.ccode }}</td>
+      <td>{{ data.ccaption }}</td>
+      <td>{{ data.smaster }}</td>
+      <td>{{ data.tbegin | date: "yyyy-MM-dd HH:mm:ss" }}</td>
+      <td>{{ data.sallower }}</td>
+      <td>{{ data.trecord | date: "yyyy-MM-dd HH:mm:ss" }}</td>
+      <td>{{ data.ssigner }}</td>
+      <td>{{ data.splant }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+<ng-template #totalTemplate let-total>总共 {{ total }} 条</ng-template>

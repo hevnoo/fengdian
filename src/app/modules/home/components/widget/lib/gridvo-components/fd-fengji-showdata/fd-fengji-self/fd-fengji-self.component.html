@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="head">
+    <!-- <img src="assets/forfd/fd-fengji-title.png"> -->
+    <div class="headvalue">#{{ deviceName }}风机</div>
+    <div class="states" [style]="{ background: map.get(this.deviceStatus) }">
+      {{ statusvalue.get(this.deviceStatus) }}
+    </div>
+  </div>
+  <div class="imgpart">
+    <div [class]="item.dataKey.name" *ngFor="let item of deviceHeader">
+      {{ item.dataKey.label }}
+      <div class="imgpartdiv">{{ item.value }}{{ item.dataKey.units }}</div>
+    </div>
+    <div class="backgroundimg"></div>
+  </div>
+  <!-- 此处使用了ant 的描述表格，原样式是下方注释掉的 -->
+  <!-- <nz-descriptions nzBordered nzLayout="vertical">
+    <nz-descriptions-item
+      [nzTitle]="item.dataKey.label"
+      *ngFor="let item of deviceDetail"
+      >{{ item.value }}{{ item.dataKey.units }}</nz-descriptions-item
+    >
+  </nz-descriptions> -->
+  <div class="content">
+    <div
+      class="smallcontainer"
+      *ngFor="let item of deviceDetail; let key = index"
+    >
+      <div class="smallcontainertop">{{ item.dataKey.label }}</div>
+      <div class="smallcontainerbottom">
+        {{ item.value }}
+        <span [ngClass]="key < 3 ? 'small-unit' : ''">{{
+          item.dataKey.units
+        }}</span>
+      </div>
+      <div class="divider"></div>
+    </div>
+  </div>
+</div>

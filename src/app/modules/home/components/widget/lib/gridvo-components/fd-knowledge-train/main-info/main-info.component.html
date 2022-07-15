@@ -1,0 +1,62 @@
+<div class="knowgledge-info" nz-row>
+  <div class="title" nz-col nzSpan="24">培训数据</div>
+  <div class="knowgledge-char" nz-col nzSpan="8">
+    <div class="statistice-info">
+      <h4 class="title">统计信息</h4>
+      <div class="info">
+        <span>年度学时</span>
+        <span>累计学时</span>
+      </div>
+    </div>
+    <div class="char">
+      <div echarts [options]="option" class="line-chart"></div>
+    </div>
+  </div>
+  <div nz-col nzSpan="16" class="info-main">
+    <div class="top" nz-row>
+      <div nz-col nzSpan="24" class="title project">已结束项目数量（个）</div>
+      <div nz-col nzSpan="24">
+        <div class="top-main" nz-row>
+          <ng-container *ngFor="let project of this.projects">
+            <div
+              class="item"
+              nz-col
+              [nzXs]="project.marks['nzXs']"
+              [nzSm]="project.marks['nzSm']"
+              [nzMd]="project.marks['nzMd']"
+              [nzLg]="project.marks['nzLg']"
+              [nzXl]="project.marks['nzXl']"
+              [nzXXl]="project.marks['nzXXl']"
+            >
+              {{ project.name }}
+              <span>{{ project.value }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="middle" nz-row>
+      <div nz-col nzSpan="24" class="title project">已结束项目数量（个）</div>
+      <br />
+      <div nz-col nzSpan="24">
+        <div class="middle-main" nz-row>
+          <ng-container *ngFor="let project of this.projects">
+            <div
+              class="item"
+              nz-col
+              [nzXs]="project.marks['nzXs']"
+              [nzSm]="project.marks['nzSm']"
+              [nzMd]="project.marks['nzMd']"
+              [nzLg]="project.marks['nzLg']"
+              [nzXl]="project.marks['nzXl']"
+              [nzXXl]="project.marks['nzXXl']"
+            >
+              {{ project.name }}
+              <span>{{ project.value }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,279 @@
+<div class="my-work-order-container">
+  <div class="searchbar">
+    <span class="span-label">流程主题:</span>
+    <input
+      nz-input
+      placeholder="请输入流程主题"
+      [(ngModel)]="searchParams.motif"
+      style="width: 150px"
+    />
+    <span class="span-label">流程编号:</span>
+    <input
+      nz-input
+      placeholder="请输入流程编号"
+      [(ngModel)]="searchParams.processNum"
+      style="width: 150px"
+    />
+    <span class="span-label">流程名称:</span>
+    <nz-select
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="请选择流程名称"
+      [(ngModel)]="searchParams.processName"
+      style="width: 150px"
+    >
+      <nz-option nzLabel="故障分析" nzValue="故障分析"></nz-option>
+      <nz-option nzLabel="缺陷上报" nzValue="缺陷上报"></nz-option>
+    </nz-select>
+    <span class="span-label" *ngIf="pageModel === '2'">任务发起人:</span>
+    <nz-select
+      nzAllowClear
+      *ngIf="pageModel === '2'"
+      [(ngModel)]="paramsOfStartUserId"
+      style="width: 130px; margin-right: 15px"
+      [nzOptions]="personOption"
+      nzPlaceHolder="请选择"
+    >
+    </nz-select>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="getWorkOrderList(1)"
+      style="margin-left: 15px"
+    >
+      <i nz-icon nzType="search"></i>搜索
+    </button>
+  </div>
+
+  <!-- 表格 -->
+  <div class="dialog-style">
+    <nz-table
+      #basicTable
+      nzSize="small"
+      [nzData]="listOfData"
+      nzShowPagination
+      nzShowSizeChanger="true"
+      [nzShowTotal]="totalTemplate"
+      [nzTotal]="pageTotal"
+      [(nzPageIndex)]="pageIndex"
+      [nzFrontPagination]="false"
+      [(nzPageSize)]="searchParams.pageSize"
+      (nzPageIndexChange)="getWorkOrderList()"
+      (nzPageSizeChange)="getWorkOrderList(1)"
+      nzTableLayout="fixed"
+    >
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>流程主题</th>
+          <th>流程编号</th>
+          <th>流程名称</th>
+          <th>发起人</th>
+          <th>创建时间</th>
+          <th>当前环节</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td nzEllipsis>
+            <span nz-tooltip [nzTooltipTitle]="data.motif">{{
+              data.motif
+            }}</span>
+          </td>
+          <td>{{ data.processNumber }}</td>
+          <td>{{ data.processInstanceDO.name }}</td>
+          <td>{{ data.startUserName }}</td>
+          <td>
+            {{
+              (pageModel == "0"
+                ? data.createTime
+                : data.processInstanceDO.startTime
+              ) | date: "yyyy-MM-dd HH:mm:ss"
+            }}
+          </td>
+          <td>{{ data.name || "已结束" }}</td>
+          <td>
+            <a (click)="showFlowDiaHandle(true, data)" *ngIf="pageModel === '0'"
+              >办理</a
+            >
+            <nz-divider
+              nzType="vertical"
+              *ngIf="pageModel === '0'"
+            ></nz-divider>
+            <a (click)="showFlowDiaHandle(false, data)">详情</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              (click)="
+                showApproveDialog(
+                  data.processInstanceDO,
+                  data.processInstanceDO.endTime ? true : false
+                )
+              "
+              >审批进度</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #totalTemplate let-total>总共 {{ pageTotal }} 条</ng-template>
+  </div>
+  <!-- 缺陷管理审批弹窗 -->
+  <tb-detail-dialog
+    (handleCancelCb)="handleCancelCb('approvalFormObj')"
+    #childDialog
+  >
+    <div name="approval" *ngIf="isApply">
+      <nz-divider nzDashed="true"></nz-divider>
+      <form
+        nz-form
+        style="width: 85%"
+        [formGroup]="approvalFormObj"
+        (ngSubmit)="submitApproveForm(approvalFormObj.value)"
+      >
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="4">
+            <span style="font-weight: bolder">审批流程</span>
+          </div>
+          <div nz-col [nzSpan]="10" *ngIf="isNeedDefectApproved">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="请选择审批意见">
+                <nz-select
+                  [nzOptions]="commonOpinionTextOption"
+                  formControlName="approved"
+                  nzPlaceHolder="是否同意"
+                >
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="20" [nzOffset]="4">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="请输入意见">
+                <textarea
+                  formControlName="message"
+                  nz-input
+                  rows="2"
+                  placeholder="请输入意见"
+                ></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div
+          nz-row
+          [nzGutter]="[24, 8]"
+          nzJustify="space-between"
+          *ngIf="
+            (isNeedNextPeople === 'usertask1' &&
+              approvalFormObj.value.approved) ||
+            isNeedNextPeople === 'usertask2'
+          "
+        >
+          <div nz-col [nzSpan]="8" [nzOffset]="4">
+            <nz-form-label nzRequired nzFor="nextPerson"
+              >指定下一步操作人</nz-form-label
+            >
+          </div>
+          <div nz-col [nzSpan]="12">
+            <nz-form-control nzErrorTip="请选择下一步操作人">
+              <nz-select
+                style="width: 100%"
+                [nzOptions]="personOption"
+                formControlName="nextPerson"
+                nzPlaceHolder="请选择"
+              ></nz-select>
+            </nz-form-control>
+          </div>
+        </div>
+        <nz-form-item nz-row>
+          <nz-form-control [nzSpan]="4" [nzOffset]="12">
+            <button
+              style="margin-top: 15px"
+              nz-button
+              nzType="primary"
+              [nzLoading]="isSubBtnLoading"
+            >
+              确认提交
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </tb-detail-dialog>
+
+  <!-- 故障分析报告审批弹窗 -->
+  <tb-add-report #addReportDialog (handleCancelCb)="handleApproveCancelCb()">
+    <div name="reportApproval" *ngIf="isApply">
+      <form
+        nz-form
+        [formGroup]="reportFormObj"
+        (ngSubmit)="submitReportForm(reportFormObj.value)"
+      >
+        <nz-form-item *ngIf="isNeedApproved">
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="approved"
+            >审批意见</nz-form-label
+          >
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
+            <nz-select
+              [nzOptions]="commonOpinionTextOption"
+              formControlName="approved"
+              nzPlaceHolder="是否同意"
+            >
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="message"
+            >意见</nz-form-label
+          >
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入意见">
+            <textarea
+              formControlName="message"
+              nz-input
+              rows="2"
+              placeholder="请输入意见"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item
+          *ngIf="reportFormObj.value.approved && isNeedApprovedNextPeople"
+        >
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nextPerson"
+            >下一操作人</nz-form-label
+          >
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
+            <nz-select
+              style="width: 100%"
+              [nzOptions]="personOption"
+              formControlName="nextPerson"
+              nzPlaceHolder="请选择"
+            >
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row>
+          <div nz-col [nzSpan]="10"></div>
+          <nz-form-control [nzSpan]="4" [nzOffset]="12">
+            <button
+              style="margin-top: 15px"
+              nz-button
+              nzType="primary"
+              [nzLoading]="isSubBtnLoading"
+            >
+              确认提交
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </tb-add-report>
+
+  <tb-approve-dialog
+    (handleCancelCb)="handleApproveCancelCb()"
+    #approveDialog
+  ></tb-approve-dialog>
+</div>

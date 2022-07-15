@@ -1,0 +1,165 @@
+<div class="tab-item">
+  <div class="modal" [hidden]="displayConfig.modal">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      (click)="controlDisplay('modal')"
+    >
+      <i nz-icon nzType="left"></i>返回
+    </button>
+    <div class="title" nz-row nzAlign="middle" nzJustify="center">
+      <div nzSpan="12" nz-col>{{ modalData.title }}</div>
+    </div>
+
+    <div class="video">
+      <video
+        #video
+        [src]="modalData.videoUrl"
+        width="1282"
+        height="690"
+        controls="controls"
+        autoplay
+      >
+        视频因格式不支持或者服务器或网络的问题无法加载。
+      </video>
+    </div>
+  </div>
+  <button
+    nz-button
+    style="margin-bottom: 15px"
+    nzType="primary"
+    nzShape="round"
+    (click)="controlDisplay('full')"
+  >
+    <i nz-icon nzType="left"></i>返回
+  </button>
+
+  <div class="full" [hidden]="displayConfig.full">
+    <div class="selected-label">
+      <div class="select-icon">
+        <i
+          nz-icon
+          nzType="down"
+          nzTheme="outline"
+          [nzRotate]="rotate"
+          (click)="selectSwitch()"
+        ></i>
+      </div>
+      <div class="selected-content">
+        <nz-tag
+          *ngFor="let tag of tags; let i = index"
+          nzMode="closeable"
+          (nzOnClose)="onClose(i)"
+          >类型: {{ tags[i] }}</nz-tag
+        >
+      </div>
+    </div>
+
+    <div class="filter-label" *ngIf="rotate == 0" nz-row>
+      <div class="label-container">
+        <div class="label-title" nz-col nzFlex="80px">类型</div>
+        <div
+          class="label-content"
+          nz-col
+          nzFlex="auto"
+          *ngFor="let Item of typePickList; let i = index"
+        >
+          <div (click)="selectType(i)">{{ Item }}</div>
+        </div>
+      </div>
+    </div>
+
+    <nz-tabset>
+      <nz-tab [nzTitle]="fullData.allTitle">
+        <tb-image-info
+          (moreEmiter)="moreSwitchType($event)"
+          [moreImages]="fullData.allData"
+        ></tb-image-info>
+      </nz-tab>
+      <nz-tab
+        [nzTitle]="fullData.technologyTitle"
+        (nzClick)="TechnicalTraining()"
+      >
+        <tb-image-info
+          (moreEmiter)="moreSwitchType($event)"
+          [moreImages]="fullData.technologyData"
+        ></tb-image-info
+      ></nz-tab>
+      <nz-tab [nzTitle]="fullData.safetyTitle" (nzClick)="SafetyTraining()">
+        <tb-image-info
+          (moreEmiter)="moreSwitchType($event)"
+          [moreImages]="fullData.safetyData"
+        ></tb-image-info>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+  <div class="vr" *ngIf="!displayConfig.vr">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      (click)="controlDisplay('vr')"
+    >
+      <i nz-icon nzType="left"></i>返回
+    </button>
+    <iframe
+      style="margin: 10px"
+      [src]="modalData.vrUrl"
+      width="100%"
+      height="850px"
+    ></iframe>
+  </div>
+  <div class="question" *ngIf="!displayConfig.questions">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      (click)="controlDisplay('questions')"
+    >
+      <i nz-icon nzType="left"></i>返回
+    </button>
+
+    <div>
+      <img
+        nz-image
+        [width]="1282"
+        height="100%"
+        [nzSrc]="modalData.questionLibrary"
+        alt="请尝试刷新"
+        [nzDisablePreview]="true"
+      />
+    </div>
+  </div>
+  <div class="ppt" *ngIf="!displayConfig.ppt">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      (click)="controlDisplay('ppt')"
+    >
+      <i nz-icon nzType="left"></i>返回
+    </button>
+    <div class="ppt-img" *ngFor="let imgItem of modalData.ppt">
+      <img
+        nz-image
+        width="100%"
+        height="100%"
+        [nzSrc]="imgItem.url"
+        alt="请尝试刷新"
+        [nzDisablePreview]="true"
+      />
+      <span>{{ imgItem.name }}</span>
+    </div>
+  </div>
+  <div class="content" [hidden]="displayConfig.content">
+    <div class="item" *ngFor="let item of imageData">
+      <tb-image-info
+        [title]="item.title"
+        (imageEmiter)="switchImageType($event)"
+        [imgObjs]="item.data"
+      >
+      </tb-image-info>
+    </div>
+  </div>
+</div>

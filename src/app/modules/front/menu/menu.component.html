@@ -1,0 +1,7 @@
+<ng-container>
+  <div class="ljfengdian" [class]="isCollapsed ? 'menu-open' : 'menu-hide'">
+    <ul nz-menu nzMode="inline" nzTheme="light" [nzInlineCollapsed]="!isCollapsed" class="menu-list">
+      <tb-menu-item [menu]="menu" [isCollapsed]="isCollapsed"></tb-menu-item>
+    </ul>
+  </div>
+</ng-container>

@@ -1,0 +1,47 @@
+<a nz-dropdown [nzDropdownMenu]="menu" class="dropdown">
+  <span>
+    <i class="icon" [class.is-collapsed]="!isCollapsed" nz-icon nzType="user" nzTheme="outline"></i>
+    <span *ngIf="isCollapsed">{{ FirstAndLastName }}</span>
+  </span>
+  <i *ngIf="isCollapsed" nz-icon nzType="down"></i>
+</a>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu nzSelectable style="width: 100px; margin-left: 50px;">
+    <li nz-menu-item (click)="logout()">注销</li>
+    <!-- <li nz-menu-item>账号管理</li> -->
+    <li nz-menu-item (click)="resetPassword()">修改密码</li>
+    <li nz-menu-item (click)="aboutUs()">关于</li>
+  </ul>
+</nz-dropdown-menu>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="修改密码" (nzOnCancel)="handleCancel()" nzMask="false" (nzOnOk)="handleOk()" #dragModal [dragModal]="dragModal">
+  <ng-container *nzModalContent>
+    <div nz-row [nzGutter]="24" nzAlign="middle">
+      <div nz-col [nzSpan]="7"><label for="currentPassword">当前密码：</label></div>
+      <div nz-col [nzSpan]="17"><input nz-input type="password" placeholder="当前密码"
+          [(ngModel)]="changePassword.currentPassword" id="currentPassword" /></div>
+    </div>
+    <div nz-row [nzGutter]="24" nzAlign="middle" style="margin: 10px 0">
+      <div nz-col [nzSpan]="7"><label for="newPassword">新密码：</label></div>
+      <div nz-col [nzSpan]="17"><input nz-input type="password" placeholder="新密码"
+          [(ngModel)]="changePassword.newPassword" id="newPassword" /></div>
+    </div>
+    <div nz-row [nzGutter]="24" nzAlign="middle">
+      <div nz-col [nzSpan]="7"><label for="newPassword2">再次输入新密码：</label></div>
+      <div nz-col [nzSpan]="17"><input nz-input type="password" placeholder="再次输入新密码"
+          [(ngModel)]="changePassword.newPassword2" id="newPassword2" /></div>
+    </div>
+  </ng-container>
+</nz-modal>
+
+<nz-modal nzWidth="840px" nzTitle="关于光伏场站智能化平台" nzWrapClassName="about-modal dialog-style"
+  [nzBodyStyle]="{ textAlign: 'center' }" [(nzVisible)]="aboutUsVisible" [nzFooter]="null"
+  (nzOnCancel)="aboutUsVisible = false">
+  <ng-container *nzModalContent>
+    <h4 class="title">永安旺丰光伏场站智能化平台V1.0</h4>
+    <img class="img" src="assets/gridvo/about-icon.png">
+    <div class="copyright">Copyright © 2021-2022 POWERCHINA Fuijian Electric Power Engineering Co.,Ltd.ALL
+      Reserved.中国电建集团福建省电力勘测设计院有限公司 版权所有 格物科技公司 联合开发</div>
+  </ng-container>
+</nz-modal>

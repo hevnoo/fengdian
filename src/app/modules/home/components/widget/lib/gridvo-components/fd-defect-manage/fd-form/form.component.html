@@ -1,0 +1,24 @@
+<div class="fd-form">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <div nz-row [nzGutter]="24">
+      <div nz-col *ngFor="let item of formData" [nzSpan]="item.isSingleRow?24:12">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="item.isRequire" [nzSpan]="item.isSingleRow?3:6">{{item.name}}</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="item.errorTip" [nzSpan]="item.isSingleRow?18:12">
+            <input nz-input formControlName="{{item.userName}}" [placeholder]="item.placeholder"
+              *ngIf="!item.isTextArea&&!item.isRadio&&item.select.length<=0&&!item.isSelectDate" />
+            <textarea nz-input formControlName="{{item.userName}}" [placeholder]="item.placeholder"
+              *ngIf="item.isTextArea"></textarea>
+            <nz-switch formControlName="{{item.userName}}" *ngIf="item.isRadio"></nz-switch>
+            <nz-select formControlName="{{item.userName}}" *ngIf="item.select.length>0">
+              <nz-option *ngFor="let data of item.select" [nzLabel]="data.value" [nzValue]="data.value"></nz-option>
+            </nz-select>
+            <nz-date-picker [nzRenderExtraFooter]="footerRender" *ngIf="item.isSelectDate"
+              formControlName="{{item.userName}}" [nzPlaceHolder]="item.olaceholder"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <button nz-button *ngFor="let item of buttonArr" [nzType]="item.type">{{item.value}}</button>
+  </form>
+</div>

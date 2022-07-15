@@ -1,0 +1,49 @@
+<header class="header-container">
+  <h3>
+    大屏数据修改
+    <button nz-button (click)="handleSave()" nzType="primary">保存</button>
+  </h3>
+</header>
+<div class="div-container">
+  <div class="div-switch">
+    <section class="sec-title">设置开关</section>
+    <select class="select-off" [(ngModel)]="isUse">
+      <option value="true">开启</option>
+      <option value="false">关闭</option>
+    </select>
+  </div>
+  <div class="div-update" *ngFor="let item of keysArr">
+    <section class="sec-title">{{ item.label }}</section>
+    <section class="sec-data">
+      <span>当前值</span>
+      <input
+        class="sec-input"
+        type="text"
+        disabled
+        [(ngModel)]="item.currentVal"
+        #cur
+      />
+      <span>{{ item.unit }}</span>
+    </section>
+    <section class="sec-data">
+      <span>偏差值</span>
+      <input
+        class="sec-input"
+        type="text"
+        [(ngModel)]="item[item.dataKey]"
+        #sec
+      />
+      <span>{{ item.unit }}</span>
+    </section>
+    <section class="sec-data">
+      <span>修改后的值</span>
+      <input
+        class="sec-input"
+        type="text"
+        disabled
+        [value]="(+cur.value + +sec.value).toFixed(2)"
+      />
+      <span>{{ item.unit }}</span>
+    </section>
+  </div>
+</div>

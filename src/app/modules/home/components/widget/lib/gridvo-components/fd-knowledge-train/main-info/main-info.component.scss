@@ -1,0 +1,70 @@
+.knowgledge-info {
+  background-color: #fff;
+  height: 100%;
+  .title {
+    margin: 0 0 10px 0;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 20px;
+    color: #b074e6;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .knowgledge-char {
+    border-right: 1px solid #ccc;
+    .statistice-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 10px;
+      height: 40px;
+      .title {
+        padding-left: 10px;
+        font-weight: bold;
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: #2c3e50;
+      }
+      .info {
+        display: flex;
+        span {
+          font-size: 12px;
+          margin-right: 10px;
+          cursor: pointer;
+          color: grey;
+          &:first-child {
+            color: rgb(176, 116, 230);
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+    .char {
+      height: 100%;
+      .line-chart {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .info-main {
+    .project {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .middle-main,
+    .top-main {
+      padding-left: 20px;
+      .item {
+        color: #2c3e50;
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        font-size: 17px;
+        span {
+          color: #b074e6;
+        }
+      }
+    }
+  }
+}

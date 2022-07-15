@@ -1,0 +1,37 @@
+<nz-table #tableData [nzData]="clickButton==='搜索'||searchData.length>0?searchData:listOfData" nzTableLayout="fixed"
+    [nzPageSize]="pageSize" [nzShowSizeChanger]="true" nzShowQuickJumper [nzPageSizeOptions]="[5,10,15,20]"
+    [nzShowTotal]="totalTemplate" style="margin-top: 10px;">
+    <ng-template #totalTemplate let-total>共
+        {{clickButton==='搜索'||searchData.length>0?searchData.length:listOfData.length }} 条</ng-template>
+    <thead>
+        <tr>
+            <!-- <th (click)="selectAllFun()" nzWidth="40px"><i nz-icon nzType="border" nzTheme="outline"
+                    *ngIf="!selectAll"></i><i nz-icon nzType="check-square" nzTheme="outline" *ngIf="selectAll"></i>
+            </th> -->
+            <th nzShowCheckbox (nzCheckedChange)="checkedChange($event)" [(nzChecked)]="selectAll"></th>
+            <th nzWidth="70px">序号</th>
+            <th *ngFor="let column of listOfColumn">
+                {{ column.title }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of tableData.data;let i = index">
+            <!-- <td (click)="selectSingle(data.id)"><i nz-icon nzType="border" nzTheme="outline" *ngIf="!data.select"></i><i
+                    nz-icon nzType="check-square" nzTheme="outline" *ngIf="data.select"></i></td> -->
+            <td nzShowCheckbox (nzCheckedChange)="singleCheckedChange(data.id,$event)"
+                [nzChecked]="setOfCheckedId.has(data.id)"></td>
+            <td>{{i}}</td>
+            <!-- <ng-container *ngFor="let singleData of getKeys(data);let indexOfData = index">
+                <td *ngIf="indexOfData>0&&indexOfData<=6">{{singleData}}</td>
+            </ng-container> -->
+            <td>{{ data.name }}</td>
+            <td>{{ data.code }}</td>
+            <td>{{ data.type }}</td>
+            <td>{{ data.fullName }}</td>
+            <td>{{ data.address }}</td>
+            <td>{{ data.status }}</td>
+            <td><a>二维码</a><a>属性及履历</a></td>
+        </tr>
+    </tbody>
+</nz-table>

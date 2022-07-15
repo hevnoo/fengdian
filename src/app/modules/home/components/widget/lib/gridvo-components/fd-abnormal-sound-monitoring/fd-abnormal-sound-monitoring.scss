@@ -1,0 +1,108 @@
+.abnormal-sound-monitoring {
+  .sound-monitoring-head {
+    margin-bottom: 15px;
+  }
+  height: 36px;
+  border-bottom: 1px solid #8c8c8c;
+  .head-right-select {
+    display: inline-block;
+    nz-select {
+      margin: 0 8px 10px 0;
+      height: 36px;
+      width: 120px;
+    }
+  }
+  .sound-monitoring-content {
+    height: 800px;
+    background: url(../../../../../../../../assets/gridvo/abnormalSound-BP.png)
+      no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    .content-card {
+      background: pink;
+      height: 480px;
+      width: 390px;
+      background: pink;
+      position: absolute;
+      top: 6%;
+      left: 3%;
+
+      .roundProgressBar {
+        position: absolute;
+        left: 15%;
+      }
+      .progressBarHeader {
+        position: absolute;
+        left: 56%;
+        top: 20%;
+        color: #fff;
+        width: 60px;
+        height: 20px;
+        text-align: center;
+      }
+      .textWarning {
+        text-align: center;
+        span {
+          display: inline-block;
+          text-align: center;
+          line-height: 20px;
+          height: 22px;
+          border-radius: 5px;
+          margin: 0 5px;
+          padding: 0 5px;
+          color: #ff4c4f;
+          background: #ffe2e2;
+          border: 1px solid #ff4c4f;
+        }
+      }
+      .textNormal {
+        text-align: center;
+        span {
+          display: inline-block;
+          text-align: center;
+          line-height: 20px;
+          height: 22px;
+          border-radius: 5px;
+          margin: 0 5px;
+          padding: 0 5px;
+          color: #53c41a;
+          background: #dbf3d1;
+          border: 1px solid #53c41a;
+        }
+      }
+      .progressBar {
+        font-size: 14px;
+        nz-progress {
+          width: 260px;
+          display: inline-block;
+          margin-left: 2px;
+        }
+      }
+      .historicalData {
+        position: absolute;
+        bottom: 4%;
+        color: #33a8d5;
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .warnIcon {
+        display: inline-block;
+        float: right;
+        margin: 10px -2px;
+        width: 50px;
+        height: 50px;
+        background: url(../../../../../../../../assets/gridvo/fanIcon-warn.png);
+        background-size: 100% 100%;
+      }
+      .normalIcon {
+        display: inline-block;
+        float: right;
+        margin: 10px -2px;
+        width: 50px;
+        height: 50px;
+        background: url(../../../../../../../../assets/gridvo/fanIcon-normal.png);
+        background-size: 100% 100%;
+      }
+    }
+  }
+}

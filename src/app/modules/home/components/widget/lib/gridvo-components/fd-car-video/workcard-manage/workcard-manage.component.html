@@ -1,0 +1,35 @@
+<nz-modal nzWrapClassName="model-fence" 
+  [nzMaskClosable]="false" 
+  [nzFooter]="null" 
+  [nzWidth]="'40%'"
+  [(nzVisible)]="isWorkCardManageVisible" 
+  nzTitle="工卡管理" 
+  (nzOnCancel)="handleFenceDiaCancel()" 
+  (nzAfterOpen)="afterOpen()">
+  <ng-container *nzModalContent>
+    <div class="div-searchbar">
+      <input nz-input placeholder="请输入卡号" [(ngModel)]="Searchvalue" />
+      <button nz-button nzType="primary" nzShape="round" (click)="handleSearch()"><i nz-icon
+          nzType="search"></i>搜索</button>
+    </div>
+    <!-- 表格 -->
+    <nz-table #basicTable nzShowPagination [nzData]="tableData"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+      <thead>
+        <tr>
+          <!-- <th></th> -->
+          <th>序号</th>
+          <th>卡号</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data;let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{ data.cardcode }}</td>
+          <td>{{ data.notes }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>

@@ -1,0 +1,2 @@
+<tb-group-select-block #groupSelectBlock (checkedChange)="timeSelectChange($event)" [dataList]="selectBlockData" [isSingleCheck]="true"></tb-group-select-block>
+<nz-range-picker style="margin-left: 10px;" nzFormat="yyyy/MM/dd" [(ngModel)]="rangeDate" (ngModelChange)="handleRangeDateChange($event)"></nz-range-picker>

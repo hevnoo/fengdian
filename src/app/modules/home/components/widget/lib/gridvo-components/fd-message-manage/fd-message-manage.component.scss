@@ -1,0 +1,46 @@
+:host{
+    .div-search-bar{
+        margin: 0px 30px 10px 0px;
+        display: flex;
+        justify-content: flex-end;
+        label{
+            display: flex;
+            width: 234px;
+            height: 42px;
+            line-height: 33px;
+        }
+        input{
+            width: 170px;
+            height: 32px;
+        }
+        button.ant-btn.ant-btn-primary{
+            margin-left: 10px;
+            height: 32px;
+            text-align: center;
+            line-height: 10px;
+        }
+      .ant-table{
+        background: none;
+      }
+    }
+    a{
+        i{
+            margin-right: 4px;
+        }
+    }
+    .head-button{
+        padding: 10px;
+        button{
+            border-radius: 14px;
+            color: rgb(24,144,255);
+            border: 1px solid rgb(24,144,255);
+            background: white;
+            margin-left: 10px;
+        }
+        .click-button{
+            color: white;
+            background:rgb(0,156,220) ;
+            border: 0;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+.tab-el {
+  border-radius: 20px;
+  ::ng-deep {
+    .ant-tabs-top > .ant-tabs-nav::before {
+      border: none;
+    }
+    .ant-tabs > .ant-tabs-nav {
+      margin: 0;
+      padding: 0 0 10px 0;
+    }
+    .ant-tabs-nav-list {
+      justify-content: center;
+      width: 100%;
+      padding: 0 20px 0 20px;
+      font-size: 18px;
+      font-weight: 700;
+      color: grey;
+      .ant-tabs-tab {
+        margin: 0 60px !important;
+        &.ant-tabs-tab-active {
+          .ant-tabs-tab-btn {
+            color: #b074e6;
+          }
+        }
+      }
+      .ant-tabs-ink-bar-animated {
+        background-color: #b074e6;
+      }
+    }
+    .ant-tabs-content-holder {
+      .konwgled-item {
+        margin-top: 10px;
+      }
+    }
+    .ant-tabs-tabpane {
+      background-color: #f4f4f4;
+    }
+    .ant-tabs-tab-btn {
+      font-size: 18px;
+    }
+  }
+}
+.additional {
+  display: flex;
+  padding-top: 24px;
+  .input-ref {
+    width: 180px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 20px;
+  }
+}

@@ -1,0 +1,96 @@
+.gf-date-picker {
+  display: flex;
+  width: 98.5%;
+  height: 100%;
+  margin: 10px 30px 10px 10px;
+  align-items: center;
+
+  ::ng-deep {
+    .ng-valid {
+      display: flex;
+      width: 100%;
+    }
+    .ant-select-selector {
+      height: 28px;
+      border-radius: 20px;
+    }
+    .ant-select-single .ant-select-selector .ant-select-selection-item {
+      line-height: 28px;
+    }
+    .ant-select-arrow,
+    .ant-select-clear {
+      right: 42px;
+    }
+    .ant-select-arrow {
+      right: 42px;
+    }
+    .ant-picker-suffix {
+      position: absolute;
+      left: -5px;
+    }
+    .ant-picker-input {
+      padding-left: 20px;
+    }
+    .ant-select-selection-item {
+      color: #009cdc;
+    }
+  }
+
+  .gf-select {
+    flex: 2;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    box-sizing: border-box;
+    .gf-select-type {
+      width: 250px;
+    }
+    .gf-select-date {
+      width: 200px;
+    }
+    .gf-select-type,
+    .gf-select-wind-turbine,
+    .gf-select-date {
+      height: 28px;
+      line-height: 28px;
+      border-radius: 20px;
+      box-sizing: border-box;
+    }
+    .gf-select-type,
+    .gf-select-wind-turbine {
+      padding: 0 20px;
+    }
+  }
+
+  .fd-show-info {
+    display: flex;
+    align-items: center;
+    margin-right: 167px;
+    height: 100%;
+    line-height: 100%;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 700;
+    color: #2c3e50;
+    box-sizing: border-box;
+  }
+
+  .gf-right {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-around;
+    .gf-date-select-items {
+      height: 100%;
+      line-height: 100%;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 700;
+      color: #2c3e50;
+      box-sizing: border-box;
+    }
+    .active {
+      color: #009cdc;
+    }
+  }
+}

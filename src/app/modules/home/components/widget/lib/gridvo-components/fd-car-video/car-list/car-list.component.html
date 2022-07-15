@@ -1,0 +1,35 @@
+<p class="p-title"><i nz-icon nzType="credit-card" nzTheme="outline"></i>车辆列表</p>
+
+<nz-input-group [nzSuffix]="inputClearTpl" style="margin: 10px 0 20px;">
+  <input type="text" nz-input [(ngModel)]="Searchvalue" placeholder="车辆搜索" class="serchInput" (ngModelChange)="searchChange($event)" />
+</nz-input-group>
+<ng-template #inputClearTpl>
+  <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="Searchvalue"
+    (click)="Searchvalue = null;searchChange('')"></i>
+</ng-template>
+
+<!-- 表格 -->
+<nz-table class="listTable" 
+  #basicTable 
+  nzShowPagination 
+  [nzPageSize]="7"
+  [nzData]="tableData" 
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+  <thead>
+    <tr>
+      <th></th>
+      <th>车牌</th>
+      <th>单位</th>
+      <th>状态</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data;let i = index">
+      <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.label }}</td>
+      <td>{{ data?.orientator?.active }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+

@@ -1,0 +1,30 @@
+.devProperties{
+    padding-left: 30px;
+    ::ng-deep {
+        .ant-col-6 {
+            text-align: right;
+            padding-right: 7px;
+            font-size: 14px;
+        }
+        .add{
+            color: #009cdc;
+            margin-left: 177px;
+            font-size: 18px;
+            border-bottom: 1px solid #000;
+            width: 74px;
+            margin-bottom: 10px;
+        }
+        i.anticon.anticon-minus {
+            position: absolute;
+            top: 11px;
+            right: -22px;
+        }
+        .ant-form-item-control-input-content {
+            position: relative;
+        }
+        tb-value-input form {
+            width: 550px;
+            margin: 0 auto;
+        }
+    }
+}

@@ -1,0 +1,68 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="8">
+    <input nz-input placeholder="名称" [(ngModel)]="entityName" />
+  </div>
+  <div nz-col [nzSpan]="4">
+  </div>
+  <div nz-col [nzSpan]="12">
+    <tb-color-input fxFlex required label="实体颜色" icon="format_color_fill" openOnInput
+      [(ngModel)]="entityColor">
+    </tb-color-input>
+  </div>
+</div>
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="6">
+    <button nz-button nzType="default" nzSize="small" (click)="createBox()">绘制</button>
+  </div>
+  <div nz-col [nzSpan]="6">
+  </div>
+  <div nz-col [nzSpan]="6">
+  </div>
+  <div nz-col [nzSpan]="6">
+  </div>
+</div>
+<fieldset class="init-settings-wraper">
+  <legend style="display: inline;font-size: 16px;width: auto;">当前实体列表</legend>
+  <div class="list">
+    <button nz-button nzType="default" *ngFor="let item of entityListString" (click)="handleEntityList(item)">{{ item }}</button>
+  </div>
+</fieldset>
+
+<nz-modal [(nzVisible)]="isEntityInfo" nzTitle="当前实体详情" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        修改名称：
+      </div>
+      <div nz-col nzSpan="18">
+        <input nz-input placeholder="请输入名称" [(ngModel)]="modifyName" required />
+      </div>
+    </div>
+    <nz-divider nzOrientation="left"></nz-divider>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        修改颜色：
+      </div>
+      <div nz-col nzSpan="18">
+        <tb-color-input fxFlex required label="实体颜色" icon="format_color_fill" openOnInput [(ngModel)]="modifyColor">
+        </tb-color-input>
+      </div>
+    </div>
+  </ng-container>
+  <div *nzModalFooter>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+      </div>
+      <div nz-col nzSpan="16">
+        <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+        <button nz-button nzType="default" (click)="handleDelete()">删除</button>
+        <button ngxClipboard 
+          (cbOnSuccess)="positionsCopied()" 
+          [cbContent]="positionsStr" 
+          nz-button 
+          nzType="default">复制点位信息</button>
+        <button nz-button nzType="primary" (click)="handleOk()">确定</button>
+      </div>
+    </div>
+  </div>
+</nz-modal>

@@ -1,0 +1,39 @@
+<div class="car-video-container">
+  <div class="left-menu" [hidden]="!isLeftMenuShow">
+    <nz-tabset [nzSelectedIndex]="0">
+      <nz-tab nzTitle="人员">
+        <tb-person-list #personList (staffOfCheckedId)="staffOfCheckedId($event)"></tb-person-list>
+      </nz-tab>
+      <nz-tab nzTitle="车辆">
+        <tb-car-list #CarListComponent (carOfCheckedId)="carOfCheckedId($event)"></tb-car-list>
+      </nz-tab>
+      <nz-tab nzTitle="电子围栏">
+        <tb-fence-list></tb-fence-list>
+      </nz-tab>
+      <nz-tab nzTitle="告警">
+        <ng-template nz-tab>
+          <tb-alarm-list></tb-alarm-list>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="轨迹">
+        <tb-track (getTrack)="getTrack($event)" [carList]="carList" [staffList]="staffList"></tb-track>
+      </nz-tab>
+      <nz-tab nzTitle="设置">
+        <nz-tree class="tree-set" #nzTreeComponent nzExpandAll [nzData]="nodes" (nzClick)="handleTreeClick($event)">
+        </nz-tree>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+  <!-- 缩放左侧菜单的按钮 -->
+  <i [class]="isLeftMenuShow ? 'close-menu' :'show-menu'" nz-icon [nzType]="isLeftMenuShow ? 'left':'right'"
+    nzTheme="outline" (click)="toggleLeftMenu()"></i>
+  <!-- 右侧地图 -->
+  <div [class]="isLeftMenuShow ? 'right-map':'right-map-active'">
+    <tb-leaflet-map #LeafletMap></tb-leaflet-map>
+  </div>
+
+  <tb-fence-manage (mapRegionEmiter)="mapRegion($event)"></tb-fence-manage>
+  <tb-person-manage #personManage></tb-person-manage>
+  <tb-workcard-manage></tb-workcard-manage>
+  <tb-car-manage></tb-car-manage>
+</div>

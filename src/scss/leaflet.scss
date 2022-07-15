@@ -1,0 +1,8 @@
+@import 'leaflet-draw/dist/leaflet.draw.css';
+@import '../assets/leaflet-plugin-trackplayback/src/control.trackplayback/control.playback.css';
+@import 'beautifymarker/leaflet-beautify-marker-icon.css';
+
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: 30px;
+  height: 30px;
+}

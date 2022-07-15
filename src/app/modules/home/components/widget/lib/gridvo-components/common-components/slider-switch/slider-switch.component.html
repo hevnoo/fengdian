@@ -1,0 +1,4 @@
+<div class="item-container">
+    <div class="item" *ngFor="let item of textArr" (click)="itemClick($event, item)">{{ item }}</div>
+    <div #sliderBlock class="slider-block">{{ activeBlock }}</div>
+</div>

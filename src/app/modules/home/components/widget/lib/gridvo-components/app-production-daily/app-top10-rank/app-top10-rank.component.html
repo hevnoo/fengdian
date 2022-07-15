@@ -1,0 +1,17 @@
+<div class="main">
+    <h3 class="h3-title">{{title}}</h3>
+
+    <div class="div-top10">
+        <p class="unit">(万kWh)</p>
+        <div class="item">
+            <section class="sec-container" *ngFor="let item of showTopData; let i = index">
+                <div class="top-num">{{ i+1 }}</div>
+                <span class="dev-name">{{item.name}}</span>
+                <div class="item-progress">
+                    <div class="one-progress" [style.width]="item.width"></div>
+                </div>
+                <span class="item-value">{{item.val}}</span>
+            </section>
+        </div>
+    </div>
+</div>

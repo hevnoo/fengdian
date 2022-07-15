@@ -1,0 +1,279 @@
+<div class="div-search-bar">
+  <label
+    >名称：<input
+      type="text"
+      nz-input
+      placeholder="请输入名称进行搜索"
+      [(ngModel)]="searchText"
+  /></label>
+  <div style="display: flex; width: 160px">
+    <div style="line-height: 34px">类型：</div>
+    <nz-select
+      [(ngModel)]="searchTextOfType"
+      nzPlaceHolder="设备类型"
+      style="width: 100px"
+      [nzAllowClear]="true"
+    >
+      <nz-option
+        *ngFor="let item of deviceType; let i = index"
+        [nzValue]="item"
+        [nzLabel]="item"
+      ></nz-option>
+    </nz-select>
+  </div>
+  <!-- <label style="display: flex;width: 160px;">
+    <div style="width: 111px;line-height: 34px;">类型：</div>
+    <select name="" class="searchType" [(ngModel)]="searchTextOfType" placeholder="设备类型">
+      <option *ngFor="let item of toArrayOfSet(deviceType);let i = index" [value]="item" [label]="item"></option>
+    </select>
+  </label> -->
+  <button nz-button nzType="primary" (click)="handleSearch()">搜索</button>
+  <button nz-button nzType="primary" (click)="showAddModel()">添加</button>
+  <button
+    nz-button
+    nzType="primary"
+    *ngIf="selectAllCheck || setSelectId.size > 0"
+    (click)="handleTableDataDelete()"
+  >
+    <!-- nz-popconfirm
+    [nzPopconfirmOverlayClassName]="'fd-delete-device'"
+    [nzPopconfirmOverlayStyle]="{ position: 'unset' }"
+    [nzPopconfirmShowArrow]="false"
+    [nzPopconfirmTitle]="'确定删除' + selectData?.name?.val + '吗?'"
+    nzPopconfirmPlacement="bottom"(nzOnCancel)="cancel()" -->
+    删除
+  </button>
+  <!-- <button nz-button nzType="primary" (click)="showEditModel()" *ngIf="setSelectId.size===1">修改</button> -->
+</div>
+<!-- (click)="handleTableDataDelete()"  -->
+<!-- nzShowPagination
+  nzShowSizeChanger
+  [nzShowTotal]="totalTemplate" -->
+<nz-table
+  #basicTable
+  nzSize="small"
+  [nzData]="singlePageData"
+  nzBordered
+  [(nzPageSize)]="page.size"
+  [nzShowPagination]="false"
+>
+  <thead>
+    <tr>
+      <th
+        nzShowCheckbox
+        (nzCheckedChange)="selectAll($event)"
+        [nzChecked]="selectAllCheck"
+      ></th>
+      <th>序号</th>
+      <th>名称</th>
+      <th>类型</th>
+      <!-- <th>对象全路径名称</th> -->
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data; let i = index">
+      <td
+        nzShowCheckbox
+        (nzCheckedChange)="selectSingle(data, data.name.id, $event)"
+        [nzChecked]="setSelectId.has(data.name.id)"
+      ></td>
+      <td>{{ i + 1 }}</td>
+      <td>{{ data.name.val }}</td>
+      <td>{{ data.type.val }}</td>
+      <!-- <td>{{ data.region.val }}</td> -->
+      <td>{{ data.createdTime.val | date: "yyyy-MM-dd HH:mm:ss" }}</td>
+      <td style="position: relative">
+        <!--阻止事件冒泡-->
+        <!-- <a (click)="handleErWeiMa(data.name.id);$event.stopPropagation()" style="position: relative;">二维码
+          <div class="erWeiMa" *ngIf="isVisibleErWeiMa&&data.name.id===isVisibleErWeiMa">
+            <img src="../../../../../../../../assets/erWeiMa.jpg" alt="image" style="max-width:100%;">
+          </div>
+        </a> -->
+        <a
+          style="position: absolute; top: 6px; left: 26px"
+          (click)="showModel(data)"
+          >属性及履历</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<div class="pag-container">
+  <div class="page-total">共{{ tableData.length }}条</div>
+  <nz-pagination
+    [(nzPageIndex)]="page.index"
+    [(nzPageSize)]="page.size"
+    [nzTotal]="tableData.length"
+    (nzPageIndexChange)="pageIndexChange()"
+    (nzPageSizeChange)="pageSizeChange()"
+    nzShowQuickJumper
+    nzShowSizeChanger
+  ></nz-pagination>
+</div>
+<ng-template #totalTemplate let-total
+  >总共 {{ tableData.length }} 条</ng-template
+>
+<tb-device-resume-dialog
+  [isShowModel]="isShowResume"
+  (offModel)="offModel($event)"
+  [detailItem]="detailInfo"
+  [fullDeviceData]="orgrinData"
+  [deviceId]="currentWsEntityId"
+  [timeseriesData]="timeseriesData"
+>
+</tb-device-resume-dialog>
+<nz-modal
+  [(nzVisible)]="isAddModel"
+  nzTitle="设备添加"
+  (nzOnCancel)="cancleAddModel()"
+  (nzOnOk)="submitForm()"
+  [nzWidth]="700"
+  nzWrapClassName="dialog-fd"
+>
+  <!-- <div class="header" *nzModalTitle>
+    <div class="header-title">设备添加</div>
+    <div class="head">
+      <div class="circle" *ngFor="let item of headArr;let i = index">
+        <div class="smallCircle"></div>
+        <div class="title" style="width:120px;position: absolute;right: -80px;">
+          {{item.text}}</div>
+        <div class="line" *ngIf="i!==headArr.length-1"></div>
+      </div>
+    </div>
+  </div> -->
+  <ng-container *nzModalContent>
+    <!-- <div *ngFor="let item of headArr;let i = index" [style]="i===0?'margin-top: 160px;':''"> -->
+    <!-- <nz-divider nzPlain [nzText]="item.text" nzOrientation="left" *ngIf="i!==0"></nz-divider> -->
+    <div class="fd-form">
+      <form nz-form [(formGroup)]="validateAddForm" (ngSubmit)="submitForm()">
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="22">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6">节点 </nz-form-label>
+              <nz-form-control nzHasFeedback nzDisabled [nzSpan]="16">
+                <input
+                  nz-input
+                  formControlName="node"
+                  placeholder="请输入名称"
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="6">名称 </nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                [nzErrorTip]="errorTpl"
+                [nzSpan]="16"
+              >
+                <input
+                  nz-input
+                  formControlName="name"
+                  placeholder="请输入名称"
+                />
+                <ng-template #errorTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')"
+                    >请输入</ng-container
+                  >
+                  <ng-container *ngIf="control.hasError('maxlength')">
+                    不得输入多于50个字符
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6">类型 </nz-form-label>
+              <nz-form-control [nzSpan]="16">
+                <nz-select
+                  nzHasFeedback
+                  formControlName="type"
+                  nzPlaceHolder="设备类型"
+                >
+                  <nz-option
+                    *ngFor="let item of deviceProfileInfo"
+                    [nzValue]="item.name"
+                    [nzLabel]="item.name"
+                  >
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <!-- <nz-form-item>
+              <nz-form-label [nzSpan]="6">类型</nz-form-label>
+              <nz-form-control>
+                <select formControlName="type" class="searchType" placeholder="请选择类型">
+                  <option value="请选择类型" selected hidden disabled></option>
+                  <option *ngFor="let item of deviceProfileInfo" [value]="item.name" [label]="item.name">
+                  </option>
+                </select>
+              </nz-form-control>
+            </nz-form-item> -->
+            <nz-form-item>
+              <nz-form-label nzRequired [nzSpan]="6">标签 </nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="必须输入"
+                [nzSpan]="16"
+              >
+                <input
+                  nz-input
+                  formControlName="label"
+                  placeholder="请输入标签"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <!-- <button
+          nz-button
+          nzType="primary"
+          style="margin-bottom: 10px; margin-left: 334px; margin-right: auto"
+        >
+          保存
+        </button> -->
+      </form>
+    </div>
+    <!-- </div> -->
+  </ng-container>
+</nz-modal>
+<!-- <nz-modal [(nzVisible)]="isEditModel" nzTitle="设备修改" (nzOnCancel)="cancleEditModel()" (nzOnOk)="showEditModel()"
+  [nzWidth]="1300" nzWrapClassName="dialog-fd">
+  <ng-container *nzModalContent>
+    <div class="head">
+      <div class="circle" *ngFor="let item of headArrEdit;let i = index">
+        <div class="smallCircle"></div>
+        <div class="title" style="width:120px;position: absolute;right: -80px;">
+          {{item.text}}</div>
+        <div class="line" *ngIf="i!==headArrEdit.length-1"></div>
+      </div>
+    </div>
+    <div *ngFor="let item of headArrEdit;let i = index">
+      <nz-divider nzPlain [nzText]="item.text" nzOrientation="left" *ngIf="i!==0"></nz-divider>
+      <form nz-form [(formGroup)]="validateEditForm" (ngSubmit)="submitEditForm()">
+        <div nz-row [nzGutter]="24">
+          <div nz-col *ngFor="let item of item.value" [nzSpan]="item.isSingleRow?24:12">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="item.isRequire" [nzSpan]="item.isSingleRow?3:6">{{item.name}}
+              </nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="item.errorTip" [nzSpan]="item.isSingleRow?18:12">
+                <input nz-input formControlName="{{item.userName}}" [placeholder]="item.placeholder"
+                  *ngIf="!item.isTextArea&&!item.isRadio&&item.select.length<=0&&!item.isSelectDate" />
+                <textarea nz-input formControlName="{{item.userName}}" [placeholder]="item.placeholder"
+                  *ngIf="item.isTextArea"></textarea>
+                <nz-switch formControlName="{{item.userName}}" *ngIf="item.isRadio"></nz-switch>
+                <nz-select formControlName="{{item.userName}}" *ngIf="item.select.length>0">
+                  <nz-option *ngFor="let data of item.select" [nzLabel]="data.value" [nzValue]="data.value">
+                  </nz-option>
+                </nz-select>
+                <nz-date-picker *ngIf="item.isSelectDate" formControlName="{{item.userName}}"
+                  [nzPlaceHolder]="item.placeholder"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <button nz-button nzType="primary">保存</button>
+      </form>
+    </div>
+  </ng-container>
+</nz-modal> -->

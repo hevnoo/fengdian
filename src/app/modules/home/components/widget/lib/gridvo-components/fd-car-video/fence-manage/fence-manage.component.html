@@ -1,0 +1,48 @@
+<nz-modal nzWrapClassName="model-fence" [nzMaskClosable]="false" [nzFooter]="null" [nzWidth]="'55%'" [(nzVisible)]="isFenceTableVisible"
+  nzTitle="电子围栏管理" (nzOnCancel)="handleFenceDiaCancel()">
+  <ng-container *nzModalContent>
+    <div class="div-searchbar">
+      <input nz-input placeholder="输入围栏名称搜索" [(ngModel)]="Searchvalue" />
+      <button nz-button nzType="primary" nzShape="round" (click)="handleSearch()"><i nz-icon nzType="search"></i>搜索</button>
+      <button nz-button nzType="primary" nzShape="round" (click)="showAddModel()"><i nz-icon nzType="plus"></i>添加</button>
+      <button nz-button nzType="primary" nzShape="round" (click)="modifyFence()" [hidden]="!isShowOperationBtn"><i nz-icon
+          nzType="edit"></i>修改</button>
+      <button nz-button nzType="primary" nzShape="round" (click)="handleDelete()" [hidden]="!isShowOperationBtn"><i nz-icon
+          nzType="close"></i>删除</button>
+    </div>
+    <!-- 表格 -->
+    <nz-table 
+      #basicTable 
+      nzShowPagination 
+      [nzPageSize]="8"
+      [nzData]="tableData"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+      <thead>
+        <tr>
+          <th></th>
+          <th>序号</th>
+          <th>电子围栏名称</th>
+          <th>告警方式</th>
+          <th>围栏状态</th>
+          <th>围栏形状</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data;let i = index" (click)="onItemChecked(data.id, $event)">
+          <td [nzChecked]="setOfCheckedId === data.id"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>{{ i+1 }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.type }}</td>
+          <td>{{ data.status }}</td>
+          <td>{{ data.shape }}</td>
+          <td>
+            <a (click)="mapRegion(data)"><i nz-icon nzType="appstore" nzTheme="fill"></i>地图区域</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>
+<tb-model-add-edit #addOrEditFenceModel (closeAddFenceEmiter)="closeAddFenceEmiter()"></tb-model-add-edit>

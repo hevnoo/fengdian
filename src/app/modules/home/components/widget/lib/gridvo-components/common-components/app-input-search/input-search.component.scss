@@ -1,0 +1,41 @@
+:host {
+  .selectDiv {
+    width: 78%;
+    // position: absolute;
+    // right: -0.4vw;
+    .block {
+      position: absolute;
+      top: 20px;
+      background: white;
+      z-index: 999;
+      left: 0px;
+      ol {
+        list-style: none;
+        box-shadow: 0px 1px 3px;
+        // height: 30vw;
+        // overflow-y:scroll;
+        li {
+          border-top: 1px solid #e7e4e4;
+          margin-left: -36px;
+          padding: 2px;
+        }
+      }
+    }
+  }
+  input {
+    border: 0;
+  }
+  #subEquId {
+    // position: absolute;
+    // width: 46%;
+    // height: 5vw;
+    // left: 0.3vw;
+    // top: 1vw;
+    // border-bottom: 0;
+    // left: 0;
+  }
+  select {
+    width: 80%;
+    border: 0;
+  }
+}

@@ -1,0 +1,257 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="null"
+  [nzMaskClosable]="false"
+  [nzWidth]="'40%'"
+  (nzOnCancel)="handleCancel()"
+  nzWrapClassName="detail-dialog-bulabula"
+>
+  <ng-template #modalTitle> 缺陷上报 </ng-template>
+
+  <ng-template #modalContent>
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm(validateForm.value)"
+      class="form-container"
+    >
+      <div nz-row [nzGutter]="[24, 8]">
+        <div nz-col [nzSpan]="4">
+          <span style="font-weight: bolder">缺陷信息</span>
+        </div>
+        <div nz-col [nzSpan]="20">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="motif">主题</nz-form-label>
+            <nz-form-control [nzErrorTip]="combineTpl">
+              <input nz-input id="motif" formControlName="motif" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <ng-template #combineTpl let-control>
+        <ng-container *ngIf="control.hasError('maxlength')"
+          >输入的字数超出限制，最长为32</ng-container
+        >
+        <ng-container *ngIf="control.hasError('required')"
+          >请输入主题</ng-container
+        >
+      </ng-template>
+      <div nz-row [nzGutter]="[24, 8]">
+        <div nz-col [nzSpan]="20" nzOffset="4">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="describe">缺陷描述</nz-form-label>
+            <nz-form-control nzErrorTip="请输入缺陷描述">
+              <textarea
+                formControlName="describe"
+                nz-input
+                rows="2"
+                placeholder="请输入内容"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="[24, 8]" nzJustify="space-between">
+        <div nz-col [nzSpan]="10" [nzOffset]="4">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="findTheTime"
+              >发现时间</nz-form-label
+            >
+            <nz-form-control nzErrorTip="请选择时间">
+              <nz-date-picker
+                [nzDisabledDate]="disabledDate"
+                formControlName="findTheTime"
+                style="width: 100%"
+              >
+              </nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="quotId">发现人</nz-form-label>
+            <nz-form-control nzErrorTip="请选择发现人">
+              <nz-select formControlName="quotId" nzPlaceHolder="请选择">
+                <ng-container *ngFor="let o of personOption">
+                  <nz-option
+                    [nzValue]="o.value"
+                    [nzLabel]="o.label"
+                  ></nz-option>
+                </ng-container>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10" [nzOffset]="4">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="subEquId">所属设备</nz-form-label>
+            <nz-form-control nzErrorTip="请选择所属设备">
+              <nz-select
+                nzPlaceHolder="输入设备名字搜索"
+                nzAllowClear
+                nzShowSearch
+                nzServerSearch
+                formControlName="subEquId"
+                (nzOnSearch)="onDeviceSearch($event)"
+              >
+                <ng-container *ngFor="let o of deviceOption">
+                  <nz-option
+                    *ngIf="!isLoading"
+                    [nzValue]="o.value"
+                    [nzLabel]="o.label"
+                  ></nz-option>
+                </ng-container>
+                <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+                  <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+                  Data...
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="number">缺陷编号</nz-form-label>
+            <nz-form-control nzErrorTip="请输入缺陷编号">
+              <input nz-input id="number" formControlName="number" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10" [nzOffset]="4">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="type">缺陷类型</nz-form-label>
+            <nz-form-control nzErrorTip="请选择缺陷类型">
+              <nz-select
+                [nzOptions]="defectTypeOption"
+                formControlName="type"
+                nzPlaceHolder="请选择"
+              ></nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10">
+          <nz-form-item *ngIf="openDialogType !== 'readOnly'">
+            <nz-form-label nzRequired nzFor="assignee"
+              >下一执行人</nz-form-label
+            >
+            <nz-form-control nzErrorTip="请选择下一执行人">
+              <nz-select
+                [nzOptions]="personOption"
+                formControlName="assignee"
+                nzPlaceHolder="请选择"
+              >
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10" [nzOffset]="4">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="level">缺陷等级</nz-form-label>
+            <nz-form-control nzErrorTip="请输入缺陷等级">
+              <nz-select
+                [nzOptions]="defectLevelOption"
+                formControlName="level"
+                nzPlaceHolder="请选择"
+              ></nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="10">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="whetherDevice"
+              >是否是本设备缺陷</nz-form-label
+            >
+            <nz-form-control nzErrorTip="请选择是否是本设备缺陷">
+              <nz-select
+                [nzOptions]="isDeviceDefectOption"
+                formControlName="whetherDevice"
+                nzPlaceHolder="请选择"
+              >
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="[24, 8]">
+        <div nz-col [nzSpan]="20" [nzOffset]="4">
+          <nz-form-item>
+            <nz-form-label nzFor="remark" style="margin-left: 37px"
+              >备注</nz-form-label
+            >
+            <nz-form-control>
+              <textarea
+                formControlName="remark"
+                nz-input
+                rows="2"
+                placeholder="请输入内容"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="20" [nzOffset]="4">
+          <nz-form-item>
+            <nz-form-label nzFor="upLoad" style="margin-left: 37px"
+              >附件</nz-form-label
+            >
+            <nz-form-control>
+              <nz-upload
+                *ngIf="openDialogType !== 'readOnly'"
+                [(nzFileList)]="uploadFileList"
+                [nzBeforeUpload]="beforeUpload"
+                [nzCustomRequest]="selfUpLoad"
+                [nzShowUploadList]="icons"
+                [nzRemove]="removeFile"
+                (nzChange)="handleUploadChange($event)"
+              >
+                <button nz-button (click)="noHandle($event)">
+                  <i nz-icon nzType="upload"></i>上传
+                </button>
+                <span
+                  >上传的文件类型应为xls、xlsx、doc、docx、zip、rar、jpg、jpeg、png、bmp，不超过10M，且文件名长度不超过100个字符。</span
+                >
+              </nz-upload>
+              <div *ngIf="openDialogType === 'readOnly'">
+                <a
+                  style="margin-right: 10px"
+                  nz-tooltip
+                  nzTooltipTitle="点击下载附件"
+                  (click)="downloadFile(item)"
+                  *ngFor="let item of validateForm.value.attachments"
+                  >{{ stringSplit(item.path) }}</a
+                >
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-form-item
+        nz-row
+        class="register-area"
+        *ngIf="openDialogType !== 'readOnly'"
+      >
+        <nz-form-control [nzSpan]="8" [nzOffset]="10">
+          <button
+            nz-button
+            style="margin-right: 30px; color: black"
+            (click)="resetForm($event)"
+          >
+            重置
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            [disabled]="!validateForm.valid"
+            [nzLoading]="isSubBtnLoading"
+          >
+            提交
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+    <!-- 插槽  用于工单流转时添加审批流程 -->
+    <ng-content select="[name=approval]"></ng-content>
+  </ng-template>
+</nz-modal>

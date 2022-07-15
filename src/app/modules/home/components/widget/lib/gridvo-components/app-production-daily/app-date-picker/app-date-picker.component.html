@@ -1,0 +1,15 @@
+<div class="main">
+    <div class="title">
+        <span>连江白云岭风电场</span>
+    </div>
+    <div class="picker">
+        <div class="time">
+            <span>日期:</span>
+            <span>{{selectDate | date:"yyyy-MM-dd"}}</span>
+        </div>
+        <div class="pic">
+            <nz-date-picker [nzShowToday]="false" [nzDisabledDate]="disabledDate" [(ngModel)]="selectDate" (ngModelChange)="onChange($event)" [nzAllowClear]="false"></nz-date-picker>
+        </div>
+        
+    </div> 
+</div>

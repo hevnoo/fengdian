@@ -1,0 +1,51 @@
+<div class="dialog-fd">
+  <tb-dialog-search-button (searchVal)="searchData($event, 1, 10)" [isShowAdd]="true" [isCheck]="isCheck" [placeholderVal]="placeholderValue" (modelVisible)="addData($event)" (showChangeModel)="changeData($event)" (delVal)="deleteValue($event)"></tb-dialog-search-button>
+  <tb-collase-panel (sendTag)="tagSearchData($event, 1, 10)"></tb-collase-panel>
+  <div class="table">
+    <nz-table
+      #rowSelectionTable
+      [nzData]="tableData"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+      [nzPageIndex] = "pagetion.page"
+      [nzPageSize] = "pagetion.pageSize"
+      nzShowPagination="false"
+      [nzFrontPagination]="false"
+      nzTableLayout="fixed"
+    >
+      <thead>
+        <tr>
+          <th
+            [(nzChecked)]="checked"
+            [nzShowCheckbox]="false"
+            (nzCheckedChange)="onAllChecked($event)"
+            style="width: 3%;"
+           
+          ></th>
+          <th style="width: 4%;">序号</th>
+          <th *ngFor="let item of resumeChromicThead">{{ item.label }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data; let i = index">
+          <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event, data)" [nzShowCheckbox]="true"></td>
+          <td >{{ i + 1 }}</td>
+          <td>{{ data.resumeType }}</td>
+          <td nzEllipsis><span nz-popover [nzPopoverContent]="data.deviceName" nzPopoverTrigger="hover" nzPopoverPlacement="topLeft">{{ data.deviceName }}</span></td>
+          <td nzEllipsis><span nz-popover [nzPopoverContent]="data.workContent" nzPopoverTrigger="hover" nzPopoverPlacement="topLeft">{{ data.workContent }}</span></td>
+          <td>{{ data.personInCharge }}</td>
+          <td>{{ data.participant }}</td>
+          <td>{{ data.workStartTime }}</td>
+          <td>{{ data.workEndTime }}</td>
+          <td>{{ data.recorder }}</td>
+          
+        </tr>
+      </tbody>
+    </nz-table>
+    <div class="pag-container">
+      <div class="page-total">共{{pagetion.total}}条</div>
+      <nz-pagination [nzPageIndex]="pagetion.page" [nzPageSize]="pagetion.pageSize" [nzTotal]="pagetion.total" (nzPageIndexChange)="pageIndexChange($event)" (nzPageSizeChange)="pageSizeChange($event)" nzShowQuickJumper nzShowSizeChanger></nz-pagination>
+    </div>
+  </div>
+  <tb-add-chromicle-model [isAddData]="addDataModel" (offModel)="offAddModel($event)" (submitSuccess)="againReset()"></tb-add-chromicle-model>
+  <tb-change-chromicle-model [isChangeData]="changeDataModel" (offModel)="offChangeModel($event)" [formData]="formData" (submitSuccess)="againReset()"></tb-change-chromicle-model>
+</div>

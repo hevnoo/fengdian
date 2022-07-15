@@ -1,0 +1,65 @@
+<div class="devProperties">
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input name="name" id="name" [disabled]="true" [(ngModel)]="item.name.val" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type">类型</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input name="type" id="type" [disabled]="true" [(ngModel)]="item.type.val" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="createTime">创建时间</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input name="createTime" id="createTime" [disabled]="true"
+          [ngModel]="item.createdTime.val | date: 'yyyy-MM-dd HH:mm:ss'" />
+      </nz-form-control>
+    </nz-form-item>
+    <ng-container *ngFor="let device of addDeviceData">
+      <nz-form-item *ngIf="!dosenotExit.includes(device?.key)">
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzFor]="device?.key">{{device?.key}}</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input [name]="device?.key" [id]="device?.key" [disabled]="true" [value]="device?.value" />
+          <i nz-icon nzType="minus" nzTheme="outline" nz-popconfirm [nzPopconfirmShowArrow]="false"
+            [nzPopconfirmTitle]="'确定删除'+device?.key+'吗?'" nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="deleteDevice(device)" (nzOnCancel)="cancel()"></i>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-container>
+  </form>
+  <ng-template #popconfirmContent>
+    <!--不知道单选框和复选框在这里面写选中就无法取消的原因，就只好自己写两个图标上去,现在这个功能被去了，又不需要了-->
+    <div style="margin-left: 16px;">删除属性</div>
+    <i nz-icon nzType="border" nzTheme="outline" *ngIf="!checkedAllDelete"
+      (click)="checkedAllDelete=!checkedAllDelete"></i>
+    <i nz-icon nzType="check-square" nzTheme="outline" *ngIf="checkedAllDelete"
+      (click)="checkedAllDelete=!checkedAllDelete"></i>
+    <div style="margin-left: 16px;" (click)="checkedAllDelete=!checkedAllDelete">同类型属性是否都删除？</div>
+  </ng-template>
+  <div class="add">添加属性</div>
+  <form nz-form (ngSubmit)="submitForm(false)" [(formGroup)]="addDataValue">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="key">属性名</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input name="key" formControlName="key" />
+      </nz-form-control>
+    </nz-form-item>
+    <!--使用tb官方写的输入框-->
+    <tb-value-input formControlName="value" requiredText="attribute.value-required">
+    </tb-value-input>
+    <button nz-button nzType="primary" style="margin-left: 528px;" nz-popconfirm [nzPopconfirmShowArrow]="false"
+      [nzIcon]="''" [nzPopconfirmTitle]="popconfirmContentAdd" nzPopconfirmPlacement="bottom"
+      (nzOnConfirm)="submitForm(true)">添加属性</button>
+  </form>
+  <ng-template #popconfirmContentAdd>
+    <!--不知道单选框和复选框在这里面写选中就无法取消的原因，就只好自己写两个图标上去-->
+    <div style="margin-left: 16px;">确定添加属性吗</div>
+    <!-- <i nz-icon nzType="border" nzTheme="outline" *ngIf="!checkedAllAdd" (click)="checkedAllAdd=!checkedAllAdd"></i>
+    <i nz-icon nzType="check-square" nzTheme="outline" *ngIf="checkedAllAdd" (click)="checkedAllAdd=!checkedAllAdd"></i>
+    <div style="margin-left: 16px;" (click)="checkedAllAdd=!checkedAllAdd">同类型的设备是否都添加该属性？</div> -->
+  </ng-template>
+</div>

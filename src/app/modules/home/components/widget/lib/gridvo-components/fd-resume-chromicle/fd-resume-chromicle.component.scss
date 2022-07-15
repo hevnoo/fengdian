@@ -1,0 +1,14 @@
+.dialog-fd {
+    width: 100%;
+    height: 100%;
+}
+.pag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    .page-total {
+        padding-right: 5px;
+        font-size: 14px;
+    }
+}

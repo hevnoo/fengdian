@@ -1,0 +1,19 @@
+.report-modal-content{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+::ng-deep{
+  .ant-modal-body{
+    max-height: 75vh;
+    overflow: auto;
+  }
+  .ant-form-item-explain, .ant-form-item-extra {
+    min-height: 0;
+  }
+}
+.err-msg {
+  color: #ff4d4f;
+  font-size: 14px;
+  min-height: 24px;
+}

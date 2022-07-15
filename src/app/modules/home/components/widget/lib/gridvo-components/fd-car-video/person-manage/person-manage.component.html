@@ -1,0 +1,77 @@
+<nz-modal nzWrapClassName="model-fence" 
+  [nzMaskClosable]="false" [nzFooter]="null" [nzWidth]="'70%'" [(nzVisible)]="isPersonManageVisible"
+  nzTitle="人员管理" (nzOnCancel)="handleFenceDiaCancel()" (nzAfterOpen)="afterOpen()">
+  <ng-container *nzModalContent>
+    <div class="div-searchbar">
+      <input nz-input placeholder="输入姓名进行搜索" [(ngModel)]="Searchvalue" />
+      <button nz-button nzType="primary" nzShape="round" (click)="handleSearch()"><i nz-icon nzType="search"></i>搜索</button>
+      <button nz-button nzType="primary" nzShape="round" (click)="showAddModel()"><i nz-icon nzType="plus"></i>添加</button>
+      <button nz-button nzType="primary" nzShape="round" (click)="modifyStaff()" [hidden]="!isShowOperationBtn"><i nz-icon
+          nzType="edit"></i>修改</button>
+      <button nz-button nzType="primary" nzShape="round" (click)="deleteStaff()" [hidden]="!isShowOperationBtn"><i nz-icon
+          nzType="close"></i>删除</button>
+    </div>
+    <!-- 表格 -->
+    <nz-table 
+      #basicTable 
+      nzShowPagination 
+      nzPaginationType="small"
+      [nzPageSize]="6"
+      [nzData]="tableData"
+      nzTableLayout="fixed"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+      <thead>
+        <tr>
+          <th></th>
+          <th>序号</th>
+          <th>姓名</th>
+          <th>是否本场员工</th>
+          <th>单位</th>
+          <th>进场时间</th>
+          <th>出场时间</th>
+          <th>绑定工卡</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data;let i = index">
+          <td [nzChecked]="setOfCheckedId === data.id"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>{{ i+1 }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.isStaff }}</td>
+          <td>{{ data.company }}</td>
+          <td>{{ data.enterTime === 0 ? '' : data.enterTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ data.outTime === 0 ? '' : data.outTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ data.workCard }}</td>
+          <td nzEllipsis><span nz-popover [nzPopoverContent]="data.notes" nzPopoverTrigger="hover" nzPopoverPlacement="topLeft">{{ data.notes }}</span></td>
+          <td>
+            <a (click)="bindWorkCard(data)"><i nz-icon nzType="appstore" nzTheme="fill"></i>绑定</a>&nbsp;
+            <a (click)="unBindWorkCard(data)"><i nz-icon nzType="appstore" nzTheme="fill"></i>解绑</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>
+<tb-person-add 
+  #personAddModal
+  [isAddPersonVisible]="isAddPersonVisible" 
+  (closeAddPersonEmiter)="closeAddPersonEmiter($event)"></tb-person-add>
+
+<ng-template #tplWorkCardSelect>
+  <div nz-row nzAlign="middle">
+    <div nz-col nzSpan="5">
+      <label for="card">绑定工卡:</label>
+    </div>
+    <div nz-col nzSpan="19">
+      <nz-select nzId="card" nzPlaceHolder="请输入工卡" nzAllowClear [(ngModel)]="bindWordCard" style="width: 100%;">
+        <ng-container *ngFor="let o of workCardList">
+          <nz-option [nzValue]="o.cardcode" [nzLabel]="o.cardcode"></nz-option>
+        </ng-container>
+      </nz-select>
+    </div>
+  </div>
+
+</ng-template>

@@ -1,0 +1,79 @@
+<div class="ticket" id="ticket" #ticket>
+    <div class="search">
+        
+        <form  action="">
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" [nzSuffix]="clear"> 
+                <input type="search" nz-input placeholder="工作任务" (input)="search(0)" [(ngModel)]="searchVal" name="search" (keyup)="keySearch($event)"/>
+            </nz-input-group>
+            <ng-template #clear>
+                <i nz-icon nzType="close-circle" nzTheme="outline" (click)="clearVal()" *ngIf="!!searchVal"></i>
+            </ng-template> 
+            <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" (click)="search(0)" nzSearch><i nz-icon nzType="search"></i></button>
+            </ng-template>
+        </form>
+    </div>
+    <div class="card" style="display: flex;" *ngFor="let item of dataList">
+        <div class="icon" style="width: 10%;">
+            <i nz-icon nzType="read" nzTheme="fill"></i>
+        </div>
+        <div class="content" style="width: 90%;">
+            <div nz-row>
+                <div nz-col [nzSpan]="24" style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="4">工作任务:</label>
+                    <span nz-col [nzSpan]="16">{{ item?.ccaption }}</span>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="24" style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="4">工作票号:</label>
+                    <span nz-col [nzSpan]="16">{{ item?.ccode || ''}}</span>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="24" style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="4">工作地点:</label>
+                    <span nz-col [nzSpan]="16">{{ item?.splant || ''}}</span>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="12" style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="10">工作负责人:</label>
+                    <span nz-col [nzSpan]="7">{{ item?.smaster || ''}}</span>
+                </div>
+                <div nz-col [nzSpan]="12" style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="8">签发人:</label>
+                    <span nz-col [nzSpan]="15">{{ item?.ssigner || ''}}</span>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="12"  style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="8">许可人:</label>
+                    <span nz-col [nzSpan]="11">{{ item?.sallower || ''}}</span>
+                </div>
+                <div nz-col [nzSpan]="12"  style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="8">许可时间:</label>
+                    <span nz-col [nzSpan]="15">{{ item?.tbegin || ''}}</span>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="12"  style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="8">收回人:</label>
+                    <span nz-col [nzSpan]="12">{{ item?.cuser01 || ''}}</span>
+                </div>
+                <div nz-col [nzSpan]="12"  style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="8">收回时间:</label>
+                    <span nz-col [nzSpan]="15">{{ item?.tend || ''}}</span>
+                </div>
+            </div>
+            <div nz-row >
+                <div nz-col [nzSpan]="24" style="display: flex; justify-content: flex-start;">
+                    <label nz-col [nzSpan]="5">工作票状态:</label>
+                    <span nz-col [nzSpan]="16">{{ item?.crs || ''}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nz-spin nzTip="Loading..." *ngIf="isShowSpin"></nz-spin>
+    <p class="tooltip" *ngIf="isBottom">到底了。。</p>
+</div>

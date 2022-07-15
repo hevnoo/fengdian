@@ -1,0 +1,25 @@
+<ng-container *ngFor="let item of menu">
+  <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="!isCollapsed ? item.name : ''" nzSelected
+    *ngIf="item.type === 'link'" (click)="handleTabClick(item)"
+    [nzSelected]="currentTab[0] === item.name? true : false">
+    <span title style="display: flex; align-items: center;">
+      <ng-container *ngIf="item.icon">
+        <img [src]="'assets/gridvo/menu-icon/' + item.icon + '.png'" style="width: 1.6em; margin-right: 8px;"
+          alt="图标">
+      </ng-container>
+      <span *ngIf="isCollapsed">{{ item.name }}</span>
+    </span>
+  </li>
+  <li nz-submenu *ngIf="item.type === 'menu'">
+    <span title style="display: flex; align-items: center;">
+      <ng-container *ngIf="item.icon">
+        <img [src]="'assets/gridvo/menu-icon/' + item.icon + '.png'" style="width: 1.6em; margin-right: 8px;"
+          alt="图标">
+      </ng-container>
+      <span *ngIf="isCollapsed">{{ item.name }}</span>
+    </span>
+    <ul *ngIf="item.children">
+      <tb-menu-item [menu]=item.children></tb-menu-item>
+    </ul>
+  </li>
+</ng-container>

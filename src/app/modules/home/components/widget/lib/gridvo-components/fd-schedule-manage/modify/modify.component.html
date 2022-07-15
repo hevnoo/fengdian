@@ -1,0 +1,146 @@
+<div class="dailog-form-show">
+  <nz-modal
+    [(nzVisible)]="dialogStateConfig.isVisible"
+    [nzTitle]="tplTitle"
+    [nzContent]="tplContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+  ></nz-modal>
+
+  <ng-template #tplTitle>
+    <div nz-row class="dialog-enclosure-header">
+      <div class="top" nz-col nzSpan="24">
+        <span>{{ dialogConfig.title }}</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #tplContent let-params>
+    <form
+      class="enclosure"
+      nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm()"
+    >
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          [nzRequired]="validateForm.get('require')?.value"
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzFor="name"
+          >值班人员</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="请输入值班人员名称!"
+        >
+          <input
+            class="ebclosure-control"
+            nz-input
+            maxlength="20"
+            formControlName="name"
+            id="name"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzRequired
+          nzFor="workShfit"
+          >班次</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <nz-select
+            class="ebclosure-control-select"
+            id="workShfit"
+            formControlName="workShfit"
+          >
+            <nz-option
+              class="option"
+              nzValue="dayShift"
+              nzLabel="白班"
+            ></nz-option>
+            <nz-option
+              class="option"
+              nzValue="nightShift"
+              nzLabel="晚班"
+            ></nz-option> </nz-select
+        ></nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          [nzRequired]="validateForm.get('require')?.value"
+          nzFor="phone"
+          >联系电话</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="请输入正确的手机号~"
+        >
+          <input
+            class="ebclosure-control"
+            nz-input
+            id="phone"
+            formControlName="phone"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          nzFor="workTime"
+          [nzXs]="itemConfig.nzXsWidth"
+          [nzRequired]="validateForm.get('require')?.value"
+          >值班时间</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <nz-form-control nzErrorTip="时间不能为空!">
+            <nz-date-picker
+              formControlName="workTime"
+              id="workTime"
+              nzShowTime
+              nzFormat="yyyy-MM-dd HH:mm:ss"
+            ></nz-date-picker>
+          </nz-form-control>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item btn">
+        <nz-form-control [nzSpan]="14" [nzOffset]="9">
+          <button class="btn-request" nz-button nzType="primary">确定</button>
+          <button
+            class="btn-cancle"
+            nz-button
+            nzType="primary"
+            (click)="handleCancel($event)"
+          >
+            取消
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+</div>

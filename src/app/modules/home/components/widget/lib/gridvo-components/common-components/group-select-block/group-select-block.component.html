@@ -1,0 +1,1 @@
+<div class="item" [class]="{ active: checkedList.has(item.value) }" *ngFor="let item of dataList" (click)="isCheck(item)">{{ item.label }}</div>

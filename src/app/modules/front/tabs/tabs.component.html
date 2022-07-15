@@ -1,0 +1,18 @@
+<ng-container>
+  <ul class="ljfengdian">
+    <span *ngFor="let item of tabList; let index = index" class="li-wrapper">
+      <li [class.tab-active]="item.name === crtTab[0]">
+        <span class="sp-item" (click)="handleTabClick(item)" (contextmenu)="contextmenuFn($event,menu,item)">{{ item.name }}</span>
+        <i (click)="removeTab(item)">x</i>
+      </li>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="rightMenuClick(0)">重新加载</li>
+          <li nz-menu-item (click)="rightMenuClick(1)">关闭</li>
+          <li nz-menu-item (click)="rightMenuClick(2)">关闭其它</li>
+          <li nz-menu-item (click)="rightMenuClick(3)">关闭所有</li>
+        </ul>
+      </nz-dropdown-menu>
+    </span>
+  </ul>
+</ng-container>

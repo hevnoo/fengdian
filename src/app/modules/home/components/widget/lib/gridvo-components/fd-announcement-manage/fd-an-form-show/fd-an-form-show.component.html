@@ -1,0 +1,240 @@
+<div class="dailog-form-show">
+  <nz-modal
+    [(nzVisible)]="dialogStateConfig.isVisible"
+    [nzTitle]="tplTitle"
+    [nzContent]="tplContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+  ></nz-modal>
+
+  <ng-template #tplTitle>
+    <div nz-row class="dialog-enclosure-header">
+      <div class="top" nz-col nzSpan="24">
+        <span>{{ dialogConfig.title }}</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #tplContent let-params>
+    <form
+      class="enclosure"
+      nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm()"
+    >
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          [nzRequired]="validateForm.get('require')?.value"
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzFor="theme"
+          >主题</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          [nzExtra]="themeTemp"
+        >
+          <input
+            class="ebclosure-control"
+            nz-input
+            formControlName="theme"
+            id="theme"
+            [placeholder]="dialogItemPlaceHolder.theme"
+          />
+          <ng-template #themeTemp style="min-height: 0">
+            <div
+              [hidden]="
+                validateForm.get('theme').valid ||
+                validateForm.get('theme').untouched
+              "
+            >
+              <div
+                [hidden]="!validateForm.hasError('required', 'theme')"
+                class="err-msg"
+              >
+                请输入主题!
+              </div>
+              <div
+                [hidden]="!validateForm.hasError('maxlength', 'theme')"
+                class="err-msg"
+              >
+                主题内容字符数不能大于32位！
+              </div>
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          [nzRequired]="validateForm.get('require')?.value"
+          nzFor="type"
+          >类型</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="请选择类型!"
+        >
+          <nz-select
+            class="ebclosure-control-select"
+            id="type"
+            formControlName="type"
+            [nzPlaceHolder]="dialogItemPlaceHolder.type"
+          >
+            <nz-option
+              class="option"
+              nzValue="announcement"
+              nzLabel="公告"
+            ></nz-option>
+            <nz-option
+              class="option"
+              nzValue="notice"
+              nzLabel="通知"
+            ></nz-option>
+            <nz-option
+              class="option"
+              nzValue="bulletin"
+              nzLabel="通报"
+            ></nz-option> </nz-select
+        ></nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          [nzRequired]="validateForm.get('require')?.value"
+          nzFor="content"
+          >内容</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="请输入内容!"
+        >
+          <textarea
+            rows="2"
+            class="ebclosure-control-text"
+            nz-input
+            id="content"
+            [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+            [placeholder]="dialogItemPlaceHolder.content"
+            formControlName="content"
+          ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzFor="creater"
+          >创建人</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <input
+            class="ebclosure-control"
+            nz-input
+            id="creater"
+            formControlName="creater"
+            [placeholder]="dialogItemPlaceHolder.creater"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzFor="ebclosure"
+          >附件</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <div
+            class="ebclosure-control ebclosure-pointer"
+            id="ebclosure"
+            nz-button
+            nzType="default"
+            nzGhost
+            (click)="downloadFile()"
+          >
+            {{ validateForm.get("ebclosure").value }}
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          >创建时间</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <nz-date-picker
+            class="ebclosure-control picker"
+            nzFormat="yyyy-MM-dd HH:mm:ss"
+            [nzDisabled]="true"
+            formControlName="datepicker"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzNoColon]="true"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          >附件(20m)</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+            <button
+              (click)="filePrevent($event)"
+              class="ebclosure-upload"
+              [nzLoading]="dialogStateConfig.tplModalButtonLoading"
+              nz-button
+            >
+              上传
+            </button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ebclosure-item btn">
+        <nz-form-control [nzSpan]="14" [nzOffset]="9">
+          <button class="btn-request" nz-button nzType="primary">确定</button>
+          <button
+            class="btn-cancle"
+            nz-button
+            nzType="primary"
+            (click)="handleCancel($event)"
+          >
+            取消
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+</div>

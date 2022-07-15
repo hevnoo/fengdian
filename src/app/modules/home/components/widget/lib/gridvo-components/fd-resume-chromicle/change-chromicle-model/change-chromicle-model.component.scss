@@ -1,0 +1,19 @@
+::ng-deep{
+    .changeDataModel{
+        .ant-row {
+            display: flex;
+            justify-content:center;
+            margin: auto !important;
+        }
+        .ant-picker {
+            border-radius: 25px;
+        }
+        .ant-modal-footer {
+            display: flex;
+            justify-content: center;
+        }
+        .register-area {
+            padding-bottom: 20px;
+        }
+    }
+}

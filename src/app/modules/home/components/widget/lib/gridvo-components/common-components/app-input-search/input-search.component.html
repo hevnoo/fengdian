@@ -1,0 +1,28 @@
+<div class="selectDiv">
+  <!-- <div class="editInput">
+        <select name="" formControlName="subEquId" (onchange)="changeSelectDevice($event)">
+            <option *ngFor="let item of deviceOption" [value]="item.value" [label]="item.label">
+                {{item.label}}
+            </option>
+        </select>
+    </div> -->
+  <input
+    placeholder="请选择"
+    [value]="searchText"
+    (input)="changeSearchDevice($event)"
+    class="select-input"
+    id="subEquId"
+    (focus)="selectDevice($event)"
+    (blur)="notSelectDevice($event)"
+    autocomplete="off"
+  />
+  <div class="block" [style]="isShowList ? '' : 'display:none'">
+    <ol
+      [style]="showListData.length > 4 ? 'overflow-y:scroll;height:100px;' : ''"
+    >
+      <li *ngFor="let item of showListData" (click)="selectDeviceOfLi(item)">
+        {{ item.label }}
+      </li>
+    </ol>
+  </div>
+</div>

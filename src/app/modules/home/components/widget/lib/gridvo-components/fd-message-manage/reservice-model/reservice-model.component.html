@@ -1,0 +1,31 @@
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()" nzWrapClassName="dialog-fd">
+    <ng-template #modalTitle>短信详情</ng-template>
+    <ng-template #modalContent>
+        <form nz-form>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="people">发送人</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <input nz-input name="people" id="people" [value]="SendName" [disabled]="true">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="content">短信内容</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <textarea nz-input name="content" id="content" [value]="tableSendData?.content" [disabled]="true"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="content">发送时间</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <input nz-input name="content" id="content"
+                        [value]="datePipe.transform(tableSendData?.sendTime,'yyyy-MM-dd')" [disabled]="true">
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <button nz-button nzType="primary" (click)="handleCancel()">退出</button>
+    </ng-template>
+</nz-modal>

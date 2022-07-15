@@ -1,0 +1,6 @@
+<div class="main-div">
+    <div *ngFor="let item of dataList; let i = index" class="box-button" (click)="handle(item.id, i)">
+        <img [src]="'../../../../../../../../assets/gridvo//app/' + item.svgIcon" alt="加载失败..." class="logo">
+        <div class="name">{{item.label}}</div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<nz-modal nzClassName="view-detail" [(nzVisible)]="isView" nzTitle="定检项目" (nzOnCancel)="modelCancel()" nzWidth="50%" nzWrapClassName="dialog-fd" [nzFooter]="null">
+    <div *nzModalContent>
+        <div nz-row>
+            <div nz-col [nzSpan]="12" style="display: flex; justify-content: center; align-items: center;">
+                <label nz-col [nzSpan]="6">计划名称:</label>
+                <input nz-input type="text" nz-col [nzSpan]="12" [disabled]="true" [(ngModel)]="formData.name">
+            </div>
+            <div nz-col [nzSpan]="12" style="display: flex; justify-content: center; align-items: center;">
+                <label nz-col [nzSpan]="6">定检设备:</label>
+                <input nz-input type="text" nz-col [nzSpan]="12" [disabled]="true" [(ngModel)]="formData.deviceName">
+            </div>
+        </div>
+        <div nz-row> 
+            <div nz-col [nzSpan]="12" style="display: flex; justify-content: center; align-items: center;">
+                <label nz-col [nzSpan]="6">投运日期:</label>
+                <nz-date-picker nzPlaceHolder="" nzFormat="yyyy-MM-dd HH:mm:ss"  nz-col [nzSpan]="12" nzDisabled [(ngModel)]="formData.commissioningTime"></nz-date-picker>
+            </div>
+            <div nz-col [nzSpan]="12" style="display: flex; justify-content: center; align-items: center;">
+                <label nz-col [nzSpan]="6">定检周期(天):</label>
+                <input nz-input type="text" nz-col [nzSpan]="12" [disabled]="true" [(ngModel)]="formData.periodDay">
+            </div>
+        </div> 
+        <div nz-row>
+            <div nz-col [nzSpan]="12" style="display: flex; justify-content: center; align-items: center;">
+                <label nz-col [nzSpan]="6">发起时间:</label>
+                <nz-date-picker nz-input type="text" nzFormat="yyyy-MM-dd HH:mm:ss" nz-col [nzSpan]="12" [disabled]="true" [(ngModel)]="formData.lastCreateTime"></nz-date-picker>
+            </div>
+            <div nz-col [nzSpan]="12" style="display: flex; justify-content: center; align-items: center;">
+                <label nz-col [nzSpan]="6">完成时间:</label>
+                <nz-date-picker nz-input type="text" nzFormat="yyyy-MM-dd HH:mm:ss" nz-col [nzSpan]="12" [disabled]="true" [(ngModel)]="formData.lastCompletedTime"></nz-date-picker>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col [nzSpan]="24" style="display: flex; justify-content: center; align-items: center;">
+                <label nz-col [nzSpan]="3">备注:</label>
+                <textarea nz-input nz-col [nzSpan]="18" [disabled]="true" [(ngModel)]="formData.descr"></textarea>
+            </div>
+        </div>
+    </div>
+</nz-modal>

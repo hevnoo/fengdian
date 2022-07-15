@@ -1,0 +1,46 @@
+::ng-deep{
+    .dev-modal{
+        .defect, .telemetry-properties, .chronicle{
+            padding: 0 10px;
+            .ant-table{
+                .ant-table-content {
+                    margin: 10px;
+                    .ant-table-thead {
+                        background: #fff;
+                    }
+                    .ant-table-thead>tr>th {
+                        color: #000;
+                    }
+        
+                                        
+                }
+                .ant-table-container, .ant-table-container table>thead>tr:first-child th:first-child {
+                    border-top-left-radius: 2px;
+                }
+                .ant-table-container,  .ant-table-container table>thead>tr:first-child th:last-child{
+                    border-top-right-radius: 2px;
+                }
+                .ant-table-tbody {
+                    overflow: auto;
+                }
+            }
+        }    
+        .h3-title{
+            background: #f2f2f2;
+            text-align: center;
+            color: #009cdc;
+            font-size: 16px;
+            padding: 10px 0;
+        }
+        .ant-tabs>.ant-tabs-nav .ant-tabs-nav-list {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}
+        
+    
+
+    
+    

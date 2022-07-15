@@ -1,0 +1,20 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    .item {
+        color: var(--dark-seven);
+        font-size: 14px;
+        padding: 5px 12px;
+        white-space: nowrap;
+        text-align: center;
+        border-radius: 20px;
+        &:not(:first-child) {
+            margin-left: 10px;
+        }
+        &.active {
+            background-color: var(--header-bg-color-1);
+            color: var(--white-1);
+        }
+    }
+    
+}

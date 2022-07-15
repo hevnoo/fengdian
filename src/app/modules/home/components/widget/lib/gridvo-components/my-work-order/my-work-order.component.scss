@@ -1,0 +1,13 @@
+.my-work-order-container{
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow-y: scroll;
+  .searchbar{
+    margin-bottom: 25px;
+    .span-label{
+      margin: 0 15px;
+      // color: rgba(255, 255, 255, 0.85);
+    }
+  }
+}

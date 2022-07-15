@@ -1,0 +1,111 @@
+<span (click)="showModal()" style="cursor: pointer">历史数据</span>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  nzClassName="abnormal-his"
+  nzTitle="历史数据"
+  nzWrapClassName="dialog-fd"
+  nzWidth="60%"
+>
+  <div style="height: 100px"></div>
+  <ng-container *nzModalContent>
+    <div class="abnormal" *ngIf="true">
+      <div class="statusButton">
+        <button
+          nz-button
+          nzType="primary"
+          *ngFor="let item of buttonArr"
+          (click)="buttonClick(item)"
+          [class]="
+            clickButtonData && clickButtonData.id === item.id
+              ? 'click-button'
+              : ''
+          "
+        >
+          {{ item.name }}
+        </button>
+      </div>
+
+      <div class="table">
+        <div class="tableTitle" style="margin: 20px 17px;">
+          <div class="div-search-bar" style="float: right">
+            <label style="display: inline-block"
+              ><input
+                type="text"
+                nz-input
+                placeholder="请输入搜索关键字"
+                [(ngModel)]="searchTextOfName"
+            /></label>
+            <button nz-button nzType="primary" (click)="handleSearch()">
+              搜索
+            </button>
+            <button
+              nz-button
+              nzType="primary"
+              *ngIf="selectAllCheck || setSelectId.size > 0"
+              nz-popconfirm
+              [nzPopconfirmTitle]="'确定删除' + selectData.id + '吗?'"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="handleTableDataDelete()"
+              (nzOnCancel)="cancel()"
+            >
+              删除
+            </button>
+          </div>
+        </div>
+        <nz-table
+          #basicTable
+          nzSize="small"
+          [nzData]="tableData"
+          class="gf-table"
+          nzShowPagination
+          nzShowSizeChanger="true"
+          [nzShowTotal]="totalTemplate"
+          nzBordered
+        >
+          <thead>
+            <tr>
+              <th
+                nzShowCheckbox
+                (nzCheckedChange)="selectAll($event)"
+                [nzChecked]="selectAllCheck"
+              ></th>
+              <th>时间</th>
+              <th>异常置信度</th>
+              <th>标识</th>
+              <th>周期存在位</th>
+              <th>运行标志位</th>
+              <th>拾音器0标志位</th>
+              <th>相似度参数0</th>
+              <th>相似度参数1</th>
+              <th>相似度参数2</th>
+            </tr>
+          </thead>
+          <tbody style="text-align: center">
+            <tr *ngFor="let data of tableData; let i = index">
+              <td
+                nzShowCheckbox
+                (nzCheckedChange)="selectSingle(data, data.id, $event)"
+                [nzChecked]="setSelectId.has(data.id)"
+              ></td>
+              <td>{{ data.createTime | date: "yyyy-MM-dd HH:mm:ss" }}</td>
+              <td>{{ data.confidence }}</td>
+              <td>{{ data.id }}</td>
+              <td>{{ data.periodFlag }}</td>
+              <td>{{ data.runFlag }}</td>
+              <td>{{ data.voiceFlag0 }}</td>
+              <td>{{ data.sim0 }}</td>
+              <td>{{ data.sim1 }}</td>
+              <td>{{ data.sim2 }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+      <ng-template #totalTemplate let-total
+        >总共 {{ tableData.length }} 条</ng-template
+      >
+    </div>
+  </ng-container>
+</nz-modal>

@@ -1,0 +1,17 @@
+<div class="gf-wind-turbine" [style]="customStyle">
+  <nz-select
+    class="gf-select-wind-turbine"
+    [(ngModel)]="currentParams"
+    (ngModelChange)="changeState()"
+    class="select-params"
+    [style]="selectStyle"
+    name="currentParams"
+    [nzShowArrow]="false"
+  >
+    <nz-option
+      *ngFor="let item of allParams; trackBy: trackByLabel"
+      [nzLabel]="item?.entityName"
+      [nzValue]="item?.entityName"
+    ></nz-option>
+  </nz-select>
+</div>

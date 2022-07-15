@@ -1,0 +1,178 @@
+.iconback {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 0 5px #757d80;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border-bottom: 1px solid black;
+
+  img {
+    width: 45px;
+    height: 35px;
+  }
+
+  .headvalue {
+    font-size: 18px;
+  }
+
+  .states {
+    width: 80px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+  }
+}
+
+.imgpart {
+  position: relative;
+  width: 94%;
+  margin: 0 auto;
+  height: 200px;
+}
+
+.backgroundimg {
+  margin: 0 auto;
+  width: 60%;
+  height: 85%;
+  background: url("/assets/forfd/turbine.png");
+  background-size: 100% 100%;
+}
+
+.gearbox_oil_temp {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  width: 32%;
+  height: 30px;
+}
+
+.cabin_temp {
+  bottom: 35px;
+  left: 25px;
+  position: absolute;
+  width: 32%;
+  height: 30px;
+}
+
+.yaw_angle {
+  bottom: 2px;
+  left: 34%;
+  position: absolute;
+  width: 32%;
+  height: 30px;
+}
+
+.hub_temp {
+  right: 5px;
+  top: 58px;
+  position: absolute;
+  width: 32%;
+  height: 30px;
+}
+
+.paddle1_angle {
+  right: 5px;
+  top: 100px;
+  position: absolute;
+  width: 32%;
+  height: 30px;
+}
+
+.paddle2_angle {
+  right: 5px;
+  top: 122px;
+  position: absolute;
+  width: 32%;
+  height: 30px;
+}
+
+.paddle3_angle {
+  right: 5px;
+  top: 142px;
+  position: absolute;
+  width: 32%;
+  height: 30px;
+}
+
+.imgpartdiv {
+  top: -3px;
+  position: absolute;
+  right: 0px;
+  color: #2f5b8a;
+  font-size: 16px;
+  width: 40%;
+  height: 100%;
+}
+
+.contenthead {
+  display: flex;
+  width: 94%;
+  margin: 0 auto;
+  height: 70px;
+  flex-wrap: wrap;
+}
+
+.content {
+  display: flex;
+  width: 94%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.smallcontainer {
+  box-sizing: border-box;
+  width: 33%;
+
+  .divider {
+    height: 1px;
+    background: #333;
+    margin: 8px 0;
+  }
+}
+
+.smallcontainertop {
+  text-align: center;
+  line-height: 35px;
+  font-size: 14px;
+  width: 100%;
+  height: 35px;
+}
+
+.smallcontainerbottom {
+  text-align: center;
+  line-height: 35px;
+  font-size: 20px;
+  color: #7ca3ce;
+  width: 100%;
+  height: 35px;
+
+  .small-unit {
+    color: #999;
+    font-size: 14px;
+  }
+}
+
+.smallcontainerbottomspe {
+  text-align: center;
+  line-height: 35px;
+  font-size: 15px;
+  color: #7ca3ce;
+  width: 100%;
+  height: 35px;
+}

@@ -1,0 +1,71 @@
+<nz-modal nzClassName="add-new" [(nzVisible)]="isAdd || isChange" [nzTitle]="'设备定检情况'" (nzOnCancel)="modelCancel()" nzWidth="50%" nzWrapClassName="dialog-fd" [nzFooter]="null">
+    <form nz-form [formGroup]="validateAddForm" (ngSubmit)="handleOk(validateAddForm.value)" class="form-container">
+        <div nz-row [nzGutter]="[24,8]">
+          <div nz-col [nzSpan]="10" [nzOffset]="4" >
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="name">计划名称</nz-form-label>
+              <nz-form-control [nzErrorTip]="errTip">
+                <input rows="2"  nz-input formControlName="name" [disabled]="isDevDisable">
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="10" >
+            <tb-select-device #selcetDevice [devDefault]="devDefault" [isRequired]="true" [title]="'定检设备'" (deviceData)="getDevData($event)" [isDisable]="isDevDisable"></tb-select-device>
+          </div> 
+          <div nz-col [nzSpan]="10" [nzOffset]="4" >
+            <nz-form-item>
+              <nz-form-label nzFor="commissioningTime">投运日期</nz-form-label>
+              <nz-form-control>
+                <nz-date-picker formControlName="commissioningTime" style="width: 100%;"  nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择日期" [nzDisabled]="isDevDisable"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+            
+          </div>
+          <div nz-col [nzSpan]="10" >
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="periodDay">定检周期(天)</nz-form-label>
+              <nz-form-control nzErrorTip="请输入定检周期" >
+                <nz-input-number [nzMin]="1" [nzMax]="10000"  formControlName="periodDay"></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+          
+          </div>
+          <div nz-col [nzSpan]="10" [nzOffset]="4"   class="insect-item">
+            <nz-form-item>
+              <nz-form-label nzRequired  nzFor="lastCreateTime">发起时间</nz-form-label>
+              <nz-form-control nzErrorTip="请输入发起时间">
+                <nz-date-picker rows="2" [nzDisabledDate]="disabledDate" nz-input formControlName="lastCreateTime" nzFormat="yyyy-MM-dd HH:mm:ss" [nzDisabled]="isDevDisable" (ngModelChange)="chanceStartTime($event)"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+            
+          </div>
+          <div nz-col [nzSpan]="10">
+            <nz-form-item>
+              <nz-form-label nzRequired  nzFor="lastCompletedTime">完成时间</nz-form-label>
+              <nz-form-control nzErrorTip="请输入完成时间">
+                <nz-date-picker rows="2" [nzDisabledDate]="disabledDate" nz-input formControlName="lastCompletedTime" nzFormat="yyyy-MM-dd HH:mm:ss" (ngModelChange)="chanceEndTime($event)"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="[24,8]">
+          <div nz-col [nzSpan]="20">
+            <nz-form-item>
+              <nz-form-label nzFor="descr" nz-col [nzSpan]="3">备注</nz-form-label>
+              <nz-form-control >
+                <textarea nz-input formControlName="descr"  rows="4" placeholder="描述" [disabled]="isDevDisable"></textarea> 
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control [nzSpan]="4" [nzOffset]="10">
+            <button nz-button nzType="primary" [disabled]="!validateAddForm.valid">保存</button>
+          </nz-form-control>
+        </nz-form-item>
+    </form>
+    <ng-template #errTip let-control>
+      <ng-container *ngIf="control.hasError('required')">请输入想要填写的内容</ng-container>
+      <ng-container *ngIf="control.hasError('maxlength')">您输入的内容超过长度限制。</ng-container>
+    </ng-template>
+</nz-modal>

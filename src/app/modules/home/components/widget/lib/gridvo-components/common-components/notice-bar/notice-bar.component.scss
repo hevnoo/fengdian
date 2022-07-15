@@ -1,0 +1,50 @@
+:host {
+  .card {
+    width: 100%;
+    height: 100%;
+    .card-title {
+      width: 100%;
+      height: 40px;
+      font-size: 18px;
+      color: #090909;
+      line-height: 40px;
+      padding-left: 15px;
+      font-weight: bold;
+    }
+    .card-menu-wraper {
+      width: 100%;
+      height: calc(100% - 40px);
+      padding: 0 25px;
+      .menu-item-wraper {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom: 1px solid #eeeeee;
+        img {
+          width: 30px;
+          height: 30px;
+          margin-right: 15px;
+        }
+        .menu-title {
+          width: 80%;
+          font-size: 14px;
+          color: #666666;
+          font-weight: 400;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-around;
+          flex-direction: column;
+          .noticedesrc {
+            width: 100%;
+            max-width: 375px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+}

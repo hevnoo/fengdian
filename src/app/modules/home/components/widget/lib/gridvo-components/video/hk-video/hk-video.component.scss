@@ -1,0 +1,208 @@
+@import "./style.scss";
+
+:host {
+  ::ng-deep {
+    .bottom__button-fun {
+      min-width: 70px;
+      height: 28px;
+      line-height: 28px;
+      box-shadow: #0a76a4 0px 0px 4px;
+      background-color: transparent;
+      color: #000;
+      font-size: 0.5rem;
+      cursor: pointer;
+      text-align: center;
+      margin: 0 10px;
+      padding: 0 5px;
+    }
+
+    .control__adjust--form .el-form-item__label {
+      color: #e4e7ed;
+      font-size: 12px;
+    }
+
+    .control__adjust--form .el-form-item--mini.el-form-item,
+    .el-form-item--small.el-form-item {
+      margin-bottom: 5px;
+    }
+  }
+  .video__container--wrapper {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .wrapper__monitor {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .operate {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgb(255,255,255) 0%, rgb(190,211,233) 100%);
+    .left-operate {
+      width: 200px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background:transparent;
+      .left-item {
+        width: 20px;
+        height: 20px;
+        margin: 0 5px;
+      }
+      .one {
+        background-image: url("../../../../../../../../../assets/gridvo/video/1-1.png");
+      }
+      .two {
+        background-image: url("../../../../../../../../../assets/gridvo/video/2-2.png");
+      }
+      .four {
+        background-image: url("../../../../../../../../../assets/gridvo/video/4-4.png");
+      }
+      .cutting-line {
+        margin: 0 5px;
+        height: 20px;
+        border-right: 1px solid #505667;
+      }
+      .photo {
+        background-image: url("../../../../../../../../../assets/gridvo/video/photo.png");
+      }
+      .sound {
+        background-image: url("../../../../../../../../../assets/gridvo/video/sound.png");
+      }
+    }
+    .middle-operate {
+      flex: 1;
+      height: 100%;
+      background: transparent;
+    }
+    .right-operate {
+      width: 200px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background:transparent;
+    }
+  }
+
+  .live__container--wrapper {
+    width: 100%;
+    height: calc(100vh - 56px);
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    // background-color: pink;
+  }
+
+  .palyback__container--wrapper {
+    width: 100%;
+    height: calc(100vh - 56px);
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    // background-color: cyan;
+    .playback__right--control {
+      width: 12%;
+      min-width: 150px;
+      height: 100%;
+      background-color: #e1eaf5;
+      .playback__controler--adjust {
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .playWnd {
+    width: 900px; /*播放容器的宽和高设定*/
+    height: 600px;
+  }
+  
+  .live__left--content {
+    width: 85%;
+    min-height: calc(100vh - 150px);
+    height: 100%;
+    border-right: 1px solid #eee;
+    // background: linear-gradient(90deg, #f4f7fb 0%, #c4d7eb 100%);
+    background:linear-gradient(90deg, rgb(255,255,255) 0%, rgb(190,211,233) 100%);
+    background-color: linear-gradient(90deg, rgb(255,255,255) 0%, rgb(190,211,233) 100%) !important;
+  }
+  .live__left--ptzfalse {
+    width: 100%;
+    min-height: 720px;
+    height: 100%;
+    border-right: 1px solid #eee;
+    // background: linear-gradient(90deg, #f4f7fb 0%, #c4d7eb 100%);
+    background:linear-gradient(90deg, rgb(255,255,255) 0%, rgb(190,211,233) 100%);
+    background-color: linear-gradient(90deg, rgb(255,255,255) 0%, rgb(190,211,233) 100%) !important;
+  }
+ 
+  .live__top--video {
+    width: 100%;
+    min-height: 660px;
+    height: 100%;
+  }
+
+  .live__right--control {
+    width: 15%;
+    min-width: 150px;
+    height: 100%;
+    // background-color: #e1eaf5;
+    background:linear-gradient(90deg, rgb(255,255,255) 0%, rgb(190,211,233) 100%);
+    background-color: transparent !important;
+    .playback__right--control {
+      width: 100%;
+      min-width: 150px;
+      height: 100%;
+      // background-color: #e1eaf5;
+      background:linear-gradient(90deg, rgb(255,255,255) 0%, rgb(190,211,233) 100%);
+      background-color: transparent !important;
+      .playback__controler--adjust {
+        width: 90%;
+        margin: 0 auto;
+        .playback-adjust-item {
+          width: 100%;
+          margin-bottom: 5px;
+          .playback-label {
+            width: 100%;
+            height: 32px;
+            line-height: 32px;
+            margin: 5px 0;
+          }
+          .playback-adjust-value {
+            width: 100%;
+            height: 32px;
+          }
+        }
+        .control-btn {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          margin-top: 15px;
+        }
+      }
+    }
+  } 
+   .playback-adjust-item{
+     .playback-label{
+       color: rgba(0,0,0,0.65);
+     }
+   }
+   .ng-star-inserted{
+     color: rgba(0,0,0,0.65);
+   }
+}

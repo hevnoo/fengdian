@@ -1,0 +1,106 @@
+<!--
+
+    Copyright © 2016-2021 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div>
+  <mat-card class="settings-card">
+    <mat-card-title>
+      <div fxLayout="row">
+        <span class="mat-headline" translate>admin.home-settings</span>
+      </div>
+    </mat-card-title>
+    <mat-progress-bar color="warn" mode="indeterminate" *ngIf="isLoading$ | async">
+    </mat-progress-bar>
+    <div style="height: 4px;" *ngIf="!(isLoading$ | async)"></div>
+    <mat-card-content style="padding-top: 16px;">
+      <form [formGroup]="homeSettings" (ngSubmit)="save()">
+        <fieldset [disabled]="isLoading$ | async">
+          <section class="tb-default-dashboard" fxFlex fxLayout="column">
+            <section fxFlex fxLayout="column" fxLayout.gt-sm="row">
+              <tb-dashboard-autocomplete fxFlex placeholder="{{ 'dashboard.home-dashboard' | translate }}"
+                formControlName="dashboardId" [dashboardsScope]="'tenant'" [selectFirstDashboard]="false">
+              </tb-dashboard-autocomplete>
+              <mat-checkbox fxFlex formControlName="hideDashboardToolbar">
+                {{ 'dashboard.home-dashboard-hide-toolbar' | translate }}
+              </mat-checkbox>
+            </section>
+          </section>
+          <div fxLayout="row" fxLayoutAlign="end center" style="width: 100%;" class="layout-wrap">
+            <button mat-button mat-raised-button color="primary"
+              [disabled]="(isLoading$ | async) || homeSettings.invalid || !homeSettings.dirty"
+              type="submit">{{'action.save' | translate}}
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="settings-card">
+    <mat-card-title>
+      <div fxLayout="row">
+        <span class="mat-headline">主题选择</span>
+      </div>
+    </mat-card-title>
+    <mat-card-content style="padding-top: 16px;">
+      <div>
+        <nz-radio-group [(ngModel)]="themeValue">
+          <label *ngFor="let i of themeList" nz-radio [nzValue]="i.name">{{ i.chinaName }}</label>
+        </nz-radio-group>
+      </div>
+      <div style="width: 100%; height: 30px;">
+        <button style="float: right;" nz-button nzType="primary" (click)="toggleTheme()">保存风格</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="settings-card">
+    <mat-card-title>
+      <div fxLayout="row">
+        <span class="mat-headline">登录页定制</span>
+      </div>
+    </mat-card-title>
+    <mat-card-content style="padding-top: 16px;">
+      <ng-container [formGroup]="loginStyleForm" *ngFor="let item of loginStyleList">
+        <tb-image-input *ngIf="item.type === 'IMAGE'" fxFlex [label]="item.label" [maxSizeByte]="item.maxSize || 524288"
+          [formControlName]="item.formControlName">
+        </tb-image-input>
+        <tb-color-input *ngIf="item.type === 'COLOR'" fxFlex [label]="item.label" icon="format_color_fill" openOnInput
+          [formControlName]="item.formControlName">
+        </tb-color-input>
+        <mat-form-field class="mat-block" *ngIf="item.type === 'TEXT'">
+          <mat-label>{{ item.label }}</mat-label>
+          <input matInput [formControlName]="item.formControlName">
+        </mat-form-field>
+        <mat-form-field class="mat-block" *ngIf="item.type === 'SELECT'">
+          <mat-label>{{ item.label }}</mat-label>
+          <mat-select [formControlName]="item.formControlName">
+            <mat-option value="100% 100%">Fit</mat-option>
+            <mat-option value="100%">Fit width</mat-option>
+            <mat-option value="auto 100%">Fit height</mat-option>
+            <mat-option value="cover">Cover</mat-option>
+            <mat-option value="contain">Contain</mat-option>
+            <mat-option value="auto">Original size</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+      <div style="width: 100%; height: 30px;">
+        <button style="float: right;" nz-button nzType="primary" (click)="saveLoginStyle()">保存</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

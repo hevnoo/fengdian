@@ -1,0 +1,7 @@
+<div class="div-container">
+    <div class="windBar" *ngFor="let item of barItem" (click)="handleBar(item)">
+        <img [src]="'assets/gridvo/app/'+ item?.icon" alt="" [style]="item?.width">
+        <span>{{ item?.name }}</span>
+    </div>
+    
+</div>  

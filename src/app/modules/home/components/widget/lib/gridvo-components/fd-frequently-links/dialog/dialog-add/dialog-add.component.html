@@ -1,0 +1,139 @@
+<div class="dialog-form-add">
+  <nz-modal
+    [(nzVisible)]="dialogStateConfig.isVisible"
+    [nzTitle]="tplTitle"
+    [nzContent]="tplContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+    nzWrapClassName="add-bubububu"
+  ></nz-modal>
+
+  <ng-template #tplTitle>
+    <div nz-row class="dialog-enclosure-header">
+      <div class="top" nz-col nzSpan="24">
+        <span>添加</span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #tplContent let-params>
+    <form
+      class="enclosure"
+      nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm()"
+    >
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzRequired
+          nzFor="systemName"
+          >系统名称</nz-form-label
+        >
+        <!-- [nzRequired]="validateForm.get('systemName')?.invalid" -->
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="系统名不能为空，且要小于64个字符"
+        >
+          <input
+            class="ebclosure-control"
+            nz-input
+            formControlName="systemName"
+            id="systemName"
+            placeholder="系统名称"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzRequired
+          nzFor="link"
+          >链接</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="请输入正确的网址~"
+        >
+          <input
+            class="ebclosure-control"
+            nz-input
+            formControlName="link"
+            id="link"
+            placeholder="链接"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzFor="linkType"
+          nzRequired
+          >链接类型</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzErrorTip="请填写链接类型"
+        >
+          <nz-select
+            class="ebclosure-control-select"
+            id="linkType"
+            formControlName="linkType"
+            nzPlaceHolder="请选择"
+            (ngModelChange)="typeChange($event)"
+          >
+            <nz-option nzValue="personalLink" nzLabel="个人链接"></nz-option>
+            <nz-option nzValue="publicLink" nzLabel="公共链接"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="ebclosure-item">
+        <nz-form-label
+          class="ebclosure-label"
+          [nzSm]="itemConfig.label"
+          [nzXs]="itemConfig.nzXsWidth"
+          nzFor="remarks"
+          >备注</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="itemConfig.control"
+          [nzXs]="itemConfig.nzXsWidth"
+        >
+          <input
+            class="ebclosure-control"
+            nz-input
+            formControlName="remarks"
+            id="remarks"
+            placeholder="备注"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- 按钮行 -->
+      <nz-form-item class="ebclosure-item btn" nz-row>
+        <nz-form-control [nzSpan]="14" [nzOffset]="9">
+          <button class="btn-request" nz-button nzType="primary">确认</button>
+          <button
+            class="btn-cancle"
+            nz-button
+            nzType="primary"
+            (click)="handleCancel($event)"
+          >
+            取消
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+</div>

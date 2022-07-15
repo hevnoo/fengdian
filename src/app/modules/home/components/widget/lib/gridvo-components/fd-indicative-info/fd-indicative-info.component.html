@@ -1,0 +1,20 @@
+<div class="operation-indices-show">
+  <div class="title">{{ title }}</div>
+  <div class="detail">
+    <div class="content" *ngFor="let item of block">
+      <span class="name">{{item.name}}</span>
+      <span class="value">{{item.data||0}}</span>
+      <span class="unit">{{item.company}}</span>
+    </div>
+    <!-- <div class="content">
+      <span class="name">利用小时</span>
+      <span class="value">0.01</span>
+      <span class="unit">h</span>
+    </div>
+    <div class="content">
+      <span class="name">可利用率</span>
+      <span class="value">100</span>
+      <span class="unit">%</span>
+    </div> -->
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<form nz-form [formGroup]="deviceDataForm">
+  <nz-form-item>
+    <nz-form-label nzFor="devSelect" [nzRequired]="isRequired">{{title}}</nz-form-label>
+    <nz-form-control nzErrorTip="请选择设备名称">
+      <nz-select nzPlaceHolder="请选择" nzAllowClear nzShowSearch nzServerSearch 
+        (nzOnSearch)="onDeviceSearch($event)" formControlName="devSelect"  rows="2" [nzDisabled]="isDisable">
+        <ng-container *ngFor="let o of deviceOption">
+          <nz-option *ngIf="!isLoading" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+        </ng-container>
+        <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+          <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</form>

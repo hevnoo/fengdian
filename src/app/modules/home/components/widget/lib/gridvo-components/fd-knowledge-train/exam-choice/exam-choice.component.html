@@ -1,0 +1,27 @@
+<div class="examPanel">
+  <ng-container *ngFor="let item of exam; let ig = index; trackBy: identify">
+    <div *ngIf="item.type === 'TITLE'; else elseBlock">{{ item.content }}</div>
+    <ng-template #elseBlock>
+      <div class="title">{{ item.content }}</div>
+      <ul class="content">
+        <ng-container *ngIf="item.items">
+          <li *ngFor="let option of item.items; let i = index">
+            {{ letters(i) }}. {{ option.content }}
+          </li>
+        </ng-container>
+      </ul>
+      <div
+        class="answerBotton"
+        *ngIf="!answerVisibles[ig]; else elseBlock2"
+        (click)="showAnswer(ig)"
+      >
+        查看答案
+      </div>
+      <ng-template #elseBlock2>
+        <div class="answer">
+          正确答案：{{ answerFormat(item.answer, item.type) }}
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+</div>

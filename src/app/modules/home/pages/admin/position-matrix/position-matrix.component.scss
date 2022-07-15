@@ -1,0 +1,62 @@
+:host {
+  padding: 5px;
+  .position-wraper {
+    width: 100%;
+    height: calc(100vh - 75px);
+  }
+  .position-side {
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 5px;
+    .init-settings-wraper {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #7f9db9;
+    }
+  }
+  .position-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .lnglat-wraper {
+      position: absolute;
+      padding: 0 5px;
+      top: 0;
+      left: 00px;
+      z-index: 999;
+      color: #fff;
+      background-color: rgba($color: #000000, $alpha: 0.5);
+    }
+    .instanceid-wraper {
+      position: absolute;
+      z-index: 999;
+      display: none;
+      background-color: #fff;
+      padding: 15px 10px;
+      border-radius: 10px;
+      .instance-input {
+        width: 280px;
+      }
+    }
+    .modify-alt-wraper {
+      position: absolute;
+      z-index: 999;
+      display: none;
+      background-color: #fff;
+      padding: 15px 10px;
+      border-radius: 10px;
+      .input-alt {
+        width: 150px;
+      }
+    }
+    #positionContainer {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  input {
+    margin: 5px 0;
+  }
+}

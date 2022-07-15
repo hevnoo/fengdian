@@ -1,0 +1,308 @@
+<div class="app-process">
+  <div class="header">
+    <div
+      *ngFor="let item of buttonText"
+      [ngClass]="{
+        'header-single': true,
+        'click-header': isclickText === item.label
+      }"
+      (click)="changeText(item.label)"
+    >
+      <span>{{ item.label }}</span>
+    </div>
+  </div>
+  <form
+    *ngIf="isclickText === buttonText[0].label && processName === '缺陷上报'"
+    [formGroup]="defectOrderFormData"
+    (ngSubmit)="submitForm()"
+  >
+    <label> 主题：<input type="text" formControlName="motif" /> </label>
+    <label
+      >缺陷描述：
+      <textarea placeholder="请输入内容" formControlName="describe"></textarea>
+    </label>
+    <label>发现时间：<input type="text" formControlName="findTheTime" /></label>
+    <label>发现人：<input type="text" formControlName="quot" /></label>
+    <label
+      >所属设备：
+      <input type="text" formControlName="subEqu" />
+    </label>
+    <label>缺陷编号：<input type="text" formControlName="number" /></label>
+    <label>缺陷类型：<input type="text" formControlName="type" /></label>
+    <label
+      >缺陷等级：
+      <input type="text" formControlName="level" />
+    </label>
+    <label
+      >是否是本设备缺陷：
+      <input type="text" formControlName="whetherDevice" />
+    </label>
+    <label>
+      备注：
+      <input type="text" formControlName="remark" />
+    </label>
+    <label>
+      附件：
+      <div>
+        <a
+          style="margin-right: 10px"
+          nz-tooltip
+          nzTooltipTitle="点击下载附件"
+          *ngFor="let item of defectOrderFormData.value.attachments"
+          (click)="downloadFile(item)"
+          >{{ stringSplit(item?.path) }}</a
+        >
+      </div>
+    </label>
+    <label *ngIf="isNeedDefectApproved && !disableComplete"
+      >审批意见
+      <select formControlName="approved">
+        <option
+          *ngFor="let item of approvalOpinions"
+          [value]="item.value"
+          [label]="item.label"
+        ></option>
+      </select>
+    </label>
+    <label *ngIf="!disableComplete"
+      >意见：
+      <textarea placeholder="请输入内容" formControlName="message"></textarea>
+    </label>
+    <label
+      *ngIf="
+        (isNeedNextPeople &&
+          !disableComplete &&
+          defectOrderFormData.value.approved === 'true') ||
+        detailOfTask.taskDefinitionKey === 'usertask2'
+      "
+      >下一操作人：
+      <select formControlName="nextPerson">
+        <option
+          *ngFor="let item of personOption"
+          [value]="item.value"
+          [label]="item.label"
+        ></option>
+      </select>
+    </label>
+    <div class="fd-button" *ngIf="!disableComplete">
+      <button>提交</button>
+    </div>
+  </form>
+  <form
+    *ngIf="isclickText === buttonText[0].label && processName === '故障分析'"
+    [formGroup]="falultDetailFormData"
+    (ngSubmit)="submitForm()"
+  >
+    <label>主题：<input type="text" formControlName="eventName" /></label>
+    <label>工单号：<input type="text" formControlName="number" /></label>
+    <label>专业：<input type="text" formControlName="major" /></label>
+    <label
+      >设备：<input
+        type="text"
+        formControlName="device"
+        [value]="deviceName"
+        *ngIf="detailOfTask.taskDefinitionKey !== 'fault_analysis_report'"
+      />
+      <nz-select
+        nzPlaceHolder="输入设备名字搜索"
+        nzAllowClear
+        nzShowSearch
+        nzServerSearch
+        formControlName="device"
+        (nzOnSearch)="onDeviceSearch($event)"
+        *ngIf="detailOfTask.taskDefinitionKey === 'fault_analysis_report'"
+      >
+        <ng-container *ngFor="let o of deviceOptions">
+          <nz-option
+            *ngIf="!isLoading"
+            [nzValue]="o.value"
+            [nzLabel]="o.label"
+          ></nz-option>
+        </ng-container>
+        <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+          <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+        </nz-option>
+      </nz-select>
+    </label>
+
+    <label
+      >事情经过
+      <input type="text" formControlName="happened" />
+    </label>
+    <label
+      >开始时间：
+      <input
+        type="text"
+        formControlName="beginTime"
+        *ngIf="detailOfTask.taskDefinitionKey !== 'fault_analysis_report'"
+      />
+      <nz-date-picker
+        formControlName="beginTime"
+        *ngIf="detailOfTask.taskDefinitionKey === 'fault_analysis_report'"
+      >
+      </nz-date-picker>
+    </label>
+    <label
+      >结束时间：
+      <input
+        placeholder="请输入内容"
+        formControlName="endTime"
+        *ngIf="detailOfTask.taskDefinitionKey !== 'fault_analysis_report'"
+      />
+      <nz-date-picker
+        formControlName="endTime"
+        *ngIf="detailOfTask.taskDefinitionKey === 'fault_analysis_report'"
+      >
+      </nz-date-picker>
+    </label>
+    <label (click)="getPhoto(0)"
+      >故障现场照片：
+      <nz-upload
+        [nzAction]="location.origin"
+        nzListType="picture-card"
+        [(nzFileList)]="fileList"
+        [nzShowButton]="false"
+        [nzShowUploadList]="icons"
+        [nzDownload]="downloadFile"
+        *ngIf="detailOfTask.taskDefinitionKey !== 'fault_analysis_report'"
+      >
+      </nz-upload>
+      <div *ngIf="detailOfTask.taskDefinitionKey === 'fault_analysis_report'">
+        <i nz-icon nzType="camera" nzTheme="outline"></i>
+        <img
+          *ngFor="let item of processedPictures"
+          [src]="item"
+          alt=""
+          style="max-width: 100%; height: 100%; margin-left: 1px"
+        />
+      </div>
+    </label>
+    <label
+      >原因分析：
+      <textarea placeholder="请输入内容" formControlName="reason"></textarea>
+    </label>
+    <label
+      >处理方式：
+      <textarea placeholder="请输入内容" formControlName="handle"></textarea>
+    </label>
+    <label
+      >处理后的图片：
+      <nz-upload
+        nzListType="picture-card"
+        [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+        [(nzFileList)]="fileListOfScen"
+        [nzShowButton]="false"
+        [nzShowUploadList]="icons"
+        [nzDownload]="downloadFile"
+        *ngIf="detailOfTask.taskDefinitionKey !== 'fault_analysis_report'"
+      >
+      </nz-upload>
+      <div *ngIf="detailOfTask.taskDefinitionKey === 'fault_analysis_report'">
+        <i nz-icon nzType="camera" nzTheme="outline"></i>
+        <img
+          *ngFor="let item of scenePictures"
+          [src]="item"
+          alt=""
+          style="max-width: 100%; height: 100%; margin-left: 1px"
+        />
+      </div>
+    </label>
+    <label
+      >暴露问题：
+      <textarea
+        placeholder="请输入内容"
+        formControlName="exposedProblem"
+      ></textarea>
+    </label>
+    <label
+      >防范措施：
+      <textarea placeholder="请输入内容" formControlName="measures"></textarea>
+    </label>
+    <label>
+      防范责任部门
+      <input
+        type="text"
+        placeholder="请输入部门"
+        formControlName="department"
+      />
+    </label>
+    <label
+      >防范责任人：
+      <input type="text" formControlName="personInCharge" />
+    </label>
+    <label *ngIf="isNeedApproved && !disableComplete"
+      >审批意见
+      <select formControlName="approved">
+        <option [value]="true" label="同意"></option>
+        <option [value]="false" label="不同意"></option>
+      </select>
+    </label>
+    <label *ngIf="!disableComplete"
+      >意见：
+      <textarea placeholder="请输入内容" formControlName="message"></textarea>
+    </label>
+    <label
+      *ngIf="
+        isNeedApprovedNextPeople &&
+        !disableComplete &&
+        falultDetailFormData.value.approved === 'true'
+      "
+      >下一操作人：
+      <select formControlName="nextPerson">
+        <option
+          *ngFor="let item of personOption"
+          [value]="item.value"
+          [label]="item.label"
+        ></option>
+      </select>
+    </label>
+    <div class="fd-button" *ngIf="!disableComplete">
+      <button>提交</button>
+    </div>
+  </form>
+  <div *ngIf="isclickText === buttonText[1].label" class="log">
+    <div class="card" *ngFor="let item of defectData">
+      <div class="card-head">
+        {{ item.processInstanceDO.name }}-{{ item.name }}
+      </div>
+      <div class="card-content-fa">
+        <div>
+          <span><img src="assets/user.png" alt="image" /></span>
+          <span class="left">{{
+            item.name === "开始" ? "发起人" : "处理人"
+          }}</span>
+          <span class="right" style="color: #1dceeb">{{
+            userNameKey[item.assignee]
+          }}</span>
+        </div>
+        <div>
+          <div class="dot">.</div>
+          <span class="left">{{
+            item.name === "开始" ? "发起时间" : "处理时间"
+          }}</span>
+          <span class="right">{{
+            item.startTime | date: "yyyy-MM-dd HH:mm:ss"
+          }}</span>
+          <span class="submit">提交</span>
+        </div>
+        <div>
+          <div class="dot">.</div>
+          <span class="left">工单号</span>
+          <span class="right">{{ item.processInstanceId }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="image" *ngIf="isclickText === buttonText[2].label">
+    <img
+      [src]="bpmnSrc"
+      alt=""
+      style="
+        margin-left: -20vw;
+        margin-top: 22px;
+        max-width: 515px;
+        width: 100vw;
+      "
+    />
+  </div>
+</div>

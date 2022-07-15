@@ -1,0 +1,27 @@
+<div class="banner" nz-row>
+  <button
+    class="left"
+    nz-button
+    nzShape="circle"
+    nzGhost
+    (click)="carousel.pre()"
+  >
+    <i nz-icon nzType="left" nzTheme="outline"></i>
+  </button>
+  <div nz-col [nzSpan]="24">
+    <nz-carousel class="carousel" #carousel nzAutoPlay [nzEnableSwipe]="false">
+      <div nz-carousel-content *ngFor="let img of images">
+        <img [src]="img.imgUrl" alt="img.alt" />
+      </div>
+    </nz-carousel>
+  </div>
+  <button
+    class="right"
+    nz-button
+    nzShape="circle"
+    nzGhost
+    (click)="carousel.next()"
+  >
+    <i nz-icon nzType="right" nzTheme="outline"></i>
+  </button>
+</div>

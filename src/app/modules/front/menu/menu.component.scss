@@ -1,0 +1,27 @@
+:host {
+  $height: 50px;
+  .ljfengdian {
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 12px;
+    z-index: 99;
+    &>ul {
+      min-height: calc(100% - #{2 * $height});
+    }
+    .account {
+      height: $height;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      margin-top: $height / 2;
+    }
+    .menu-list {
+      position: relative;
+      width: calc(100% + 1px);
+      padding-top: 20px;
+    }
+  }
+}
+

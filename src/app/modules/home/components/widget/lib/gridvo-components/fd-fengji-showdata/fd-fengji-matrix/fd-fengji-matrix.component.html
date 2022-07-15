@@ -1,0 +1,58 @@
+<div class="content">
+  <div class="title">白云岭</div>
+  <div class="contentBaiyunvalues">
+    <div
+      class="oneContainer"
+      *ngFor="let item of cloudMountain"
+      (click)="changeState(item.entityId)"
+    >
+      <div
+        class="oneContainerId"
+        [style]="{ background: map.get(item.status) }"
+      >
+        #{{ item.name }}
+      </div>
+      <div class="oneContainerValue">
+        {{ item.day_power_generation }}
+        <div
+          [ngStyle]="{
+            width:
+              (item.day_power_generation / 40000 > 1
+                ? 1
+                : item.day_power_generation / 40000) *
+                100 +
+              '%'
+          }"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <div class="title">风吹岭</div>
+  <div class="contentBaiyunvalues">
+    <div
+      class="oneContainer"
+      *ngFor="let item of windMountain"
+      (click)="changeState(item.entityId)"
+    >
+      <div
+        class="oneContainerId"
+        [style]="{ background: map.get(item.status) }"
+      >
+        #{{ item.name }}
+      </div>
+      <div class="oneContainerValue">
+        {{ item.day_power_generation }}
+        <div
+          [ngStyle]="{
+            width:
+              (item.day_power_generation / 40000 > 1
+                ? 1
+                : item.day_power_generation / 40000) *
+                100 +
+              '%'
+          }"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="main-box">
+  <nz-select [(ngModel)]="currentParams" (ngModelChange)="changeState()" [nzAllowClear]="false" nzShowSearch nzServerSearch
+    (nzOnSearch)="onDeviceSearch($event)" name="currentParams" nzSuffixIcon="search">
+    <ng-container *ngFor="let item of selectParams trackBy: trackByLabel">
+      <nz-option [nzLabel]="item?.entityName" [nzValue]="item?.entityName"></nz-option>
+    </ng-container>
+  </nz-select>
+</div>  

@@ -1,0 +1,53 @@
+ .main {
+    width: 100%;
+    padding: 7px;
+    // height: 5%;
+    // display: flex;
+    // justify-content: space-around;
+    // align-items: center;
+    // position: fixed;
+    background-color: #40a9ff;
+    // top: 11.5vw;
+    // z-index: 999999;
+    .title {
+        span {
+            font-size: 27px;
+            font-weight: 500;
+            color: #fff;
+        }
+    }
+    .picker {
+        display: flex;
+        justify-content: space-between;
+        .time {
+            width: 60%;
+            span {
+                font-size: 18px;
+                display: inline-block;
+                padding-right: 10px;
+                color: #fff
+            }
+        }
+        .pic {
+            width: 40%;
+            text-align: right;
+            .ant-picker {
+                background: transparent !important;
+                border-radius: 0 !important;
+                border: none !important;
+                ::ng-deep {
+                    .ant-picker-input>input {
+                        display: none !important;
+                    }
+                    .ant-picker-suffix {
+                       color: #fff;
+                       font-size: 20px;
+                    }
+                }
+            }
+        }
+        
+        
+        
+    }
+}

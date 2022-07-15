@@ -1,0 +1,64 @@
+<div class="message">
+  <div class="head">
+    <button class="click-button">发短信</button>
+    <span (click)="handleCancle.emit()" style="margin-left: 260px; margin-top: 16px;cursor: pointer;">X</span>
+  </div>
+  <form class="content" nz-form [formGroup]="reserviceDataForm">
+    <div class="reserviceName">
+      <div class="sanjiao"></div>
+      <span>接收人电话</span>
+      <div class="input">
+        <nz-form-item>
+          <nz-form-label nzRequired style="display:none;"></nz-form-label>
+          <nz-form-control nzErrorTip="接收人电话为必填">
+            <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="reservicePhoneOfSelect" rows="2"
+              *ngIf="isSelect">
+              <ng-container *ngFor="let o of personOption">
+                <nz-option *ngIf="!isLoading" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+              </ng-container>
+              <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+                <i nz-icon nzType="loading" class="loading-icon"></i> Loading
+                Data...
+              </nz-option>
+            </nz-select>
+            <input type="text" nz-input placeholder="请输入电话" formControlName="reserviPhone" *ngIf="!isSelect" />
+          </nz-form-control>
+          <button nz-button nzType="primary" class="swag" (click)="changeSelectInput()">
+            <i nz-icon nzType="swap" nzTheme="outline"></i>
+          </button>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="reserviceName" style="margin-top: 72px">
+      <div class="sanjiao"></div>
+      <span>发送时间</span>
+      <div class="input">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="发送时间必填">
+            <nz-form-label nzRequired style="display:none;"></nz-form-label>
+            <nz-date-picker nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="reserviceDate" nzShowTime>
+            </nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="reserviceName" style="margin-top: 72px">
+      <div class="sanjiao"></div>
+      <span>短信内容</span>
+      <div class="input">
+        <nz-form-item style="width: 326px;">
+          <nz-form-control nzErrorTip="短信内容必填">
+            <!-- <nz-form-label nzRequired style="display:none;"></nz-form-label> -->
+            <nz-textarea-count [nzMaxCharacterCount]="500">
+              <textarea rows="8" nz-input formControlName="reserviceContent"></textarea>
+            </nz-textarea-count>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <button nz-button nzType="primary" (click)="confirmSend()"
+      style="margin: auto;margin-top: 106px; margin-left: 166px; display: flex; justify-content: center; align-items: center;">
+      <i nz-icon nzType="message" nzTheme="outline"></i>发送
+    </button>
+  </form>
+</div>

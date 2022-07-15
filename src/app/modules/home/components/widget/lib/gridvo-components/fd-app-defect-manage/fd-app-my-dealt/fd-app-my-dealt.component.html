@@ -1,0 +1,42 @@
+<div class="log">
+  <div class="select-time">
+    <button
+      *ngFor="let item of headText"
+      [ngClass]="{ 'clien-button': isClickText === item.value }"
+      (click)="changeTime(item.value)"
+    >
+      {{ item.label }}
+    </button>
+  </div>
+  <div
+    class="card"
+    *ngFor="let item of defectDataOfTime"
+    (click)="goToDefectReport(item)"
+  >
+    <div class="card-head">
+      <p>
+        {{ item.processInstanceDO.name }}-{{ item.name ? item.name : "已结束" }}
+      </p>
+      <span>{{ item.processInstanceDO.startTime | date: "yyyy-MM-dd" }}</span>
+    </div>
+    <div class="card-content-fa">
+      <div>
+        <span><img src="assets/user.png" alt="image" /></span>
+        <span class="left">创建时间</span>
+        <span class="right">{{
+          item.processInstanceDO.startTime | date: "yyyy-MM-dd HH:mm:ss"
+        }}</span>
+      </div>
+      <div>
+        <div class="dot">.</div>
+        <span class="left">发现人</span>
+        <span class="right">{{ item.startUserName }}</span>
+      </div>
+      <div>
+        <div class="dot">.</div>
+        <span class="left">主题</span>
+        <span class="right">{{ item.motif }}</span>
+      </div>
+    </div>
+  </div>
+</div>

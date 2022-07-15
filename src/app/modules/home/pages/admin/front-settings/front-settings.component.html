@@ -1,0 +1,116 @@
+<!--
+
+    Copyright © 2016-2021 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div>
+  <mat-card class="settings-card">
+    <mat-card-title>
+      <div fxLayout="row">
+        <span class="mat-headline" translate>前端菜单配置</span>
+      </div>
+    </mat-card-title>
+    <mat-card-content style="padding-top: 16px;">
+      <!-- 可展开面板用于新增菜单 -->
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>新增</mat-panel-title>
+            <mat-panel-description>新增一个菜单用于前端导航</mat-panel-description>
+          </mat-expansion-panel-header>
+          <form (ngSubmit)="save()">
+            <fieldset>
+              <section class="tb-default-dashboard" fxFlex fxLayout="row">
+                <section fxFlex fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field class="input-width">
+                    <mat-label>所属上级</mat-label>
+                    <input matInput [(ngModel)]="menuSettings.parentName" required="true" name="parentName">
+                  </mat-form-field>
+                </section>
+                <section fxFlex fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field class="input-width">
+                    <mat-label>类型</mat-label>
+                    <mat-select [(value)]="menuSettings.type">
+                      <mat-option value="menu">菜单</mat-option>
+                      <mat-option value="link">路由</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </section>
+                <section fxFlex fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field class="input-width">
+                    <mat-label>名称</mat-label>
+                    <input matInput [(ngModel)]="menuSettings.name" required="true" name="name">
+                  </mat-form-field>
+                </section>
+                <section fxFlex fxLayout="column" fxLayout.gt-sm="row">
+                  <mat-form-field class="input-width">
+                    <mat-label>图标</mat-label>
+                    <input matInput [(ngModel)]="menuSettings.icon" required="true" name="icon">
+                  </mat-form-field>
+                </section>
+                <section fxFlex fxLayout="column" fxLayout.gt-sm="row" *ngIf="menuSettings.type === 'link'">
+                  <tb-dashboard-autocomplete fxFlex placeholder="仪表板" [(ngModel)]="menuSettings.dashboardId" [dashboardsScope]="'tenant'"
+                    [selectFirstDashboard]="false" name="dashboardId"></tb-dashboard-autocomplete>
+                </section>
+              </section>
+            </fieldset>
+            <div fxLayout="row" fxLayoutAlign="end center" style="width: 100%;" class="layout-wrap">
+              <button mat-button mat-raised-button color="primary" type="submit">{{'action.save' | translate}}
+              </button>
+            </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <!-- table -->
+      <div class="mat-elevation-z8 table-wraper">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="parentName">
+            <th mat-header-cell *matHeaderCellDef>所属上级</th>
+            <td mat-cell *matCellDef="let element"> {{element.parentName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>类型</th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>名称</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef>图标</th>
+            <td mat-cell *matCellDef="let element"> {{element.icon}} </td>
+          </ng-container>
+          <ng-container matColumnDef="dashboardId">
+            <th mat-header-cell *matHeaderCellDef>仪表板</th>
+            <td mat-cell *matCellDef="let element"> {{element.dashboardId}} </td>
+          </ng-container>
+          <!-- 操作 -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>操作</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-icon style="color: #f44336;cursor: pointer;" (click)="delete(row)">delete_outline</mat-icon>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+      </div>
+    
+    </mat-card-content>
+  </mat-card>
+</div>

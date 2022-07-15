@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-title">通知栏</div>
+  <div class="card-menu-wraper">
+    <div class="menu-item-wraper" *ngFor="let item of noticeData" (click)="handleMenu()">
+      <img src="assets/forgf/notice.svg" alt="shengying">
+      <div class="menu-title">
+        <div>通知时间：{{ item.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+        <div class="noticedesrc">内容：{{ item.content }}</div>
+      </div>
+    </div>
+  </div>
+</div>

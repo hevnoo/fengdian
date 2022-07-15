@@ -1,0 +1,54 @@
+.content {
+  width: 100%;
+  height: 100%;
+
+  .title {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+  }
+
+  .contentBaiyunvalues {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 0 16px;
+
+    .oneContainer {
+      width: calc(20% - 10px);
+      height: 65px;
+      box-shadow: 3px 3px 3px silver;
+      margin: 10px 5px;
+
+      .oneContainerId {
+        height: 30px;
+        font-size: 23px;
+        text-align: center;
+        line-height: 30px;
+        background-color: green;
+      }
+
+      .oneContainerValue {
+        height: 35px;
+        font-size: 21px;
+        text-align: center;
+        line-height: 35px;
+        position: relative;
+
+        div {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          background: rgba(9, 95, 10, 0.3);
+          height: 8px;
+        }
+      }
+
+      .bottomPower {
+        height: 10px;
+      }
+    }
+  }
+}

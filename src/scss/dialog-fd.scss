@@ -1,0 +1,155 @@
+.dialog-fd {
+
+    // 弹窗
+    .ant-modal-content{
+        border-radius: 25px;
+        .ant-modal-header {
+            background: #009cdc;
+            padding: 0px 0px !important;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            .ant-modal-title{
+                color: #fff;
+                margin: 0;
+                font-weight: 500;
+                font-size: 16px;
+                padding: 15px;
+                line-height: 22px;
+                // height: 65px;
+                word-wrap: break-word;
+            }
+        }
+        .ant-modal-body {
+            padding: 0 0 30px 0; 
+
+        }
+        .ant-modal-close-x {
+            .anticon {
+                color: #fff;
+            }
+        }
+        
+    }
+    //表格
+    .ant-table {
+        background: none;
+        .ant-table-content {
+            margin: 10px;
+            .ant-table-thead {
+                background: #009cdc;
+                
+            }
+            .ant-table-thead>tr>th {
+                background: none;
+                color: #fff;
+            }
+            .ant-table-tbody>tr.ant-table-row:hover>td {
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+            .ant-table-tbody{
+                .ant-table-row{
+                    background-color: #fff;
+                }
+            }
+            
+                                
+        }
+        .ant-table-container, .ant-table-container table>thead>tr:first-child th:first-child {
+            border-top-left-radius: 25px;
+        }
+        .ant-table-container,  .ant-table-container table>thead>tr:first-child th:last-child{
+            border-top-right-radius: 25px;
+        }
+        // .ant-table-container,  .ant-table-container table>tbody>tr:last-child th:first-child {
+        //     border-bottom-left-radius: 25px;
+        // }
+        // .ant-table-container,  .ant-table-container table>tbody>tr:last-child th:last-child{
+        //     border-bottom-right-radius: 25px;
+        // }
+    }
+    // 分页器
+    .ant-pagination {
+        .ant-pagination-item-active {
+            background-color: #009cdc;
+            a {
+                color: #fff;
+            }
+        }
+        .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+            color: #009cdc;
+        }
+        .ant-pagination-disabled .ant-pagination-item-link {
+            background-color: #f4f4f5;
+        }
+        input {
+            color: #009cdc;
+        }
+    }
+    
+    .ant-tabs-nav-wrap{
+        padding: 0 20px;
+    }
+    .ant-tabs-content {
+        margin-bottom: 30px;
+    }
+    .ant-col{
+        margin: 5px 0;
+    }
+    .ant-input, .ant-input-disabled, .ant-select-selector, input, .ant-picker, .ant-input-number {
+        border-radius: 25px !important;
+    }
+    textarea.ant-input-disabled, textarea.ant-input{
+        border-radius: 2px !important;
+    }
+    .ant-input-disabled, .ant-picker-disabled {
+        background-color: #f5f7fa;
+        color: #009cdc;
+    }
+    .ant-picker-input>input[disabled] {
+        background-color: #f5f7fa;
+        color: #009cdc;
+    }
+    
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn, .ant-tabs-tab:hover{
+        color: #009cdc;
+      }
+    .ant-tag {
+        color: #009cdc;
+        padding: 5px 10px;
+        border-radius: 25px;
+        background-color: #fff;
+    }
+    .ant-collapse {
+        background: transparent;
+        border: none;
+        .ant-collapse-item>.ant-collapse-header {
+            padding: 0;
+            .ant-collapse-arrow {
+                top: -45px;
+                font-size: 20px;
+                color: #009cdc;
+            }
+        }
+        .ant-collapse-content {
+            border-top: none;
+        }
+        .ant-collapse-content-box {
+            padding: 0;
+        }
+    }
+    .ant-steps {
+        width: 90%;
+        margin: auto;
+        .anticon, .ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
+            color: #adadad;
+        }
+        .ant-steps-label-vertical .ant-steps-item-content{
+            margin-top: 0;
+        }
+        .ant-steps-item-tail::after {
+            background: #adadad;
+            height: 2px;
+        }
+    }
+    
+}

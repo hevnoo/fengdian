@@ -1,0 +1,95 @@
+<div class="div-container">
+  <div class="div-searchbar">
+    <section class="sec-right">
+      <input nz-input placeholder="请输入主题" [(ngModel)]="searchText" />
+      <button
+        nz-button
+        nzType="primary"
+        nzShape="round"
+        (click)="getReportData(0)"
+      >
+        <i nz-icon nzType="search"></i>搜索
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        nzShape="round"
+        (click)="openAddModal('add')"
+      >
+        <i nz-icon nzType="plus"></i>添加
+      </button>
+    </section>
+  </div>
+
+  <nz-table
+    class="gf-defect-table"
+    #basicTable
+    nzSize="small"
+    [nzData]="listOfData"
+    nzShowPagination
+    nzShowSizeChanger="true"
+    nzOuterBordered="true"
+    [nzShowTotal]="totalTemplate"
+    [nzTotal]="pageTotal"
+    [(nzPageIndex)]="pageIndex"
+    [nzFrontPagination]="false"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="getReportData()"
+    (nzPageSizeChange)="getReportData()"
+    nzTableLayout="fixed"
+  >
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th style="max-width: 300px" nzEllipsis>主题</th>
+        <th>工单号</th>
+        <th>发送人</th>
+        <th>创建时间</th>
+        <th>当前环节</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <span nz-tooltip [nzTooltipTitle]="data.eventName">{{
+            data.eventName
+          }}</span>
+        </td>
+        <td>{{ data.number }}</td>
+        <td>{{ data.startUser.firstName }}</td>
+        <td>{{ data.createTime | date: "yyyy-MM-dd" }}</td>
+        <td>
+          {{ data.historicProcessInstance.endTime ? "已完成" : "处理中" }}
+        </td>
+        <td>
+          <a (click)="openAddModal('readOnly', data.procInstId)">详情</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a
+            (click)="
+              showApproveDialog(
+                data.procInstId,
+                data.historicProcessInstance.endTime ? true : false
+              )
+            "
+            >审批进度</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <ng-template #totalTemplate let-total>总共 {{ pageTotal }} 条</ng-template>
+
+  <!-- 上报弹窗 -->
+  <tb-add-report
+    #addReportDialog
+    (handleCancelCb)="handleCancelCb()"
+  ></tb-add-report>
+
+  <!-- 流程图弹窗 -->
+  <tb-approve-dialog
+    (handleCancelCb)="handleApproveCancelCb()"
+    #approveDialog
+  ></tb-approve-dialog>
+</div>

@@ -1,0 +1,159 @@
+<div class="gf-announcement-manage">
+  <div class="send-operate">
+    <input
+      class="top-search"
+      nz-input
+      placeholder="请输入主题名称"
+      [(ngModel)]="searchValue"
+    />
+    <button
+      class="gf-btn-search"
+      nz-button
+      nzType="primary"
+      [nzLoading]="loading"
+      (click)="inputSearch()"
+    >
+      <i nz-icon nzType="search"></i>
+      搜索
+    </button>
+    <button
+      class="gf-btn-add"
+      nz-button
+      nzType="primary"
+      [nzLoading]="loading"
+      (click)="operationDialog('add')"
+    >
+      <i nz-icon nzType="plus" nzTheme="outline"></i>
+      添加
+    </button>
+    <button
+      class="gf-btn-modify"
+      nz-button
+      nzType="primary"
+      [nzLoading]="loading"
+      (click)="operationDialog('modify')"
+      [hidden]="!indeterminate"
+    >
+      <i nz-icon nzType="edit" nzTheme="outline"></i>
+      修改
+    </button>
+    <button
+      class="gf-btn-del"
+      nz-button
+      nzType="primary"
+      [nzLoading]="loading"
+      (click)="operationDialog('delete')"
+      [hidden]="!indeterminate"
+    >
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+      删除
+    </button>
+  </div>
+
+  <!-- 请查阅文档地址:https://ng.ant.design/components/table/zh -->
+  <nz-table
+    #selectTable
+    [nzData]="listOfDisplayData"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    class="ance-table"
+    [nzLoading]="loading"
+    nzShowSizeChanger
+    [(nzPageIndex)]="paginationData.nzPageIndex"
+    [(nzPageSize)]="paginationData.nzPageSize"
+    [nzShowPagination]="false"
+    nzTableLayout="fixed"
+  >
+    <thead>
+      <tr>
+        <ng-container *ngFor="let propItem of propList">
+          <ng-container *ngIf="propItem.prop === 'check'; else elseBlock">
+            <!-- <th
+              [nzChecked]="checked"
+              [nzIndeterminate]="indeterminate"
+              (nzCheckedChange)="onAllChecked($event)"
+              [nzAlign]="propItem.nzAlign"
+              [nzWidth]="propItem.minWidth"
+              class="gf-ance-th-herder"
+            ></th> -->
+            <th></th>
+          </ng-container>
+          <ng-template #elseBlock>
+            <th
+              [nzAlign]="propItem.nzAlign"
+              [nzWidth]="propItem.minWidth"
+              class="gf-ance-th-herder"
+            >
+              {{ propItem.label }}
+            </th></ng-template
+          >
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of selectTable.data; let indey = index">
+        <tr
+          class="gf-tbody-ance-tr"
+          [class.curren-row]="setOfCheckedId.has(data.id)"
+          (click)="trChecked(data.id)"
+          (dblclick)="trDoubleChecked(data.id, data)"
+        >
+          <ng-container *ngFor="let key of tdCheckLabel(data)">
+            <ng-template [ngIf]="verifyDisplay(key)">
+              <ng-container *ngIf="key === 'isCheck'; else elseBlock">
+                <td
+                  [nzChecked]="setOfCheckedId.has(data.id)"
+                  [nzDisabled]="data.disabled"
+                  (nzCheckedChange)="onItemChecked(data.id, $event)"
+                  nzAlign="center"
+                  class="gf-ance-tbody-td"
+                ></td>
+              </ng-container>
+              <ng-template #elseBlock>
+                <td nzAlign="center" class="gf-ance-tbody-td" nzEllipsis>
+                  {{ tdFormateLabel(data, key) }}
+                </td>
+              </ng-template>
+            </ng-template>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+
+  <!-- 属性太多请查阅文档地址:https://ng.ant.design/components/pagination/zh -->
+  <nz-pagination
+    *ngIf="listOfDisplayData.length !== 0"
+    class="pagination"
+    [(nzPageIndex)]="paginationData.nzPageIndex"
+    [nzTotal]="paginationData.listSize || 100"
+    [nzSize]="'small'"
+    [nzShowTotal]="totalTemplate"
+    [nzPageSizeOptions]="[5, 10, 15, 20]"
+    nzShowSizeChanger
+    nzShowQuickJumper
+    (nzPageSizeChange)="pageSizeChange($event)"
+    [nzItemRender]="renderItemTemplate"
+  ></nz-pagination>
+  <ng-template #totalTemplate>共 {{ paginationData.listSize }} 条</ng-template>
+  <ng-template #renderItemTemplate let-type let-page="page">
+    <ng-container [ngSwitch]="type">
+      <a *ngSwitchCase="'page'">{{ page }}</a>
+      <a *ngSwitchCase="'prev'"><</a>
+      <a *ngSwitchCase="'next'">></a>
+      <a *ngSwitchCase="'prev_5'">上5页</a>
+      <a *ngSwitchCase="'next_5'">下5页</a>
+    </ng-container>
+  </ng-template>
+
+  <tb-fd-an-form-add
+    #dialogA
+    [dialogStateConfig]="formAddConfig"
+    (cancel)="handleCancel($event)"
+  ></tb-fd-an-form-add>
+  <tb-fd-an-form-show
+    #dialogB
+    [dialogStateConfig]="formShowConfig"
+    (cancel)="handleCancel($event)"
+    [dialogItemPlaceHolder]="formShowPlaceHolderConfig"
+  ></tb-fd-an-form-show>
+</div>

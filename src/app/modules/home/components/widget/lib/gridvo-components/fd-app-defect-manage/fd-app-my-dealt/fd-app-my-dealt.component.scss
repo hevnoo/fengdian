@@ -1,0 +1,124 @@
+:host {
+  .log {
+    height: 100%;
+    overflow-y: scroll;
+    padding: 24px 0;
+
+    .card:not(:first-child) {
+      margin-top: 16px;
+    }
+
+    .select-time {
+      button {
+        background: #ffffff;
+        color: #2e2e2e;
+        // border: 0;
+        // border-radius: 10vw;
+        // font-size: 1vw;
+        // margin-bottom: 1vw;
+        // height: 5vw;
+        // margin-left: 6vw;
+        border: 0;
+        border-radius: 10px;
+        font-size: 12px;
+        margin-bottom: 2px;
+        margin-left: 13px;
+        padding: 4px 16px;
+        border: 1px #999 solid;
+      }
+
+      .clien-button {
+        color: white;
+        background: #2f54eb;
+        border: 1px #2f54eb solid;
+      }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      // width: 100%;
+      color: #9d9d9d;
+      margin: auto;
+      background: white;
+      //   box-shadow: -0.1vw 0.5vw 1vw;
+      box-shadow: 1px 1px 5px;
+      position: relative;
+      border-radius: 4px;
+      width: 94%;
+
+      .card-content-fa {
+        padding: 0 8px 8px 8px;
+        display: block;
+
+        div {
+          margin: 4px 0;
+        }
+      }
+
+      .card-head {
+        background: #f5f6fa;
+        // padding: 2vw;
+        padding: 8px 16px;
+        color: #333;
+        justify-content: space-between;
+
+        button {
+          color: #afd6f3;
+          border-radius: 5vw;
+          background: white;
+          border: 0.1vw solid #afd6f3;
+          float: right;
+          top: 3vw;
+          right: 4vw;
+          font-size: 2vw;
+          height: 5vw;
+          position: absolute;
+        }
+      }
+
+      p {
+        // font-size: 3.5vw;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+      }
+
+      div {
+        display: flex;
+        margin: auto 0;
+
+        .dot {
+          //   max-width: 12vw;
+          //   margin: 0;
+          //   margin-left: 4vw;
+          max-width: 20px;
+          margin: 0px;
+          margin-right: 2px;
+          margin-left: 12px;
+        }
+
+        img {
+          //   max-width: 3vw;
+          //   margin-left: 3vw;
+          max-width: 10px;
+          margin-left: 8px;
+        }
+
+        .left {
+          display: block;
+          //   width: 16vw;
+          //   margin-left: 4vw;
+          width: 56px;
+          margin-left: 13px;
+        }
+
+        .right {
+          //   width: 42vw !important;
+          //   margin-left: 4vw;
+          margin-left: 19px;
+        }
+      }
+    }
+  }
+}

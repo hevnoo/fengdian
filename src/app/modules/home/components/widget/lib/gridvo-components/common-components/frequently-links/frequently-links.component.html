@@ -1,0 +1,28 @@
+<div 
+    class="links"
+    nz-popover 
+    [nzPopoverTitle]="titleTemplate" 
+    nzPopoverTrigger="click" 
+    [nzPopoverContent]="contentTemplate"
+    nzPopoverPlacement="rightBottom"
+    [nzPopoverOverlayStyle]="popoverOverlayStyle"
+    >
+    <img src="assets/gridvo/frequently-links.png" alt="常用链接">
+</div>
+
+<ng-template #contentTemplate>
+    <ng-container *ngFor="let item of tableData">
+        <div nz-row style="cursor: pointer;" (click)="handleTo(item)">
+            <div nz-col nzSpan="2">
+                <img src="assets/gridvo/link.png" alt="link" style="width: 14px;height: 14px;">
+            </div>
+            <div nz-col nzSpan="21" nzOffset="1">
+                {{ item.systemName }}
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #titleTemplate>
+    <div style="color: #fff;">常用链接</div>
+</ng-template>

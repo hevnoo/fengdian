@@ -1,0 +1,106 @@
+<div class="header">
+    <form class="form" nz-form [formGroup]="formData" [nzLayout]="'inline'">
+        <!-- search group -->
+        <div *ngFor="let formItem of formList">
+            <nz-form-item *ngIf="formItem.type === 'TEXT'">
+                <nz-form-label nzNoColon>{{ formItem.label }}</nz-form-label>
+                <nz-form-control>
+                    <input nz-input [placeholder]="formItem.placeholder" [formControlName]="formItem.formControlName" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <!-- button group -->
+        <div *ngFor="let buttonItem of buttonList">
+            <nz-form-item *ngIf="buttonItem.show">
+                <button nz-button nzType="primary" (click)="buttonItem.clickEvent()">
+                    <i nz-icon [nzType]="buttonItem.icon"></i>
+                    <span>{{ buttonItem.label }}</span>
+                </button>
+            </nz-form-item>
+        </div>
+    </form>
+</div>
+<div class="content">
+    <div class="tree-container">
+        <nz-tree #nzTreeComponent class="tree" [nzData]="treeNodesData" nzAsyncData (nzClick)="handleNodeClick($event)"
+            (nzExpandChange)="handleNodeExpandChange($event)"></nz-tree>
+    </div>
+    <div class="table-container">
+        <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger nzTableLayout="fixed" [nzData]="tableData"
+            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" (nzPageIndexChange)="onPageChange($event)"
+            (nzPageSizeChange)="nzPageSizeChange($event)">
+            <thead>
+                <tr>
+                    <th nzWidth="70px" nzShowCheckbox [nzChecked]="checkedAll" [nzIndeterminate]="indeterminate"
+                        (nzCheckedChange)="onAllChecked($event)"></th>
+                    <th nzWidth="70px">序号</th>
+                    <th *ngFor="let header of tableHeaderList" [nzWidth]="header.width">{{ header.label }}</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of rowSelectionTable.data; let index = index">
+                    <td [nzChecked]="setOfCheckedMD5.has(data.origin.md5)"
+                        (nzCheckedChange)="tableCheckedChange(data, data.origin.md5, $event)"></td>
+                    <td>{{ (currentPage - 1) * pageSize + (index + 1) }}</td>
+                    <td *ngFor="let header of tableHeaderList" [nzEllipsis]="header.ellipsis" [title]="header.formatter ? header.formatter(data) :
+                    data[header.prop]">{{ header.formatter ? header.formatter(data) :
+                        data[header.prop] }}</td>
+                    <td>
+                        <button nz-popconfirm nz-button nzType="link" nzPopconfirmTitle="确定要删除吗？"
+                            (nzOnConfirm)="popConfirm(data)">删除</button>
+                        <button nz-button nzType="link" (click)="checkDetail(data)">查看</button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<!-- modal 文件信息 -->
+<nz-modal [(nzVisible)]="infoModalVisible" nzTitle="文件信息" (nzOnCancel)="infoModalVisible = false">
+    <form nz-form [formGroup]="infoFormData" [nzLayout]="'inline'">
+        <ng-container *nzModalContent>
+            <div *ngFor="let formItem of infoList">
+                <nz-form-item>
+                    <nz-form-label nzNoColon [nzSpan]="5">{{ formItem.label }}</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input [placeholder]="formItem.placeholder"
+                            [formControlName]="formItem.formControlName" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </ng-container>
+    </form>
+    <ng-container *nzModalFooter>
+        <button nz-button nzType="primary" (click)="infoModalVisible = false">确定</button>
+    </ng-container>
+</nz-modal>
+
+<!-- modal 文件上传 -->
+<nz-modal [(nzVisible)]="uploadModalVisible" nzTitle="文件上传" (nzOnCancel)="uploadModalVisible = false">
+    <form nz-form [formGroup]="uploadFormData" [nzLayout]="'inline'">
+        <ng-container *nzModalContent>
+            <div *ngFor="let formItem of uploadList">
+                <nz-form-item>
+                    <nz-form-label nzNoColon [nzSpan]="5" [nzRequired]="!!formItem.errorTip">{{ formItem.label }}
+                    </nz-form-label>
+                    <nz-form-control [nzErrorTip]="formItem.errorTip">
+                        <input nz-input [placeholder]="formItem.placeholder"
+                            [formControlName]="formItem.formControlName" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <nz-form-item nz-row>
+                <nz-form-label nzNoColon [nzSpan]="5"></nz-form-label>
+                <nz-upload nz-col [nzSpan]="19" [(nzFileList)]="uploadFileList" [nzBeforeUpload]="beforeUpload">
+                    <button nz-button>上传</button>
+                </nz-upload>
+            </nz-form-item>
+        </ng-container>
+    </form>
+    <ng-container *nzModalFooter>
+        <button nz-button nzType="primary" (click)="uploadModalConfirm()" [nzLoading]="modalConfirmLoading">确定</button>
+        <button nz-button nzType="primary" (click)="uploadModalVisible = false">取消</button>
+    </ng-container>
+</nz-modal>

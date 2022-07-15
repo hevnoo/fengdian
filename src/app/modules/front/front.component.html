@@ -1,0 +1,56 @@
+<ng-container>
+  <nz-layout class="ljfengdian" *ngIf="!isMobile">
+    <!-- 标题栏 -->
+    <nz-header class="lj-header">
+      <img src="../../../assets/gridvo/menu-icon/header/fd-logo.png" alt="icon1">
+      <img src="../../../assets/gridvo/menu-icon/header/logo3.png" alt="icon2">
+      <!-- 此部分需要接入数据 2022.2.22产品说暂时不接数据 -->
+      <div class="div-datas">
+        <!-- <p class="p-info">总有功<span class="sp-value">2908.00 kw</span></p> -->
+      </div>
+      <div class="message" (click)="isVisibleMessage=true"><i nz-icon nzType="message" nzTheme="fill"></i></div>
+      <div class="operate">
+        <a routerLink="/home" *ngIf="authState.authUser.authority === 'TENANT_ADMIN'">后端</a>
+      </div>
+      <div class="account">
+        <tb-front-account [isCollapsed]="collapse"></tb-front-account>
+      </div>
+    </nz-header>
+    <tb-message *ngIf="isVisibleMessage" (handleCancle)="isVisibleMessage = false"></tb-message>
+    <nz-layout>
+      <!-- 菜单栏 -->
+      <nz-sider class="sidebar-wraper" [class.is-full-bg]="isFullBg" [class]="collapse? 'sidebar-open' : 'sidebar-hide'"
+        [nzWidth]="siderbarWidth">
+        <div class="menu-wraper" [class.is-full-bg]="isFullBg" [class]="collapse ? 'wrapper-open' : 'wrapper-hide'">
+          <div class="tb-front-menu">
+            <tb-front-menu [menu]="menu" (menuClick)="tabClick($event)" [isCollapsed]="collapse"
+              (isCollapsedEvent)="isCollapsedEvent()" [theme]="theme"></tb-front-menu>
+          </div>
+        </div>
+        <div class="toggle" (click)="isCollapsedEvent()" *ngIf="!isGridvoChatApp">
+          <i nz-icon [nzType]="collapse ? 'left' : 'right'"></i>
+        </div>
+      </nz-sider>
+      <nz-layout class="gf-content">
+        <div class="tabs">
+          <tb-tabs (tabClick)="tabClick($event)" [theme]="theme"></tb-tabs>
+        </div>
+        <nz-content class="gf-content-left10">
+          <router-outlet></router-outlet>
+        </nz-content>
+      </nz-layout>
+    </nz-layout>
+  </nz-layout>
+</ng-container>
+
+
+<nz-layout *ngIf="isMobile" class="mobile-wraper">
+  <nz-header>
+    <i *ngIf="isShowBack$|async" nz-icon nzType="left" nzTheme="outline" (click)="back()"></i>
+    <div class="tabs">{{ currentTab[0] }}</div>
+    <div class="operate"></div>
+  </nz-header>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>

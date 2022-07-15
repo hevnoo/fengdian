@@ -1,0 +1,312 @@
+<nz-layout class="position-wraper">
+  <nz-sider class="position-side" [nzWidth]="400" nzTheme="light">
+    <fieldset class="init-settings-wraper">
+      <legend style="display: inline;font-size: 16px;width: auto;">初始化配置</legend>
+      <input nz-input placeholder="瓦片地址" [(ngModel)]="settingsObj.tilesUrl" />
+      <input nz-input placeholder="模型地址" [(ngModel)]="settingsObj.modelUrl" />
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="6">
+        </div>
+        <div nz-col [nzSpan]="6">
+        </div>
+        <div nz-col [nzSpan]="6">
+        </div>
+        <div nz-col [nzSpan]="6" style="line-height: 40px;">
+          <button nz-button nzType="default" (click)="initConf()">初始化</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <nz-tabset>
+      <nz-tab nzTitle="模型阵列">
+        <fieldset class="init-settings-wraper">
+          <legend style="display: inline;font-size: 16px;width: auto;">模型矩阵配置</legend>
+          <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8">
+              <input nz-input placeholder="模型经度" [(ngModel)]="modelMatrixSettings.lng" />
+            </div>
+            <div nz-col [nzSpan]="8">
+              <input nz-input placeholder="模型纬度" [(ngModel)]="modelMatrixSettings.lat" />
+            </div>
+            <div nz-col [nzSpan]="8">
+              <input nz-input placeholder="模型高度" [(ngModel)]="modelMatrixSettings.alt" />
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzSpan="8">模型缩放倍数:</div>
+            <div nz-col nzSpan="16">
+              <input nz-input placeholder="模型缩放倍数" [(ngModel)]="modelMatrixSettings.scale" />
+            </div>
+          </div>
+          <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="6">模型姿态:</div>
+            <div nz-col [nzSpan]="6">
+              <input nz-input placeholder="x" [(ngModel)]="modelMatrixSettings.heading" />
+            </div>
+            <div nz-col [nzSpan]="6">
+              <input nz-input placeholder="y" [(ngModel)]="modelMatrixSettings.pitch" />
+            </div>
+            <div nz-col [nzSpan]="6">
+              <input nz-input placeholder="x" [(ngModel)]="modelMatrixSettings.roll" />
+            </div>
+          </div>
+          <div style="border: 1px solid #7f9db9;padding: 5px;margin-bottom: 5px;">
+            <div nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="6">
+                横轴配置
+              </div>
+              <div nz-col [nzSpan]="9"><span style="float: right;">阵列数量:</span></div>
+              <div nz-col [nzSpan]="9">
+                <input nz-input placeholder="阵列数量" [(ngModel)]="modelMatrixSettings.pcs" />
+              </div>
+            </div>
+            <div nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="8">
+                间距：<input nz-input placeholder="间距" [(ngModel)]="modelMatrixSettings.spacing" />
+              </div>
+              <div nz-col [nzSpan]="8">
+                倾斜量：<input nz-input placeholder="倾斜量：" [(ngModel)]="modelMatrixSettings.incline" />
+              </div>
+              <div nz-col [nzSpan]="8">
+                坡度：<input nz-input placeholder="坡度：" [(ngModel)]="modelMatrixSettings.slope" />
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid #7f9db9;padding: 5px;margin-bottom: 5px;">
+            <div nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="6">
+                纵轴配置
+              </div>
+              <div nz-col [nzSpan]="9"><span style="float: right;">阵列数量:</span></div>
+              <div nz-col [nzSpan]="9">
+                <input nz-input placeholder="阵列数量" [(ngModel)]="modelMatrixSettings.pcs2" />
+              </div>
+            </div>
+            <div nz-row [nzGutter]="24">
+              <div nz-col [nzSpan]="8">
+                经度偏移量：<input nz-input placeholder="间距" [(ngModel)]="modelMatrixSettings.spacing2" />
+              </div>
+              <div nz-col [nzSpan]="8">
+                纬度偏移量：<input nz-input placeholder="倾斜量：" [(ngModel)]="modelMatrixSettings.incline2" />
+              </div>
+              <div nz-col [nzSpan]="8">
+                坡度：<input nz-input placeholder="坡度：" [(ngModel)]="modelMatrixSettings.slope2" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div nz-row style="margin: 5px 0;">
+          <div nz-col nzSpan="12">
+            <div style="text-align: center;">
+              <button nz-button nzType="default" (click)="visible = true">查看位置信息</button>
+            </div>
+          </div>
+          <div nz-col nzSpan="12">
+            <div style="text-align: center;">
+              <button nz-button nzType="primary" (click)="useSettings()">应用参数</button>
+            </div>
+          </div>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="单体化">
+        <tb-monomer [cesiumInstance]="PositionMatrix"></tb-monomer>
+      </nz-tab>
+      <nz-tab nzTitle="点线">
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="8">
+            是否贴地：<nz-switch [(ngModel)]="lineSetting.clampToGround"></nz-switch>
+          </div>
+          <div nz-col [nzSpan]="8">
+            <input nz-input placeholder="线颜色" [(ngModel)]="lineSetting.material" />
+          </div>
+          <div nz-col [nzSpan]="8">
+            <input nz-input placeholder="线宽" [(ngModel)]="lineSetting.width" />
+          </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="6">
+            <button nz-button nzType="default" nzSize="small" (click)="createPoint()">绘制点</button>
+          </div>
+          <div nz-col [nzSpan]="6">
+          </div>
+          <div nz-col [nzSpan]="6">
+          </div>
+          <div nz-col [nzSpan]="6">
+            <button nz-button nzType="default" nzSize="small" (click)="destroyAll()">移除全部点</button>
+          </div>
+        </div>
+        <fieldset class="init-settings-wraper">
+          <legend style="display: inline;font-size: 16px;width: auto;">操作</legend>
+          <textarea rows="4" placeholder="所有点集合" nz-input [(ngModel)]="allPointKeyArr"></textarea>
+          <nz-divider></nz-divider>
+          <textarea rows="4" placeholder="当前线的点位集合" nz-input [(ngModel)]="linePointKeyArr"></textarea>
+          <nz-divider></nz-divider>
+          <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="6">
+              <button nz-button nzType="default" nzSize="small" (click)="createLine()">生成线</button>
+            </div>
+            <div nz-col [nzSpan]="6">
+              <button ngxClipboard (cbOnSuccess)="copied('复制点集合成功!')" [cbContent]="copyPointsArr" nz-button nzType="default"
+                nzSize="small">复制点集合</button>
+            </div>
+            <div nz-col [nzSpan]="6">
+              <button nz-button nzType="default" nzSize="small" (click)="bunchVisible = true">创建设备</button>
+            </div>
+            <div nz-col [nzSpan]="6">
+            </div>
+          </div>
+        </fieldset>
+      </nz-tab>
+      <nz-tab nzTitle="参数">
+        <fieldset class="init-settings-wraper">
+          <legend style="display: inline;font-size: 16px;width: auto;">当前视角位置参数</legend>
+            <div style="font-size: 14px;">
+              <div>经度：<span nz-typography nzCopyable [nzCopyTooltips]="null" [(nzContent)]="cameraPosInfo.lng"></span></div>
+              <div>纬度：<span nz-typography nzCopyable [nzCopyTooltips]="null" [(nzContent)]="cameraPosInfo.lat"></span></div>
+              <div>高度：<span nz-typography nzCopyable [nzCopyTooltips]="null" [(nzContent)]="cameraPosInfo.alt"></span></div>
+              <div>head：<span nz-typography nzCopyable [nzCopyTooltips]="null" [(nzContent)]="cameraPosInfo.head"></span></div>
+              <div>pitch：<span nz-typography nzCopyable [nzCopyTooltips]="null" [(nzContent)]="cameraPosInfo.pitch"></span></div>
+              <div>roll：<span nz-typography nzCopyable [nzCopyTooltips]="null" [(nzContent)]="cameraPosInfo.roll"></span></div>
+            </div>
+        </fieldset>
+      </nz-tab>
+    </nz-tabset>
+
+  </nz-sider>
+  <nz-content class="position-content">
+    <div class="lnglat-wraper">
+      <span>经度：{{ clickLnglat.lng }}</span>
+      <nz-divider nzType="vertical"></nz-divider>
+      <span>纬度：{{ clickLnglat.lat }}</span>
+      <nz-divider nzType="vertical"></nz-divider>
+      <span>高度：{{ clickLnglat.alt }}</span>
+    </div>
+    <div class="instanceid-wraper">
+      <div class="first-id">旧名称：{{ clickId }}</div>
+      新名称：<input placeholder="请输入新的名称" type="text" class="instance-input" #modelId />
+      <button nz-button nzType="default" nzSize="small" (click)="handleModifyId(modelId.value)">确定</button>
+    </div>
+    <div class="modify-alt-wraper">
+      在原高度基础上新增：<input placeholder="请输入增加的高度" type="text" class="input-alt" #addAlt />
+      <button nz-button nzType="default" nzSize="small" (click)="handleModifyAlt(addAlt.value)">确定</button>
+      <nz-divider nzText="或"></nz-divider>
+      <div style="display: flex;justify-content: space-between;">
+        <button ngxClipboard (cbOnSuccess)="copied('复制该点位置成功!')" [cbContent]="copyPoint" nz-button nzType="default"
+          nzSize="small">复制该点位置</button>
+        <button nz-button nzType="default" nzSize="small" (click)="handleDeletePoint()">删除该点</button>
+      </div>
+    </div>
+    <div id="positionContainer"></div>
+  </nz-content>
+</nz-layout>
+
+<nz-drawer [nzClosable]="false" [nzVisible]="visible" [nzTitle]="nzDrewerTitle" nzPlacement="right"
+  (nzOnClose)="close()" nzWidth="60%">
+  <ng-template #nzDrewerTitle>
+    <div style="display: flex; align-items: center;justify-content: space-between;">
+      <div>位置信息</div>
+      <div>
+        <button nz-button nzType="primary">下载</button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button nz-popconfirm nzPopconfirmTitle="请检查所有id都已正确配置?" (nzOnConfirm)="popconfirmOk()"
+          (nzOnCancel)="popconfirmCancel()" nzPopconfirmPlacement="bottom" nz-button>
+          批量创建设备
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-container *nzDrawerContent>
+    <nz-table #basicTable nzSize="middle" [nzData]="modelCollection?._primitives">
+      <thead>
+        <tr>
+          <th>位置</th>
+          <th>id</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.modelMatrix.toString() }}</td>
+          <td>{{ data.id }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-drawer>
+
+<!-- 批量创建设备弹窗 -->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="批量创建设备" (nzOnCancel)="handleModelCancel()">
+  <ng-container *nzModalContent>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        设备标签：
+      </div>
+      <div nz-col nzSpan="18">
+        <input nz-input placeholder="请输入设备标签" [(ngModel)]="label" required />
+      </div>
+    </div>
+    <nz-divider nzOrientation="left"></nz-divider>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        设备配置：
+      </div>
+      <div nz-col nzSpan="18">
+        <input nz-input placeholder="请输入设备配置的id" [(ngModel)]="deviceProfileId" required />
+      </div>
+    </div>
+  </ng-container>
+  <div *nzModalFooter>
+    <div nz-row>
+      <div nz-col nzSpan="16" style="line-height: 32px;margin-left: 0;">
+        <span>共 <i>{{modelCollection?._primitives.length}}</i> 个设备需创建</span>
+        <nz-divider nzType="vertical"></nz-divider>
+        <span>已创建 <span style="font-weight: 600;color: red;">{{ createNum }}</span></span>
+      </div>
+      <div nz-col nzSpan="8">
+        <button nz-button nzType="default" (click)="handleModelCancel()">取消</button>
+        <button nz-button nzType="primary" (click)="handleAddDevice()" [nzLoading]="isCreating">确定</button>
+      </div>
+    </div>
+  </div>
+</nz-modal>
+
+<!-- 点线创建组串设备弹窗 -->
+<nz-modal [(nzVisible)]="bunchVisible" nzTitle="创建组串设备" (nzOnCancel)="handleCloseBunchModal()">
+  <ng-container *nzModalContent>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        设备名称：
+      </div>
+      <div nz-col nzSpan="18">
+        <input nz-input placeholder="请输入设备名称" [(ngModel)]="bunchName" required />
+      </div>
+    </div>
+    <nz-divider nzOrientation="left"></nz-divider>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        设备标签：
+      </div>
+      <div nz-col nzSpan="18">
+        <input nz-input placeholder="请输入设备标签" [(ngModel)]="bunchLabel" required />
+      </div>
+    </div>
+    <nz-divider nzOrientation="left"></nz-divider>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        设备配置：
+      </div>
+      <div nz-col nzSpan="18">
+        <input nz-input placeholder="请输入设备配置的id" [(ngModel)]="bunchDeviceProfileId" required />
+      </div>
+    </div>
+  </ng-container>
+  <div *nzModalFooter>
+    <div nz-row>
+      <div nz-col nzSpan="16">
+      </div>
+      <div nz-col nzSpan="8">
+        <button nz-button nzType="default" (click)="handleCloseBunchModal()">取消</button>
+        <button nz-button nzType="primary" (click)="handleAddBunchDevice()" [nzLoading]="isCreatingBunch">确定</button>
+      </div>
+    </div>
+  </div>
+</nz-modal>

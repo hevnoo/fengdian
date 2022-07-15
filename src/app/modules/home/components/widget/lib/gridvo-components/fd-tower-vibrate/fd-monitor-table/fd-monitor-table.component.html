@@ -1,0 +1,17 @@
+<nz-table #basicTable [nzScroll]="{ y: '800px' }" nzSize="small" [nzData]="listOfData" [nzPageIndex]="pagination.page"
+    [nzPageSize]="pagination.pageSize" [nzTotal]="pagination.total" (nzPageIndexChange)="pageIndexChange($event)"
+    (nzPageSizeChange)="pageSizeChange($event)" nzShowSizeChanger>  
+    <thead>
+        <tr>
+            <th *ngFor="let i of thData; let index = index;">
+                <span>{{ i.label }}</span>
+                <span *ngIf="i.units">({{ i.units }})</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td *ngFor="let th of thData">{{ data[th.name] }}</td>
+        </tr>
+    </tbody>
+</nz-table>

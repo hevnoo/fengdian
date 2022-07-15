@@ -1,0 +1,15 @@
+:host{
+    .div-search-bar{
+        float: right;
+        ::ng-deep{
+            .ant-input {
+                width: 200px;
+                margin: 0 8px 8px 0;
+            }
+            button.ant-btn.ant-btn-primary{
+                margin-left: 10px;
+            }  
+        }
+        
+    }
+}

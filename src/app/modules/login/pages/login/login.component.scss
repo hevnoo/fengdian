@@ -1,0 +1,185 @@
+/**
+ * Copyright © 2016-2021 The Thingsboard Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@import '../../../../../scss/constants';
+
+:host {
+  display: flex;
+  flex: 1 1 0;
+  .tb-login-content {
+    position: relative;
+    // 以下背景图片先看效果用
+    background-image: url("../../../../../assets/gridvo/login/login_bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    .logo-img{
+      width: 36%;
+    }
+    .isMobileLogo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 72px;
+      height: 36px;
+    }
+    .left {
+      position: relative;
+      width: 580px;
+      height: 427px;
+      background-image: url("../../../../../assets/gridvo/login-bgc.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 15px 0px 0px 15px;
+      font-size: 27px;
+
+        p{
+          position: absolute;
+          top: 30px;
+          left: 171px ;
+        }
+    }
+    .mat-card {
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    .isMobile {
+      border-radius: 0px 15px 15px 0px;
+    }
+    .isNoMobile {
+      border-radius: 15px;
+    }
+    .tb-login-form {
+      @media #{$mat-gt-xs} {
+        width: 100% !important;
+      }
+
+      .forgot-password {
+        padding: 0 0.5em 1em;
+        .tb-reset-password {
+          padding: 0 6px;
+        }
+      }
+
+      .tb-action-button{
+        padding: 20px 0 16px;
+        button {//登录按钮
+          // background-color: rgba(192, 25, 33, 1);
+          background-color: var(--login-button);
+        }
+      }
+    }
+
+    .oauth-container{
+      padding: 0;
+
+      .container-divider {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        .line {
+          flex: 1;
+        }
+
+        .mat-divider-horizontal{
+          position: relative;
+        }
+
+        .text {
+          padding-right: 10px;
+          padding-left: 10px;
+        }
+      }
+
+      .material-icons{
+        width: 20px;
+        min-width: 20px;
+      }
+
+      a.login-with-button {
+        color: rgba(black, 0.87);
+
+        &:hover {
+          border-bottom: 0;
+        }
+
+        .icon{
+          height: 20px;
+          width: 20px;
+          vertical-align: sub;
+        }
+      }
+
+      .centered ::ng-deep .mat-button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+   ::ng-deep .mat-form-field-flex{
+      border: 1px solid rgba(165, 176, 182, 0.5);
+      border-radius: 4px;
+    }
+    ::ng-deep .tb-default .mat-form-field.mat-warn .mat-input-element, .tb-default .mat-form-field-invalid .mat-input-element{
+        margin-top: 10px;
+      }
+      ::ng-deep .mat-form-field-prefix, .mat-form-field-suffix{
+        top: -10px;
+      }
+      ::ng-deep.tb-default .mat-input-elemen{
+        margin-top: 10px;
+      }
+
+      // 连江风电
+      .login-container{
+        max-width: 650px;
+        height: 380px;
+        background: rgb(255, 255, 255);
+        .h3-title{
+          color: rgb(51, 51, 51);
+          padding-left: 15px;
+          height: 65px;
+          line-height: 65px;
+          font-weight: 600;
+          margin: 0;
+          border-bottom: 1px solid rgb(238, 238, 238) ;
+          font-size: 22px;
+        }
+        .content{
+          width: 100%;
+          height: 250px;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          .sec-left{
+            width: 30%;
+            img{
+              width: 100%;
+            }
+          }
+          .sec-right{
+            width: 55%;
+            .login-form-button{
+              width: 30%;
+              margin-left: 35%;
+            }
+          }
+        }
+      }
+  }
+}
+

@@ -1,0 +1,19 @@
+<div class="collapse-panel">
+  <nz-collapse>
+    <nz-collapse-panel #p [nzActive]="false" [nzExpandedIcon]="expandedIcon">
+      <div class="tag">
+        <nz-tag *ngFor="let tag of tags; let i = index" nzMode="closeable" (nzOnClose)="handleClose(tag)">
+          {{ tag.type + ':' + tag.label }}
+        </nz-tag>
+      </div>
+      <div class="typeSelection">
+        <span class="span-container">履历类型</span>
+        <tb-group-select-block  [dataList]="resumeTypeData" [isSingleCheck]="true" (checkedChange)="resumeType($event)" [delItem]="delItem"></tb-group-select-block>
+      </div>
+      
+      <ng-template #expandedIcon let-active>
+        <i nz-icon nzType="double-right" class="ant-collapse-arrow" [nzRotate]="p.nzActive ? 90 : -90"></i>
+      </ng-template>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>

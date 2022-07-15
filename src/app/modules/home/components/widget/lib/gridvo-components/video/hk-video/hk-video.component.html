@@ -1,0 +1,176 @@
+<div class="video__container--wrapper">
+  <div class="wrapper__monitor">
+    <!-- 头部操作区 -->
+    <div class="operate">
+      <div  class="left-operate">
+        <ng-container *ngIf="activeTab === '视频监控'">
+          <div class="left-item one" (click)="changeWndNum(1)" nzTooltipTitle="1*1" nz-tooltip></div>
+          <div class="left-item two" (click)="changeWndNum(2)" nzTooltipTitle="2*2" nz-tooltip></div>
+          <div class="left-item four" (click)="changeWndNum(4)" nzTooltipTitle="4*4" nz-tooltip></div>
+          <div class="cutting-line"></div>
+          <div class="left-item photo" (click)="clickCapturePic()" nzTooltipTitle="抓拍" nz-tooltip></div>
+          <!-- <div class="left-item sound" *ngIf="spliceCount === 1" (click)="clickSound()" nzTooltipTitle="开启或关闭声音" nz-tooltip>
+          </div> -->
+          <div  class="left-item" (click)="fullScreen()" nzTooltipTitle="全屏" nz-tooltip>
+                            <i nz-icon nzType="expand" nzTheme="outline"></i>
+                          </div>
+        </ng-container>
+      </div>
+      <div  class="middle-operate">
+        <tb-slider-switch [textArr]="sliderSwitchText" (handleSwitch)="handleSliderSwitch($event)" ></tb-slider-switch>
+      </div>
+      <div  class="right-operate">
+        <ng-container *ngIf="activeTab === '视频监控' && spliceCount === 1">
+          <button nz-button nzType="text" nzValue="small" (click)="handlePTZShow()">{{ isPTZShow ? '关闭' : '开启' }}云台</button>
+        </ng-container>
+      </div>
+    </div>
+    <!-- 监控 -->
+    <div class="live__container--wrapper">
+      <!-- 监控容器 -->
+      <div [ngClass]="{ 'live__left--content': isPTZShow, 'live__left--ptzfalse': !isPTZShow }">
+        <div id="liveVideoParent" class="live__top--video">
+          <div id="liveVideo" style="width: 100%;height: 100%;"></div>
+        </div>
+      </div>
+      <!-- 控制区 -->
+      <div *ngIf="isPTZShow" [ngClass]="{'live__right--control':true}">
+        <!-- 视频监控控制 -->
+        <ng-container *ngIf="activeTab === '视频监控'">
+          <!-- 云台 -->
+          <div class="right__controler--panel">
+            <img src="../../../../../../../../../../assets/gridvo/video/controler.png" width="100%" alt="控制板">
+            <div [ngClass]="{
+                              'controler__panel--item': true,
+                              'controler__panel--top': true,
+                              'panel__top--active': PTZControl.direction === 1
+                          }" (mousedown)="mouseDownPTZControl(1)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                              'controler__panel--item': true,
+                              'controler__panel--right': true,
+                              'panel__right--active': PTZControl.direction === 4
+                            }" (mousedown)="mouseDownPTZControl(4)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                                'controler__panel--item': true,
+                                'controler__panel--bottom': true,
+                                'panel__bottom--active': PTZControl.direction === 2
+                            }" (mousedown)="mouseDownPTZControl(2)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                                'controler__panel--item': true,
+                                'controler__panel--left': true,
+                                'panel__left--active': PTZControl.direction === 3
+                            }" (mousedown)="mouseDownPTZControl(3)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                                'controler__panel--item': true,
+                                'controler__panel--rightTop': true,
+                                'panel__top--active': PTZControl.direction === 7
+                            }" (mousedown)="mouseDownPTZControl(7)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                                'controler__panel--item': true,
+                                'controler__panel--rightBottom': true,
+                                'panel__top--active': PTZControl.direction === 8
+                            }" (mousedown)="mouseDownPTZControl(8)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                                'controler__panel--item': true,
+                                'controler__panel--leftBottom': true,
+                                'panel__top--active': PTZControl.direction === 6
+                            }" (mousedown)="mouseDownPTZControl(6)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                                'controler__panel--item': true,
+                                'controler__panel--leftTop': true,
+                                'panel__top--active': PTZControl.direction === 5
+                            }" (mousedown)="mouseDownPTZControl(5)" (mouseup)="mouseUpPTZControl()">
+            </div>
+            <div [ngClass]="{
+                                'controler__panel--center': true,
+                                'controler__center--display': PTZControl.direction === 9
+                            }" (mousedown)="mouseDownPTZControl(9)" (mouseup)="mouseUpPTZControl()">
+              <i nz-icon style="font-size: 24px;margin-top: 5px;color: #209ddc;" nzType="sync" nzTheme="outline"></i>
+            </div>
+          </div>
+          <!-- 调整项 -->
+          <div class="right__controler--adjust">
+            <!-- <button nz-button nzType="text" nzValue="small" (click)="stopPreview()">停止预览</button> -->
+            <div class="adjust-item">
+              <div class="label">放大</div>
+              <div class="adjust-value">
+                <nz-switch [(ngModel)]="PTZControl.zoom" (ngModelChange)="handleZoomChange($event)"></nz-switch>
+              </div>
+            </div>
+            <div class="adjust-item">
+              <div class="label">变倍</div>
+              <div class="adjust-value">
+                <button nz-button nzType="primary" nzValue="small" (mousedown)="PTZZoom('ZOOM_OUT')"
+                  (mouseup)="PTZZoomStop(11)"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
+                <button nz-button nzType="primary" nzValue="small" (mousedown)="PTZZoom('ZOOM_IN')"
+                  (mouseup)="PTZZoomStop(10)"><i nz-icon nzType="minus" nzTheme="outline"></i></button>
+              </div>
+            </div>
+            <div class="adjust-item">
+              <div class="label">速度</div>
+              <div class="adjust-value">
+                <nz-input-number [(ngModel)]="PTZControl.speed" [nzMin]="1" [nzMax]="7" [nzStep]="1" nzPrecision="0"
+                  (ngModelChange)="speedChange($event)"></nz-input-number>
+              </div>
+            </div>
+            <!-- <div class="adjust-item" *ngIf="!isOpenVoice">
+              <div class="label">音量</div>
+              <div class="adjust-value">
+                <nz-slider [(ngModel)]="PTZControl.volume" style="width: 100%;" nzMax="100"
+                  (ngModelChange)="onSoundChange()">
+                </nz-slider>
+              </div>
+            </div> -->
+          </div>
+        </ng-container>
+        <!-- 视频回放控制 -->
+        <ng-container *ngIf="activeTab !== '视频监控'">
+          <div [ngClass]="{ 'playback__right--control':true}">
+            <!-- 调整项 -->
+            <div class="playback__controler--adjust">
+              <div class="playback-adjust-item">
+                <div class="playback-label">选择通道:</div>
+                <div class="playback-adjust-value">
+                  <nz-select [(ngModel)]="selectChannel" style="width: 100%;" (ngModelChange)="selectChannelChange($event)">
+                    <nz-option *ngFor="let item of digitalChannels" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                  </nz-select>
+                </div>
+              </div>
+
+              <div class="playback-adjust-item">
+                <div class="playback-label">开始时间:</div>
+                <div class="playback-adjust-value">
+                  <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="pbControl.startTime">
+                  </nz-date-picker>
+                </div>
+              </div>
+
+              <div class="playback-adjust-item">
+                <div class="playback-label">结束时间:</div>
+                <div class="playback-adjust-value">
+                  <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="pbControl.endTime">
+                  </nz-date-picker>
+                </div>
+              </div>
+
+              <div class="control-btn">
+                <button nz-button nzType="primary" nzValue="small" (click)="clickStartPlayback()">开始</button>
+                <button nz-button nzType="default" nzValue="small" (click)="clickStopPlayback()">停止</button>
+              </div>
+              <!-- <div class="control-btn">
+                <button nz-button nzType="text" nzValue="small" (click)="capturePic()">抓图</button>
+              </div> -->
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

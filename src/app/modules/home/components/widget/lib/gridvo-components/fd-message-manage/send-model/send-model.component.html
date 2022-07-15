@@ -1,0 +1,33 @@
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()" nzWrapClassName="dialog-fd">
+    <ng-template #modalTitle>短信详情</ng-template>
+    <ng-template #modalContent>
+        <div class="dialog-fd">
+            <nz-table #basicTable nzSize="small" [nzData]="tableSendData" [nzShowTotal]="totalTemplate">
+                <thead>
+                    <tr>
+                        <th>接收人</th>
+                        <th>接收号</th>
+                        <th>短信内容</th>
+                        <th>状态</th>
+                        <th>发送时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of basicTable.data">
+                        <td>{{ data.receiveName }}</td>
+                        <td>{{ data.phone }}</td>
+                        <td nz-tooltip [nzTooltipTitle]="data.sendHistory?.content">{{ data.sendHistory?.content.length>20?data.sendHistory?.content.slice(0,20)+'...':data.sendHistory?.content }}</td>
+                        <td>{{ data.successCode }}状态码{{ data.statusCode }}</td>
+                        <td>{{ data.sendTime|date:'yyyy-MM-dd' }}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #totalTemplate let-total>总共 {{ tableSendData.length }} 条</ng-template>
+        </div>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <button nz-button nzType="primary" (click)="handleCancel()">退出</button>
+    </ng-template>
+</nz-modal>

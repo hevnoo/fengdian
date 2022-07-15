@@ -1,0 +1,24 @@
+<div nz-tooltip [nzTooltipTitle]="titleTemplate" [nzTooltipTrigger]="tooltipTrigger"
+    [nzTooltipColor]="tooltipBackgroundColor">
+
+    <div #title [style]="{ display: showTitle ? 'inline-block' : 'none' }">{{ formatTitle() }}</div>
+    <div #content style="white-space: pre;">
+        <div [style]="itemStyleObj" *ngFor="let i of contentItemList">
+            <span *ngIf="!showInDetailArr.includes(i.key)">
+                <span [style]="labelStyleObj">{{ i.label }}：</span>
+                <span [style]="valueStyleObj">{{ formatValue(i.value) }}</span>
+                <span [style]="unitStyleObj">{{ unitKeyValueMap[i.key] || "" }}</span>
+            </span>
+        </div>
+    </div>
+    <ng-template #titleTemplate>
+        <div [style]="tooltipTitleStyleObj">{{ formatTitle() }}</div>
+        <div [style]="tooltipItemStyleObj" *ngFor="let i of contentItemList">
+            <div>
+                <span [style]="tooltipLabelStyleObj">{{ i.label }}：</span>
+                <span [style]="tooltipValueStyleObj">{{ formatValue(i.value) }}</span>
+                <span [style]="tooltipUnitStyleObj">{{ unitKeyValueMap[i.key] || "" }}</span>
+            </div>
+        </div>
+    </ng-template>
+</div>

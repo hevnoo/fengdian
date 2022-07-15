@@ -1,0 +1,20 @@
+::ng-deep{ 
+    label{
+        font-size: 16px;
+        margin-right: 10px;
+        margin-left: 5px;
+        width: 20%;
+        text-align: right;
+    }
+    .out-container {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        tb-input, tb-number, tb-switch, tb-datetime, tb-select{
+            width: 50%;
+            margin: 0 0 20px 0px;
+            
+        }
+        
+    }
+}

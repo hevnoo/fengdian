@@ -1,0 +1,16 @@
+<div class="fd-input">
+    <span *ngFor="let item of inputArr"> {{item.text}}: <input [placeholder]="item.tipText"
+            [style]="'border-radius: '+30+'px;'" [(ngModel)]="modelObj[item.text]" /></span>
+    &nbsp;<div *ngFor="let data of buttonArr">&nbsp;<button nz-button nzType="primary"
+            [style]="'background:'+data.color+';border-color:'+data.color+';'" nzShape="round"
+            (click)="buttonClick(data.text)" *ngIf="data.text!=='删除'">
+            <i nz-icon [nzType]="data.type" nzTheme="outline"></i>{{data.text}}
+        </button>
+        <button nz-button nzType="primary" [style]="'background:'+data.color+';border-color:'+data.color+';'"
+            nzShape="round" (click)="buttonClick(data.text)" *ngIf="data.text==='删除'" nz-popconfirm
+            [nzPopconfirmTitle]="'您确定要删除【'+selectName+'】吗?'" nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm()"
+            (nzOnCancel)="cancel()">
+            <i nz-icon [nzType]="data.type" nzTheme="outline"></i>{{data.text}}
+        </button>
+    </div>
+</div>

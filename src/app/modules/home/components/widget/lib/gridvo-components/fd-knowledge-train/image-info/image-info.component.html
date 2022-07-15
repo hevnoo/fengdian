@@ -1,0 +1,36 @@
+<div class="img-video-info" nz-row>
+  <ng-template [ngIf]="imgObjs.length !== 0" [ngIfElse]="elseBlock">
+    <div class="img-title" nz-col nzSpan="24">
+      <span class="title">{{ title }}</span>
+      <span class="more" (click)="fullcpn()">全部</span>
+    </div>
+    <div class="img-item" *ngFor="let imgItem of imgObjs; trackBy: identify">
+      <img
+        nz-image
+        [width]="imgItem.width"
+        [height]="imgItem.height"
+        [nzSrc]="imgItem.src"
+        alt="请尝试刷新"
+        (click)="modalcpn(imgItem)"
+        [nzDisablePreview]="true"
+      />
+      <span>{{ imgItem.name }}</span>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <ng-template [ngIf]="moreImages">
+      <div class="img-item" *ngFor="let item of moreImages">
+        <img
+          nz-image
+          [width]="200"
+          [height]="200"
+          [nzSrc]="item.picture"
+          alt="请尝试刷新"
+          (click)="moreModalData(item)"
+          [nzDisablePreview]="true"
+        />
+        <span>{{ item.name }}</span>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

@@ -1,0 +1,21 @@
+.pag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    .page-total {
+        padding-right: 5px;
+        font-size: 14px;
+    }
+}
+.table-container{
+    th,td {
+        font-size: 14px !important;
+    }
+}
+::ng-deep{ 
+    .ant-table-pagination-right {
+        display: flex;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,89 @@
+<div class="head-button">
+    <button [ngClass]="{'click-button':isClickButon==='我发送的'}" (click)="changeClickButton('我发送的')">我发送的</button>
+    <button [ngClass]="{'click-button':isClickButon==='我接收的'}" (click)="changeClickButton('我接收的')">我接收的</button>
+</div>
+<div class="div-search-bar">
+    <label>内容：<input type="text" nz-input placeholder="短信内容" [(ngModel)]="searchText" nzAllowClear /></label>
+    <button nz-button nzType="primary" (click)="handleSearch()">搜索</button>
+</div>
+<div class="dialog-fd" *ngIf="isClickButon==='我发送的'">
+    <nz-table #basicTable nzSize="small" [nzData]="tableSendData" nzShowPagination nzShowSizeChanger="true"
+        [nzShowTotal]="totalTemplate" nzBordered [nzPageIndex]="pageSendIndex" [nzPageSize]="pageSendSize"
+        [nzFrontPagination]="isFrontPagination" [nzLoading]="loading" [nzTotal]="pageSendTotal"
+        (nzQueryParams)="onQueryParamsChange($event,0)">
+        <thead>
+            <tr>
+                <th nzWidth="100px">序号</th>
+                <th>接收人</th>
+                <th>接收号</th>
+                <th>短信内容</th>
+                <th>发送时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data;let i = index">
+                <td>{{ i+1 }}</td>
+                <td> <span *ngFor="let item of data.name">{{ item }}&nbsp;</span></td>
+                <td> <span *ngFor="let item of data.phone">{{ item }}&nbsp;</span></td>
+                <td nz-tooltip [nzTooltipTitle]="data.content">{{
+                    data.content.length>50?data.content.slice(0,50)+'...':data.content }}</td>
+                <td>{{ data.sendTime|date:'yyyy-MM-dd' }}</td>
+                <td>
+                    <a (click)="sendModel.openDoilage(data.id)"><i nz-icon nzType="eye" nzTheme="outline"></i>查看</a>
+                    <a style="margin-left: 10px;" (click)="deleteMessage(data,0)"><i nz-icon nzType="delete"
+                            nzTheme="outline"></i>删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <ng-template #totalTemplate let-total>总共 {{ tableSendData.length }} 条
+    </ng-template>
+</div>
+<div class="dialog-fd" *ngIf="isClickButon==='我接收的'">
+    <nz-table #basicTableReviced nzSize="small" [nzData]="tableReseiviceData" nzShowPagination nzBordered
+        nzShowSizeChanger="true" [nzShowTotal]="totalTemplate" [(nzPageIndex)]="pageReseiviceIndex">
+        <thead>
+            <tr>
+                <th nzWidth="100px">序号</th>
+                <th>发送人</th>
+                <th>短信内容</th>
+                <th>发送时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTableReviced.data;let i = index">
+                <td>{{ i+1 }}</td>
+                <td>{{ data.name }}</td>
+                <td nz-tooltip [nzTooltipTitle]="data.content">{{
+                    data.content.length>50?data.content.slice(0,50)+'...':data.content }}</td>
+                <td>{{ data.sendTime|date:'yyyy-MM-dd' }}</td>
+                <td>
+                    <a (click)="reserviceModel.openDoilage(data.id,data.name)"><i nz-icon nzType="eye"
+                            nzTheme="outline"></i>查看</a>
+                    <a style="margin-left: 10px;" (click)="deleteMessage(data,1)"><i nz-icon nzType="delete"
+                            nzTheme="outline"></i>删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <ng-template #totalTemplate let-total>总共 {{
+        tableReseiviceData.length }} 条
+    </ng-template>
+</div>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>提示</ng-template>
+
+    <ng-template #modalContent>
+        <span><i nz-icon nzType="warning" nzTheme="twotone" style="color:yellow;"></i>确定要删除吗？</span>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+        <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">确定</button>
+    </ng-template>
+</nz-modal>
+<tb-fd-send-model #sendModel></tb-fd-send-model>
+<tb-fd-reservice-model #reserviceModel></tb-fd-reservice-model>

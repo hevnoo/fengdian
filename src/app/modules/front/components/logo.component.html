@@ -1,0 +1,16 @@
+<ng-container *ngIf="theme === 'huadian'">
+  <div class="huadian" [class.is-show-title]="showTitle">
+    <img src="../../../../assets/gridvo/logo-hd.png" alt="logo" class="logoimg">
+    <img *ngIf="showTitle" src="../../../../assets/gridvo/logo-title.svg" class="logo-title" alt="logo-title">
+  </div>
+</ng-container>
+
+<ng-container *ngIf="theme === 'dark'">
+  <div class="dark">
+    <img src="../../../../assets/gridvo/logo-hd.png" alt="logo" class="logoimg">
+    <div class="logo-title">
+      <div>光伏场站</div>
+      <div>智能化平台</div>
+    </div>
+  </div>
+</ng-container>

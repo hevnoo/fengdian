@@ -1,0 +1,21 @@
+:host{
+    .fd-input{
+        display: flex;
+        justify-content: flex-end;
+        span{
+            margin-left: 10px;
+            input{
+                border: 1px solid rgba(0,0,0,0.2);
+            }
+        }
+        ::ng-deep{
+            div.ng-star-inserted {
+                margin-left: 10px;
+            }
+            input::placeholder {
+                text-indent: 10px;
+            }
+        }
+        
+    }
+}

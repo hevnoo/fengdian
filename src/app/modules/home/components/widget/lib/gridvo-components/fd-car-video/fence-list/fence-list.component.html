@@ -1,0 +1,33 @@
+<p class="p-title"><i nz-icon nzType="credit-card" nzTheme="outline"></i>电子围栏列表</p>
+
+<nz-input-group [nzSuffix]="inputClearTpl" style="margin: 10px 0 20px;">
+  <input type="text" nz-input [(ngModel)]="Searchvalue" placeholder="搜索" class="serchInput" (ngModelChange)="searchChange($event)" />
+</nz-input-group>
+<ng-template #inputClearTpl>
+  <i nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" *ngIf="Searchvalue"
+    (click)="Searchvalue = null;searchChange('')"></i>
+</ng-template>
+
+<!-- 表格 -->
+<nz-table class="listTable" 
+  #basicTable 
+  nzShowPagination 
+  [nzPageSize]="7"
+  [nzData]="tableData" 
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+  <thead>
+    <tr>
+      <th></th>
+      <th>电子围栏名称</th>
+      <th>告警方式</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data;let i = index">
+      <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.type }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+

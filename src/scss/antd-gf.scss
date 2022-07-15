@@ -1,0 +1,221 @@
+@import "~src/scss/mixin";
+.dialog-style {
+  // table
+  .ant-table {
+    background-color: unset;
+    .ant-table-thead > tr > th {
+      color: var(--dark-color-1);
+      background: var(--grey-five);
+    }
+    .ant-table-tbody > tr.ant-table-row:hover > td {
+      color: var(--dark-title-1);
+      background: var(--white-1-fiveVersion);
+    }
+    .ant-table-row {
+      color: var(--dark-color-1);
+      &:nth-child(2n) {
+        background-color: var(--white-1-threeVersion);
+      }
+      &:nth-child(2n-1) {
+        background-color: var(--grey-five-2n);
+      }
+    }
+  }
+  .ant-pagination,
+  .anticon,
+  .ant-pagination-item a,
+  .ant-select,
+  .ant-form-item textarea.ant-input,
+  .ant-input,
+  .ant-picker-input > input {
+    color: var(--dark-color-1);
+  }
+  .ant-upload-list-item-info,
+  .ant-upload-list-item-info i {
+    color: #40a9ff;
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector,
+  .ant-form-item textarea.ant-input,
+  .ant-input,
+  .ant-picker {
+    background-color: var(--ant-picker-bgColor);
+  }
+
+  // modal
+  .ant-modal {
+    color: var(--dark-title-1);
+    .ant-modal-content {
+      .ant-modal-header {
+        background-color: var(--paginator-dialog-bgColor);
+        border-bottom: var(--dialog-top-bottom-Separation-line);
+        padding: 0;
+        .ant-modal-title {
+          color: var(--dark-title-1);
+        }
+      }
+      .ant-modal-footer {
+        border-top: var(--dialog-top-bottom-Separation-line);
+        .ant-btn-primary {
+          color: var(--dark-title-1);
+          background-color: var(--select-active-bgColor);
+          border-color: var(--dialog-ant-btn-primary-boderColor);
+        }
+        .ant-btn-primary[disabled] {
+          background-color: var(--grey-1);
+          border: var(--dialog-disable-border);
+          color: var(--dark-1);
+        }
+      }
+      .ant-form-item-label > label {
+        color: var(--dark-title-1);
+      }
+      .ant-radio-checked .ant-radio-inner {
+        border-color: var(--select-active-bgColor);
+      }
+      .ant-radio-inner::after {
+        background-color: var(--select-active-bgColor);
+      }
+      .ant-radio-wrapper {
+        color: var(--dark-color-1);
+      }
+    }
+  }
+}
+
+.detail-dialog-bulabula {
+  .form-container {
+    width: 85%;
+  }
+
+  .ant-modal-header {
+    padding: 16px 24px !important;
+  }
+
+  .ant-modal-body {
+    max-height: 75vh;
+    overflow: auto;
+  }
+}
+
+//去掉这几个标签的默认样式
+textarea {
+  border: 1px solid #e7e7e7;
+  outline: none;
+}
+select {
+  border: 1px solid #9c8989;
+  outline: none;
+  user-select: none;
+  background: white;
+}
+input {
+  border: 1px solid #e7e7e7;
+  outline: none;
+}
+// nz-form-label
+.ant-form-item-label {
+  label {
+    color: var(--grey-1);
+    font-weight: 700;
+  }
+}
+
+// input
+.ant-input {
+  border-radius: 20px;
+  // color: var(--header-bg-color-1);
+  @include mixin-font-color("#009cdc", "rgba(0,0,0,.65)");
+  &:hover {
+    // border-color: var(--header-bg-color-1);
+    @include mixin-border-color("#009cdc", "rgba(0,0,0,.65)");
+  }
+}
+.ant-input-focused,
+.ant-input:focus {
+  box-shadow: unset;
+}
+
+.ant-input-disabled,
+.ant-input[disabled] {
+  color: var(--header-bg-color-1);
+}
+
+// button
+.ant-btn {
+  border-radius: 20px;
+  &.ant-btn-primary {
+    // background: var(--header-bg-color-1);
+    @include mixin-background("#009cdc", "rgba(0,0,0,.65)");
+    // border-color: var(--header-bg-color-1);
+    @include mixin-border-color("#009cdc", "rgba(0,0,0,.65)");
+  }
+}
+
+// modal
+.ant-modal {
+  .ant-modal-content {
+    border-radius: 20px;
+    .ant-modal-header {
+      border-radius: 20px 20px 0 0;
+      background-color: var(--header-bg-color-1);
+      padding: 16px 24px;
+      .ant-modal-title {
+        color: var(--white-1);
+      }
+    }
+    .ant-modal-footer {
+      text-align: center;
+    }
+    .ant-modal-close {
+      color: var(--white-1);
+    }
+  }
+}
+
+// table
+.ant-table-wrapper {
+  .ant-table {
+    border-radius: 20px;
+    .ant-table-container {
+      border-radius: 20px;
+      .ant-table-content {
+        border-radius: 20px;
+        table {
+          border-radius: 20px;
+          .ant-table-thead {
+            border-radius: 20px 20px 0 0;
+            tr:first-child {
+              border-top-left-radius: 20px;
+              th {
+                background-color: var(--header-bg-color-1);
+                color: var(--white-1);
+                font-size: 14px;
+              }
+              th:first-child {
+                border-top-left-radius: 20px;
+              }
+              th:last-child {
+                border-top-right-radius: 20px;
+              }
+            }
+          }
+          .ant-table-tbody {
+            td {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// nz-range-picker
+.ant-picker {
+  border-radius: 20px;
+}
+
+// nz-select
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 20px;
+}

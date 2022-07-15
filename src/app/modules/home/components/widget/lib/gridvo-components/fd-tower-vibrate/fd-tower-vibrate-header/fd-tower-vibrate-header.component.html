@@ -1,0 +1,11 @@
+<div nz-row nzAlign="center" nzJustify="center">
+    <span class="label">塔筒摆振监测</span>
+    <nz-select nz-col nzSpan="4" [(ngModel)]="selectedValue" (ngModelChange)="selectChange($event)">
+        <nz-option *ngFor="let i of selectOptions; trackBy: trackByParams" [nzValue]="i.value" [nzLabel]="i.label">
+        </nz-option>
+    </nz-select>
+</div>
+
+<nz-tabset [(nzSelectedIndex)]="selectedIndex" (nzSelectChange)="tabsChange($event)">
+    <nz-tab *ngFor="let i of tabsList" [nzTitle]="i.title">{{ i.content }}</nz-tab>
+</nz-tabset>

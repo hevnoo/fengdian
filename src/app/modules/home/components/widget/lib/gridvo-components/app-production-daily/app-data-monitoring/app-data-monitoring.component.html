@@ -1,0 +1,11 @@
+<div class="main">
+    <div class="data-monitoring" *ngFor="let item of itemArr">
+        <div style="margin: 1vw 0vw;">
+            <span class="itemName">{{item.itemName}}</span>
+        </div>
+        <div style="margin: 1vw 0vw;">
+            <span class="dataValue">{{item.dataValue}}</span>
+            <span class="unit">{{item?.unit || ''}}</span>
+        </div>
+    </div>
+</div>
